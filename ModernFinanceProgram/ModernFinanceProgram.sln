@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernFinanceProgram", "ModernFinanceProgram\ModernFinanceProgram.csproj", "{CA1E20DD-F7AE-430B-8C28-F93D3E829458}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFP", "..\MFP\MFP\MFP.csproj", "{F10973A5-B4C9-4654-AC1E-F9029FA827E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{CA1E20DD-F7AE-430B-8C28-F93D3E829458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA1E20DD-F7AE-430B-8C28-F93D3E829458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA1E20DD-F7AE-430B-8C28-F93D3E829458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10973A5-B4C9-4654-AC1E-F9029FA827E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10973A5-B4C9-4654-AC1E-F9029FA827E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10973A5-B4C9-4654-AC1E-F9029FA827E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10973A5-B4C9-4654-AC1E-F9029FA827E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

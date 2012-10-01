@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MFP.Properties
+namespace Monyker.Properties
 {
 
 
