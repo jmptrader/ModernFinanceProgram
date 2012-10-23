@@ -31,9 +31,9 @@
              <TextBlock VerticalAlignment="Center" Text="{Binding Amount}"/>
             
         </TextBlock>
-        <TextBlock Grid.Column="2" Grid.Row="2">
+        <TextBlock TextAlignment="Right" Grid.Column="2" Grid.Row="2">
             
-            Saldo: 2.562,53
+            Saldo: 
             <TextBlock VerticalAlignment="Center" Text="{Binding Amount}"/>
         </TextBlock>
     </Grid>
