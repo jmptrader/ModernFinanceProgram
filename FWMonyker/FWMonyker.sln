@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FWMonyker", "FWMonyker\FWMonyker.csproj", "{4F840AEC-A3F5-44F2-8BDF-D01BBD2F5D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FWMonyker.Model", "FWMonyker.Model2\FWMonyker.Model.csproj", "{3A376186-B377-44FC-82C0-A3B211679E5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FWMonyker.Model", "FWMonyker.Model\FWMonyker.Model.csproj", "{3A376186-B377-44FC-82C0-A3B211679E5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
