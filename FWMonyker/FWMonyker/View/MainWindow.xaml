@@ -24,6 +24,6 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <View:AccountListUserControl Grid.Row="2"/>
-        <!--View:TransactionUserControl Grid.Column="2" Grid.Row="2"/-->
+        <View:TransactionListUserControl Grid.Column="2" Grid.Row="2"/>
     </Grid>
 </Window>
