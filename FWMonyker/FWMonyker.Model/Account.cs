@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.
+using System.Drawing;
+using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
     public class Account : NotifyBase
     {
         string _name;
-        Color _colour;
+        SolidColorBrush _colour;
         List<Transaction> _transactions;
 
         public string            Name         { get { return _name;         } set { _name         = value; NotifyPropertyChanged("Name"        ); } }
