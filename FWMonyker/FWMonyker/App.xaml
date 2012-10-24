@@ -8,6 +8,7 @@
              mc:Ignorable="d">
     
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/ResourceDictionary.xaml"/>

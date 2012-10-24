@@ -16,7 +16,6 @@
     <StackPanel>
         <ItemsControl Margin="3"
                       ItemsSource="{Binding Transactions}">
-
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel/>

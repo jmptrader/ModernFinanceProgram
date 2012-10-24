@@ -15,7 +15,6 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <TextBlock>
-            
              <TextBlock VerticalAlignment="Center" Text="{Binding Description}"/>
         </TextBlock>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -29,10 +28,8 @@
         </StackPanel>
         <TextBlock Grid.Column="2" TextAlignment="Right">
              <TextBlock VerticalAlignment="Center" Text="{Binding Amount}"/>
-            
         </TextBlock>
         <TextBlock TextAlignment="Right" Grid.Column="2" Grid.Row="2">
-            
             Saldo: 
             <TextBlock VerticalAlignment="Center" Text="{Binding Amount}"/>
         </TextBlock>
