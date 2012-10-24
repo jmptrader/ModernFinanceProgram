@@ -6,13 +6,19 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
         xmlns:View="clr-namespace:FWMonyker.View"
-        xmlns:Model="clr-namespace:FWMonyker.Model"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
         Height="600"
         Width="800"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
@@ -25,5 +31,6 @@
         </Grid.RowDefinitions>
         <View:AccountListUserControl Grid.Row="2"/>
         <!--View:TransactionUserControl Grid.Column="2" Grid.Row="2"/-->
+        <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

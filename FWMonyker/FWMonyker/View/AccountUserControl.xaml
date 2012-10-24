@@ -11,6 +11,6 @@
                 <Rectangle Fill="{Binding Colour, FallbackValue=Red}"/>
             </Border>
         </Grid>
-        <TextBlock Margin=" 10" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='FallBackValue'}"/>
+        <TextBlock Margin=" 10" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname'}"/>
     </StackPanel>
 </UserControl>
