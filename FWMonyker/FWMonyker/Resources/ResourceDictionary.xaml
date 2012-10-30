@@ -1,4 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <BitmapImage x:Key="Banner" UriSource="/FWMonyker;component/Resources/header.png"/>
+    <Style x:Key="textBase" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Helvetica"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <Style x:Key="textHeader" TargetType="TextBlock" BasedOn="{StaticResource textBase}">
+        <Setter Property="FontSize" Value="40"/>
+    </Style>
 </ResourceDictionary>

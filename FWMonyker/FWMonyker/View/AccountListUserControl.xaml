@@ -13,8 +13,8 @@
         </DataTemplate>
     </UserControl.Resources>
     <StackPanel>
-        <TextBlock FontSize="40" FontFamily="Helvetica" FontWeight="Light">
-            Accounts
+        <TextBlock Style="{StaticResource textHeader}">
+            accounts
         </TextBlock>
         <ItemsControl Margin="10"
                       ItemsSource="{Binding Accounts}">
