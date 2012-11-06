@@ -88,6 +88,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Command\SelectAccount.cs" />
+    <Compile Include="ConsoleManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\EditTransactionUserControler.xaml.cs">
