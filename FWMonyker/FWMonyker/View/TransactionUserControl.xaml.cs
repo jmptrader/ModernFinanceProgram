@@ -18,7 +18,7 @@ namespace FWMonyker.View
     /// <summary>
     /// Interaction logic for Account.xaml
     /// </summary>
-    public partial class TransactionUserControl : UserControl
+    public partial class TransactionUserControl : Button
     {
         public TransactionUserControl()
         {
