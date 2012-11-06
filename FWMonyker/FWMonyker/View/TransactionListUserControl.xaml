@@ -18,7 +18,7 @@
             transactions
         </TextBlock>
         <ItemsControl Margin="3"
-                      ItemsSource="{Binding Transactions}">
+                      ItemsSource="{Binding Path=CurrentAccount.Transactions}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel/>

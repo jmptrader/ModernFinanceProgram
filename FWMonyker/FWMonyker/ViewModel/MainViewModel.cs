@@ -11,6 +11,8 @@ namespace FWMonyker.ViewModel
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
 
+        public Account CurrentAccount { get; set; }
+
         public MainViewModel()
         {
             Accounts = new ObservableCollection<Account>() {
@@ -18,7 +20,8 @@ namespace FWMonyker.ViewModel
                 new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
             };
 
-            Transactions = new ObservableCollection<Transaction>() {
+            CurrentAccount = Accounts[1];
+            CurrentAccount.Transactions = new ObservableCollection<Transaction>() {
                 new Transaction() { Account = Accounts[1] , Description = "noget", Amount = 1000, 
                     Recipient = "nogle", TimeStamp = DateTime.Now},
                 new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
