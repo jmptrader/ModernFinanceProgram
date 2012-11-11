@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              Style="{StaticResource buttonCustom}"
              d:DesignHeight="50" d:DesignWidth="500">
-    <Grid>
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="3*"/>

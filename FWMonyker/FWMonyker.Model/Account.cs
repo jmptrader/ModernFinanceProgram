@@ -12,6 +12,14 @@ namespace FWMonyker.Model
         SolidColorBrush _colour;
         ObservableCollection<Transaction> _transactions;
 
+        public Account This
+        {
+            get
+            {
+                return this;
+            }
+        }
+
         public string Name
         { 
             get 
