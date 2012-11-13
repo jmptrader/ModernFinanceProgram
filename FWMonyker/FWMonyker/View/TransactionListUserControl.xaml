@@ -17,6 +17,19 @@
         <TextBlock Style="{StaticResource textHeader}">
             transactions
         </TextBlock>
+        <Grid Height="50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Expander Header="soter efter dato" HorizontalAlignment="Left" Margin="390,0,0,0" VerticalAlignment="Top" Height="25" Width="110">
+            </Expander>
+            <Button Content="tilføj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="25"/>
+            <TextBox HorizontalAlignment="Left" Height="35" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="500"/>
+
+        </Grid>
+
+
         <ItemsControl Margin="3"
                       ItemsSource="{Binding Transactions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemsPanel>
@@ -37,5 +50,6 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
+        
     </StackPanel>
 </UserControl>
