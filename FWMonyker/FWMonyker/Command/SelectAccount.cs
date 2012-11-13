@@ -31,13 +31,9 @@ namespace FWMonyker.Command
         {
             if (parameter is Account)
             {
-                int nr = (parameter as Account).Transactions != null ? (parameter as Account).Transactions.Count : 0;
-                MessageBox.Show("T: " + nr);
+                int nr = (parameter as Account).Transactions != null ? (parameter as Account).Transactions.Count : 0;                
                 Viewmodel.CurrentAccount = (parameter as Account);
-                Viewmodel.Transactions = Viewmodel.CurrentAccount.Transactions;
-                MessageBox.Show(Viewmodel.CurrentAccount.Name);
             }
-            
         }
     }
 }

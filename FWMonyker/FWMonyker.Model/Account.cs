@@ -10,7 +10,12 @@ namespace FWMonyker.Model
         string _name;
         decimal _balance;
         SolidColorBrush _colour;
-        ObservableCollection<Transaction> _transactions;
+        List<Transaction> _transactions;
+
+        public Account()
+        {
+            _transactions = new List<Transaction>();
+        }
 
         public Account This
         {
@@ -58,7 +63,7 @@ namespace FWMonyker.Model
                 NotifyPropertyChanged("Colour");
             }
         }
-        public ObservableCollection<Transaction> Transactions
+        public List<Transaction> Transactions
         {
             get
             {

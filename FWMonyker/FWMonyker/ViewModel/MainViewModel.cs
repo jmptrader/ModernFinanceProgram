@@ -7,6 +7,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using FWMonyker.Command;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace FWMonyker.ViewModel
 {
@@ -24,8 +25,12 @@ namespace FWMonyker.ViewModel
             set
             {
                 _currentAccount = value;
+                Transactions.Clear();
+                foreach (Transaction item in CurrentAccount.Transactions)
+                {
+                    Transactions.Add(item);
+                }
                 NotifyPropertyChanged("CurrentAccount");
-                NotifyPropertyChanged("Transactions");
             }
         }
 
@@ -34,7 +39,6 @@ namespace FWMonyker.ViewModel
 
         public void SwitchAccount(object parameter)
         {
-            //TODO: Parameter needs to be the account, its currently the button.
             _selectAccount.Execute(parameter);
                 
         }
@@ -42,21 +46,25 @@ namespace FWMonyker.ViewModel
         {
             _selectAccount = new SelectAccount(this);
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
+            Transactions = new ObservableCollection<Transaction>();
 
             Accounts = new ObservableCollection<Account>() {
                 new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
                 new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
             };
             Console.WriteLine(Accounts.ToString());
-            CurrentAccount = Accounts[1];
-            Transactions = new ObservableCollection<Transaction>() {
-                new Transaction() { Account = Accounts[1] , Description = "noget", Amount = 1000, 
+            Accounts[0].Transactions = new List<Transaction>() {
+                new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
                     Recipient = "nogle", TimeStamp = DateTime.Now},
                 new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
                     Recipient = "nogle1", TimeStamp = DateTime.Now},
             };
-            CurrentAccount.Transactions = Transactions;
-
+            Accounts[1].Transactions = new List<Transaction>() {
+                new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66, 
+                    Recipient = "blah", TimeStamp = DateTime.Now},
+                new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
+                    Recipient = "Baaalh", TimeStamp = DateTime.Now},
+            };
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
