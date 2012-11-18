@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              Style="{StaticResource buttonCustom}"
-             d:DesignHeight="50" d:DesignWidth="500">
-    <Grid HorizontalAlignment="Stretch">
+             d:DesignHeight="50" d:DesignWidth="450">
+    <Grid Width="400"> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="3*"/>
@@ -27,7 +27,7 @@
                 
             </TextBlock>
         </StackPanel>
-        <TextBlock Grid.Column="2" TextAlignment="Right">
+        <TextBlock Grid.Column="1" TextAlignment="Right" HorizontalAlignment="Right" Width="26">
              <TextBlock VerticalAlignment="Center" Text="{Binding Amount, FallbackValue='1000'}"/>
         </TextBlock>
         <TextBlock TextAlignment="Right" Grid.Column="2" Grid.Row="2">

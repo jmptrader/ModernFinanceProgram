@@ -53,7 +53,7 @@ namespace FWMonyker.ViewModel
                 new Transaction() { Account = Accounts[1] , Description = "noget", Amount = 1000, 
                     Recipient = "nogle", TimeStamp = DateTime.Now},
                 new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
-                    Recipient = "nogle1", TimeStamp = DateTime.Now},
+                    Recipient = "nogle1", TimeStamp = DateTime.Now},             
             };
             CurrentAccount.Transactions = Transactions;
 

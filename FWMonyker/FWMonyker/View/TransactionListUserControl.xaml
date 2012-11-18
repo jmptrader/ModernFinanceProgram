@@ -25,7 +25,7 @@
             <Expander Header="soter efter dato" HorizontalAlignment="Left" Margin="390,0,0,0" VerticalAlignment="Top" Height="25" Width="110">
             </Expander>
             <Button Content="tilføj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="25"/>
-            <TextBox HorizontalAlignment="Left" Height="35" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="500"/>
+            <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="søg" VerticalAlignment="Top" Width="500" />
 
         </Grid>
 
