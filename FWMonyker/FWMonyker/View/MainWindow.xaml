@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
+        xmlns:command="clr-namespace:FWMonyker.Command"
         xmlns:View="clr-namespace:FWMonyker.View"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
@@ -12,6 +13,10 @@
         Width="800"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <command:BoolVisibilityConverter x:Key="boolVisibilityConverter"/>
+    </Window.Resources>
 
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
@@ -22,8 +27,13 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
+
+       
         <View:AccountListUserControl Grid.Row="2"/>
-        <View:TransactionListUserControl Grid.Column="2" Grid.Row="2"/>
+        
+        <View:EditTransactionUserControler x:Name="etuc" Grid.Column="2" Grid.Row="2" Visibility="Hidden" />
+        <View:TransactionListUserControl x:Name="tluc" Grid.Column="2" Grid.Row="2"  Visibility="{Binding UcVisibility, Converter={StaticResource boolVisibilityConverter}}"/>
         <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
     </Grid>
+
 </Window>

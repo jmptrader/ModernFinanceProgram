@@ -7,6 +7,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using FWMonyker.Command;
 using System.ComponentModel;
+
 using System.Collections.Generic;
 
 namespace FWMonyker.ViewModel
@@ -16,6 +17,10 @@ namespace FWMonyker.ViewModel
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
         Account _currentAccount;
+
+        public string UcVisibility { get { return UcVisible ? "Visible" : "Collapsed"; } }
+        public bool UcVisible { get; set; }
+
         public Account CurrentAccount
         {
             get
@@ -42,6 +47,9 @@ namespace FWMonyker.ViewModel
             _selectAccount.Execute(parameter);
                 
         }
+
+
+        
         public MainViewModel()
         {
             _selectAccount = new SelectAccount(this);
