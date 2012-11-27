@@ -33,6 +33,7 @@ namespace FWMonyker.Command
             {
                 int nr = (parameter as Account).Transactions != null ? (parameter as Account).Transactions.ToList().Count : 0;                
                 Viewmodel.CurrentAccount = (parameter as Account);
+                
             }
         }
     }
