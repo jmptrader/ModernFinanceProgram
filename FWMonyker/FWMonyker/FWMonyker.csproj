@@ -89,7 +89,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Command\BoolVisibilityConverter.cs" />
-    <Compile Include="Command\selectEditTransaction.cs" />
     <Compile Include="Command\SelectAccount.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

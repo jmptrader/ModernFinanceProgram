@@ -33,6 +33,7 @@
         
         <View:EditTransactionUserControler x:Name="etuc" Grid.Column="2" Grid.Row="2" Visibility="Hidden" />
         <View:TransactionListUserControl x:Name="tluc" Grid.Column="2" Grid.Row="2"  Visibility="{Binding UcVisibility, Converter={StaticResource boolVisibilityConverter}}"/>
+        <View:ChartUserControl Grid.Column="2" Grid.Row="2" Visibility="Hidden" />
         <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
     </Grid>
 
