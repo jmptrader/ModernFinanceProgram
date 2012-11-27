@@ -101,6 +101,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Command\BaseCommand.cs" />
+    <Compile Include="Command\BoolVisibilityConverter.cs" />
     <Compile Include="Command\Save.cs" />
     <Compile Include="Command\SelectAccount.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
-        xmlns:command="clr-namespace:FWMonyker.Command"
+        xmlns:Command="clr-namespace:FWMonyker.Command"
         xmlns:View="clr-namespace:FWMonyker.View"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
@@ -15,7 +15,7 @@
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>
-        <command:BoolVisibilityConverter x:Key="boolVisibilityConverter"/>
+        <Command:BoolVisibilityConverter x:Key="boolVisibilityConverter"/>
     </Window.Resources>
 
     <Grid Margin="12">
