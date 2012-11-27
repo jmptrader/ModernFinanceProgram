@@ -10,13 +10,11 @@ using System.Windows.Input;
 
 namespace FWMonyker.Command
 {
-    public class SelectAccount : ICommand
+    public class SelectAccount : BaseCommand, ICommand
     {
-        private MainViewModel Viewmodel;
-
         public SelectAccount(MainViewModel viewmodel)
         {
-            Viewmodel = viewmodel;
+            this.Viewmodel = viewmodel;
         }
 
         public bool CanExecute(object parameter)
@@ -25,8 +23,10 @@ namespace FWMonyker.Command
             //Add conditions here in cases where it should not be allowed to switch account
         }
 
-        public event EventHandler CanExecuteChanged;
-
+        /// <summary>
+        /// Sets the current account in the viewmodel
+        /// </summary>
+        /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
             if (parameter is Account)

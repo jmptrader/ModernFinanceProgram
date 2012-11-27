@@ -43,10 +43,23 @@ namespace FWMonyker.ViewModel
             _selectAccount.Execute(parameter);
                 
         }
+
+        ICommand _save;
+        public ICommand Save { get; set; }
+
+        public void SaveAccounts(object parameter)
+        {
+            _selectAccount.Execute(parameter);
+        }
+
         public MainViewModel()
         {
             _selectAccount = new SelectAccount(this);
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
+
+            _save = new SelectAccount(this);
+            Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
+
             Transactions = new ObservableCollection<Transaction>();
 
             var xml = ObjextXMLSerializer.GetInstance;

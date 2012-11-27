@@ -56,7 +56,7 @@ namespace FWMonyker.XML
             return accountList;
         }
 
-        public void SaveAccounts(IEnumerable<Account> accountEnumerable, bool showDirectory)
+        public void SaveAccounts(IEnumerable<Account> accountEnumerable)
         {
             Account[] accounts = accountEnumerable.ToArray();
             XDocument document = new XDocument(
@@ -86,8 +86,6 @@ namespace FWMonyker.XML
             try
             {             
                 document.Save(path);
-                if (showDirectory)
-                    MessageBox.Show("Saved application data to:\n" + path, "Saved", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
             }
             catch (IOException)
             {
