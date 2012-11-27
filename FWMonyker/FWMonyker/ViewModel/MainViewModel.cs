@@ -90,7 +90,7 @@ namespace FWMonyker.ViewModel
                     Recipient = "Baaalh", TimeStamp = DateTime.Now},
             };
             CurrentAccount = Accounts[1];
-            xml.SaveAccounts(Accounts, true);
+            xml.SaveAccounts(Accounts);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 

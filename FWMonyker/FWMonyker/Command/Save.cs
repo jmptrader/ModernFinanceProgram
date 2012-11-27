@@ -15,13 +15,12 @@ namespace FWMonyker.Command
             this.Viewmodel = viewmodel;
         }
 
-        public override bool CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             return true;
-            //Add conditions here in cases where it should not be allowed to switch account
         }
 
-        public override void Execute(object parameter)
+        public void Execute(object parameter)
         {
             XML.ObjextXMLSerializer.GetInstance.SaveAccounts(Viewmodel.Accounts);
         }
