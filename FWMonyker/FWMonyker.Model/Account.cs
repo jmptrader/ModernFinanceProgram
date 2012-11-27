@@ -11,6 +11,7 @@ namespace FWMonyker.Model
         decimal _balance;
         SolidColorBrush _colour;
         IEnumerable<Transaction> _transactions;
+        List<KeyValuePair<string, decimal>> _chartValueList;
 
         public Account()
         {
@@ -73,6 +74,16 @@ namespace FWMonyker.Model
             {
                 _transactions = value;
                 NotifyPropertyChanged("Transactions");
+            }
+        }
+        
+        public List<KeyValuePair<string, decimal>> ChartValueList
+        {
+            get { return _chartValueList; }
+            set
+            {
+                _chartValueList = value;
+                NotifyPropertyChanged("ChartValueList");
             }
         }
     }
