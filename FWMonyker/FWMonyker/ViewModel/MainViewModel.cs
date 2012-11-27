@@ -6,10 +6,9 @@ using System;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using FWMonyker.Command;
+using FWMonyker.XML;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Windows;
-using System.Diagnostics;
 
 namespace FWMonyker.ViewModel
 {
@@ -18,21 +17,6 @@ namespace FWMonyker.ViewModel
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
         Account _currentAccount;
-
-        List<KeyValuePair<String, decimal>> _chartValueList;
-        public List<KeyValuePair<String, decimal>> ChartValueList
-        {
-            get
-            {
-                return _chartValueList;
-            }
-            set
-            {
-                _chartValueList = value;
-                NotifyPropertyChanged("ChartValueList");
-            }
-        }
-
         public Account CurrentAccount
         {
             get
@@ -47,7 +31,6 @@ namespace FWMonyker.ViewModel
                 {
                     Transactions.Add(item);
                 }
-                ChartValueList = CurrentAccount.ChartValueList;
                 NotifyPropertyChanged("CurrentAccount");
             }
         }
@@ -66,27 +49,28 @@ namespace FWMonyker.ViewModel
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
             Transactions = new ObservableCollection<Transaction>();
 
-            Accounts = new ObservableCollection<Account>() {
-                new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
-                new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
-            };
-            Console.WriteLine(Accounts.ToString());
-            Accounts[0].Transactions = new List<Transaction>() {
-                new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
-                    Recipient = "nogle", TimeStamp = DateTime.Now},
-                new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
-                    Recipient = "nogle1", TimeStamp = DateTime.Now},
-                    new Transaction() { Account = Accounts[0] , Description = "WupWup", Amount = 1337, 
-                    Recipient = "nogle3", TimeStamp = DateTime.Now},
-            };
-            Accounts[1].Transactions = new List<Transaction>() {
-                new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66, 
-                    Recipient = "blah", TimeStamp = DateTime.Now},
-                new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
-                    Recipient = "Baaalh", TimeStamp = DateTime.Now},
-                    
-            };
-            //Accounts[1].ChartValueList =
+            var xml = ObjextXMLSerializer.GetInstance;
+            Accounts = new ObservableCollection<Account>();
+            Accounts = new ObservableCollection<Account>(xml.LoadAccounts());
+
+            //Accounts = new ObservableCollection<Account>() {
+            //    new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
+            //    new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
+            //};
+            //Accounts[0].Transactions = new List<Transaction>() {
+            //    new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
+            //        Recipient = "nogle", TimeStamp = DateTime.Now},
+            //    new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
+            //        Recipient = "nogle1", TimeStamp = DateTime.Now},             
+            //};
+            //Accounts[1].Transactions = new List<Transaction>() {
+            //    new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66, 
+            //        Recipient = "blah", TimeStamp = DateTime.Now},
+            //    new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
+            //        Recipient = "Baaalh", TimeStamp = DateTime.Now},
+            //};
+            CurrentAccount = Accounts[1];
+            //xml.SaveAccounts(Accounts, true);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
