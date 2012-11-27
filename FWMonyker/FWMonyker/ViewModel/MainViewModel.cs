@@ -6,6 +6,7 @@ using System;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using FWMonyker.Command;
+using FWMonyker.XML;
 using System.ComponentModel;
 
 using System.Collections.Generic;
@@ -56,11 +57,21 @@ namespace FWMonyker.ViewModel
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
             Transactions = new ObservableCollection<Transaction>();
 
+            var xml = ObjextXMLSerializer.GetInstance;
+            Accounts = new ObservableCollection<Account>();
+            try
+            {
+                Accounts = new ObservableCollection<Account>(xml.LoadAccounts());
+            }
+            catch (ArgumentException)
+            {
+
+            }
+
             Accounts = new ObservableCollection<Account>() {
                 new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
                 new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
             };
-            Console.WriteLine(Accounts.ToString());
             Accounts[0].Transactions = new List<Transaction>() {
                 new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
                     Recipient = "nogle", TimeStamp = DateTime.Now},
@@ -73,6 +84,8 @@ namespace FWMonyker.ViewModel
                 new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
                     Recipient = "Baaalh", TimeStamp = DateTime.Now},
             };
+            CurrentAccount = Accounts[1];
+            xml.SaveAccounts(Accounts, true);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
