@@ -8,7 +8,6 @@ using GalaSoft.MvvmLight.Command;
 using FWMonyker.Command;
 using FWMonyker.XML;
 using System.ComponentModel;
-
 using System.Collections.Generic;
 
 namespace FWMonyker.ViewModel
@@ -18,10 +17,6 @@ namespace FWMonyker.ViewModel
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
         Account _currentAccount;
-
-        public string UcVisibility { get { return UcVisible ? "Visible" : "Collapsed"; } }
-        public bool UcVisible { get; set; }
-
         public Account CurrentAccount
         {
             get
@@ -49,12 +44,22 @@ namespace FWMonyker.ViewModel
                 
         }
 
+        ICommand _save;
+        public ICommand Save { get; set; }
 
-        
+        public void SaveAccounts(object parameter)
+        {
+            _selectAccount.Execute(parameter);
+        }
+
         public MainViewModel()
         {
             _selectAccount = new SelectAccount(this);
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
+
+            _save = new SelectAccount(this);
+            Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
+
             Transactions = new ObservableCollection<Transaction>();
 
             var xml = ObjextXMLSerializer.GetInstance;
@@ -85,7 +90,7 @@ namespace FWMonyker.ViewModel
                     Recipient = "Baaalh", TimeStamp = DateTime.Now},
             };
             CurrentAccount = Accounts[1];
-            xml.SaveAccounts(Accounts, true);
+            xml.SaveAccounts(Accounts);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
