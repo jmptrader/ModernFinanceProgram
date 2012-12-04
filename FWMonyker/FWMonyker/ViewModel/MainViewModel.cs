@@ -19,6 +19,22 @@ namespace FWMonyker.ViewModel
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
         Account _currentAccount;
+        List<KeyValuePair<string, decimal>> _chartValueList;
+        
+        public List<KeyValuePair<string, decimal>> ChartValueList
+        {
+            get
+            {
+                return _chartValueList;
+            }
+            set
+            {
+                _chartValueList = value;
+                NotifyPropertyChanged("ChartValueList");
+            }
+
+        }
+       
         public Account CurrentAccount
         {
             get
@@ -87,6 +103,7 @@ namespace FWMonyker.ViewModel
             VisibilitySwitch = new RelayCommand<object>((parameter) => SwitchVisibility(parameter));
 
             Transactions = new ObservableCollection<Transaction>();
+            ChartValueList = new List<KeyValuePair<string, decimal>>();
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
@@ -117,6 +134,17 @@ namespace FWMonyker.ViewModel
             };
             CurrentAccount = Accounts[1];
             xml.SaveAccounts(Accounts);
+
+         
+
+           foreach (var item in CurrentAccount.Transactions)
+            {
+                ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
+                
+            }
+            
+
+
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -125,5 +153,6 @@ namespace FWMonyker.ViewModel
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }
