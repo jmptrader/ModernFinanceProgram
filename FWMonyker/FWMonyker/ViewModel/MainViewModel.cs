@@ -9,6 +9,8 @@ using FWMonyker.Command;
 using FWMonyker.XML;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows;
 
 namespace FWMonyker.ViewModel
 {
@@ -34,6 +36,27 @@ namespace FWMonyker.ViewModel
                 NotifyPropertyChanged("CurrentAccount");
             }
         }
+        bool _ucVisibility = true;
+        public bool UcVisibility
+        {
+            get
+            {
+                return _ucVisibility;
+            }
+            set
+            {
+                _ucVisibility = value;
+                NotifyPropertyChanged("UcVisibility");
+            }
+        }
+
+        ICommand _visibilitySwitch;
+        public ICommand VisibilitySwitch { get; set; }
+
+        public void SwitchVisibility(object parameter)
+        {
+            _visibilitySwitch.Execute(parameter);
+        }
 
         ICommand _selectAccount;
         public ICommand SelectAccount { get; set; }
@@ -57,8 +80,11 @@ namespace FWMonyker.ViewModel
             _selectAccount = new SelectAccount(this);
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
 
-            _save = new SelectAccount(this);
+            _save = new Save(this);
             Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
+
+            _visibilitySwitch = new VisibilitySwitch(this);
+            VisibilitySwitch = new RelayCommand<object>((parameter) => SwitchVisibility(parameter));
 
             Transactions = new ObservableCollection<Transaction>();
 
