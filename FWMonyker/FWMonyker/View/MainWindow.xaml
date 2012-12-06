@@ -9,14 +9,14 @@
         xmlns:View="clr-namespace:FWMonyker.View"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-        Height="600"
+        Height="1000"
         Width="800"
         Title="MVVM Light Application"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
-    <Window.Resources>
+    <!--<Window.Resources>
         <Command:BoolVisibilityConverter x:Key="boolVisibilityConverter"/>
-    </Window.Resources>
+    </Window.Resources>-->
 
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
@@ -26,15 +26,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
        
         <View:AccountListUserControl Grid.Row="2"/>
         
-        <View:EditTransactionUserControler x:Name="etuc" Grid.Column="2" Grid.Row="2" Visibility="Hidden" />
-        <View:TransactionListUserControl x:Name="tluc" Grid.Column="2" Grid.Row="2"  Visibility="{Binding UcVisibility, Converter={StaticResource boolVisibilityConverter}}"/>
-        <View:ChartUserControl Grid.Column="2" Grid.Row="2" Visibility="Hidden" />
+        <View:EditTransactionUserControler x:Name="etuc" Grid.Column="2" Grid.Row="2" Visibility="Visible" />
+        <View:TransactionListUserControl x:Name="tluc" Grid.Column="2" Grid.Row="1"/>
+        <!--<View:ChartUserControl Grid.Column="2" Grid.Row="2" Visibility="Hidden" />-->
         <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+
+        <Border x:Name="displayedView" Grid.Row="2" Grid.Column="2">
+            <UserControl Content="{Binding CurrentView}" />
+        </Border>
+
+        <Button Content="view1" Grid.Column="1" Command="{Binding EditTransactionUserControlerCommand}" HorizontalAlignment="Left" Margin="385,84,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
+        <Button Content="view2" Grid.Column="1" Command="{Binding TransactionListUserControlCommand}" HorizontalAlignment="Left" Margin="460,84,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 
 </Window>

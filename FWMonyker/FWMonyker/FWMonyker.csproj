@@ -105,7 +105,9 @@
     <Compile Include="Command\Save.cs" />
     <Compile Include="Command\SelectAccount.cs" />
     <Compile Include="Command\VisibilitySwitch.cs" />
+    <Compile Include="ViewModel\EditTransactionModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TransactionListModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\ChartUserControl.xaml.cs">
       <DependentUpon>ChartUserControl.xaml</DependentUpon>

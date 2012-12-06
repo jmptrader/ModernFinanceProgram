@@ -13,6 +13,7 @@ namespace FWMonyker.Command
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            Console.WriteLine("------ CONVERTER");
             bool isVisible = (bool)value;
             return isVisible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             

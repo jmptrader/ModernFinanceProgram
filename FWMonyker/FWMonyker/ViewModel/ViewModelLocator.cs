@@ -4,22 +4,24 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace FWMonyker.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
+     //<summary>
+     //This class contains static references to all the view models in the
+     //application and provides an entry point for the bindings.
+     //<para>
+     //See http://www.galasoft.ch/mvvm
+     //</para>
+     //</summary>
     public class ViewModelLocator
     {
+        private static MainViewModel _main;
         public ViewModelLocator()
         {
-            // Denne ServiceLocator holder styr på vores ViewModels.
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            //// Denne ServiceLocator holder styr på vores ViewModels.
+            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            // Tilføj en linje her for hver ViewModel.
-            SimpleIoc.Default.Register<MainViewModel>();
+            //// Tilføj en linje her for hver ViewModel.
+            //SimpleIoc.Default.Register<MainViewModel>();
+            _main = new MainViewModel();
         }
 
         /// <summary>
@@ -32,7 +34,8 @@ namespace FWMonyker.ViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return _main;
+                //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 
@@ -43,4 +46,5 @@ namespace FWMonyker.ViewModel
         {
         }
     }
+
 }

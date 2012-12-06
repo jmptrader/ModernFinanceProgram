@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FWMonyker.ViewModel
 {
@@ -75,6 +76,47 @@ namespace FWMonyker.ViewModel
             _selectAccount.Execute(parameter);
         }
 
+
+        private ViewModelBase _currentViewModel;
+
+        readonly static EditTransactionModel _EditTransactionModel = new EditTransactionModel();
+
+        readonly static TransactionListModel _TransactionListModel = new TransactionListModel();
+
+        public ViewModelBase CurrentViewModel
+        {
+            get
+            {
+                return _currentViewModel;
+            }
+            set
+            {
+                if (_currentViewModel == value)
+                    return;
+                _currentViewModel = value;
+                RaisePropertyChanged("CurrentViewModel");
+            }
+        }
+
+        public ICommand EditTransactionUserControlerCommand { get; private set; }
+
+        public ICommand TransactionListUserControlCommand { get; private set; }
+
+        private void ExecuteEditTransactionUserControlerCommand()
+        {
+            CurrentViewModel = MainViewModel._EditTransactionModel;
+        }
+
+        /// <summary>
+        /// Set the CurrentViewModel to 'SecondViewModel'
+        /// </summary>
+        private void ExecuteTransactionListUserControlCommand()
+        {
+            CurrentViewModel = MainViewModel._EditTransactionModel;
+        }
+
+
+
         public MainViewModel()
         {
             _selectAccount = new SelectAccount(this);
@@ -87,6 +129,10 @@ namespace FWMonyker.ViewModel
             VisibilitySwitch = new RelayCommand<object>((parameter) => SwitchVisibility(parameter));
 
             Transactions = new ObservableCollection<Transaction>();
+
+            CurrentViewModel = MainViewModel._EditTransactionModel;
+            EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
+            TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();

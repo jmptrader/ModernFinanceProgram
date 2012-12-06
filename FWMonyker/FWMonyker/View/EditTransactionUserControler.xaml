@@ -24,7 +24,7 @@
 
         </Grid.RowDefinitions>
 
-        <Button Content="gem" />
+        <Button Content="gem"/>
         
         <Button Grid.Column="1" Margin="0,0,100,0" Content="annuler"/>
         <Button Grid.Column="2" Margin="100,0,0,0" Content="slet"/>
