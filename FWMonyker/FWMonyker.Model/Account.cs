@@ -27,13 +27,13 @@ namespace FWMonyker.Model
         }
 
         public string Name
-        { 
-            get 
-            { 
+        {
+            get
+            {
                 return _name;
             }
             set
-            { 
+            {
                 _name = value;
                 NotifyPropertyChanged("Name");
             }
@@ -76,7 +76,7 @@ namespace FWMonyker.Model
                 NotifyPropertyChanged("Transactions");
             }
         }
-        
+
         public List<KeyValuePair<string, decimal>> ChartValueList
         {
             get { return _chartValueList; }
