@@ -120,7 +120,7 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditTransactionUserControlerCommand()
         {
-            CurrentViewModel = MainViewModel._EditTransactionModel;
+            //CurrentViewModel = FWMonyker.ViewModel.MainViewModel._EditTransactionModel;
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace FWMonyker.ViewModel
         /// </summary>
         private void ExecuteTransactionListUserControlCommand()
         {
-            CurrentViewModel = MainViewModel._EditTransactionModel;
+            //CurrentViewModel = MainViewModel._EditTransactionModel;
         }
 
 
@@ -147,7 +147,7 @@ namespace FWMonyker.ViewModel
             Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-            CurrentViewModel = MainViewModel._EditTransactionModel;
+            //CurrentViewModel = MainViewModel._EditTransactionModel;
             EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
 
@@ -188,10 +188,30 @@ namespace FWMonyker.ViewModel
                 ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
                 
             }
-            
-
-
+         
         }
+
+        public void NewTransaction()
+        {
+            new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
+        }
+//    public class Model {
+//    private ObservableCollection<Transaction> _list = new ObservableCollection<Transaction>();
+//    public ObservableCollection<Transaction> List {
+//        get { return _list; }
+//    }
+
+//    public Model() { 
+//        new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now};
+//        //List.Add(new Transaction("why")); 
+//        //List.Add(new Transaction("not"));
+//        //List.Add(new Transaction("these?"));
+
+        
+//    }
+//}
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged(string propertyName)
