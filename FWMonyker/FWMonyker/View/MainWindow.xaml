@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
        
-        <View:AccountListUserControl Grid.Row="2"/>
+        <View:DragUserControl Grid.Row="2"/>
         
         <View:EditTransactionUserControler x:Name="etuc" Grid.Column="2" Grid.Row="2" Visibility="Visible" />
         <View:TransactionListUserControl x:Name="tluc" Grid.Column="2" Grid.Row="1"/>

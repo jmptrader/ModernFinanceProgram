@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows.Data;
+using System.Collections;
 
 namespace FWMonyker.ViewModel
 {
@@ -120,7 +123,7 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditTransactionUserControlerCommand()
         {
-            //CurrentViewModel = FWMonyker.ViewModel.MainViewModel._EditTransactionModel;
+        //    CurrentViewModel = MainViewModel._EditTransactionModel;
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace FWMonyker.ViewModel
         /// </summary>
         private void ExecuteTransactionListUserControlCommand()
         {
-            //CurrentViewModel = MainViewModel._EditTransactionModel;
+          //  CurrentViewModel = MainViewModel._EditTransactionModel;
         }
 
 
@@ -147,7 +150,7 @@ namespace FWMonyker.ViewModel
             Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-            //CurrentViewModel = MainViewModel._EditTransactionModel;
+          //  CurrentViewModel = MainViewModel._EditTransactionModel;
             EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
 
@@ -181,37 +184,38 @@ namespace FWMonyker.ViewModel
             CurrentAccount = Accounts[1];
             xml.SaveAccounts(Accounts);
 
-         
+            samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
 
            foreach (var item in CurrentAccount.Transactions)
             {
                 ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
                 
             }
-         
+    
+            
+    
         }
 
-        public void NewTransaction()
+        void IDropTarget.DragOver(DropInfo dropInfo)
         {
-            new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
+            if (dropInfo.Data is Account && dropInfo.TargetItem is Account)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
         }
-//    public class Model {
-//    private ObservableCollection<Transaction> _list = new ObservableCollection<Transaction>();
-//    public ObservableCollection<Transaction> List {
-//        get { return _list; }
-//    }
 
-//    public Model() { 
-//        new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now};
-//        //List.Add(new Transaction("why")); 
-//        //List.Add(new Transaction("not"));
-//        //List.Add(new Transaction("these?"));
+        void IDropTarget.Drop(DropInfo dropInfo)
+        {
+            Account konto = (Account)dropInfo.TargetItem;
+            Transaction kontoHandling = (Transaction)dropInfo.Data;
+            konto.KontoHandlinger.Add(kontoHandling);
+            ((IList)dropInfo.DragInfo.SourceCollection).Remove(kontoHandling);
+        }
 
+
+        public ICollectionView samlingAfAccounts { get; private set; }
         
-//    }
-//}
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged(string propertyName)
