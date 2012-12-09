@@ -196,6 +196,15 @@ namespace FWMonyker.ViewModel
     
         }
 
+
+                 
+ 
+         public void NewTransaction()
+         {
+             new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
+         }
+
+
         void IDropTarget.DragOver(DropInfo dropInfo)
         {
             if (dropInfo.Data is Account && dropInfo.TargetItem is Account)
