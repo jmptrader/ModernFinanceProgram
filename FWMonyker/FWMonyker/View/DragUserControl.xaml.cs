@@ -16,19 +16,13 @@ using System.Windows.Shapes;
 namespace FWMonyker.View
 {
     /// <summary>
-    /// Interaction logic for EditTransactionUserControler.xaml
+    /// Interaction logic for DragUserControl.xaml
     /// </summary>
-    public partial class EditTransactionUserControler : UserControl
+    public partial class DragUserControl : UserControl
     {
-        public EditTransactionUserControler()
+        public DragUserControl()
         {
             InitializeComponent();
         }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
     }
 }

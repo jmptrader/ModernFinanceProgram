@@ -62,6 +62,9 @@
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.Wpf.DragDrop">
+      <HintPath>..\..\..\..\gong-wpf-dragdrop\Examples\SchoolsExample\bin\Debug\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -101,15 +104,18 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Command\BaseCommand.cs" />
-    <Compile Include="Command\BoolVisibilityConverter.cs" />
     <Compile Include="Command\Save.cs" />
-    <Compile Include="Command\Search.cs" />
     <Compile Include="Command\SelectAccount.cs" />
-    <Compile Include="Command\SortTransactions.cs" />
+    <Compile Include="ViewModel\ChartUserControlModel.cs" />
+    <Compile Include="ViewModel\EditTransactionModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TransactionListModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\ChartUserControl.xaml.cs">
       <DependentUpon>ChartUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DragUserControl.xaml.cs">
+      <DependentUpon>DragUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditTransactionUserControler.xaml.cs">
       <DependentUpon>EditTransactionUserControler.xaml</DependentUpon>
@@ -141,6 +147,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ChartUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DragUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,6 +239,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MVVMLight.Nuget.Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GongSolutions.Wpf.DragDrop.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

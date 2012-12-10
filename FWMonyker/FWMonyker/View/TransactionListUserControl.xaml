@@ -4,69 +4,73 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:View="clr-namespace:FWMonyker.View"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
+             DataContext="{Binding Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="500
-">
+"> 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type Model:Transaction}">
             <View:TransactionUserControl/>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="130"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
+    <StackPanel>
+        <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
             transactions
-            </TextBlock>
-            <Grid Height="50">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Sortér efter dato"/>
-                    <Button Command="{Binding SortTransactionsC}" FontFamily="Marlett" FontSize="10" Content="v" Width="15" Height="20"/>
-                </StackPanel>
+        </TextBlock>
+        <Grid Height="50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Expander Header="soter efter dato" HorizontalAlignment="Left" Margin="390,0,0,0" VerticalAlignment="Top" Height="25" Width="110">
+            </Expander>
+            
+            <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="søg" VerticalAlignment="Top" Width="500" />
+
+        </Grid>
+
+      
 
 
-                <Button Content="tilføj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="25" Grid.Row="0"
-                    Command="{Binding DataContext.MainViewodel, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
-                    CommandParameter="{Binding This}"/>
+        <ItemsControl Margin="3"
+                      ItemsSource="{Binding Main.Transactions}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <View:TransactionUserControl/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Control.FontSize" Value="13"/>
+                    <Setter Property="Control.FontFamily" Value="Helvetica"/>
+                    <Setter Property="Control.FontWeight" Value="Light"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
 
-                <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="500">
-                    <TextBox.InputBindings>
-                        <KeyBinding Command="{Binding Search}" Key="Enter"/>
-                    </TextBox.InputBindings>
-                </TextBox>
+        <Grid DataContext="{Binding Source={StaticResource Locator}}" Margin="0,0,-106,176">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="124"/>
+                <ColumnDefinition Width="243*"/>
+                <ColumnDefinition Width="239*"/>
+            </Grid.ColumnDefinitions>
 
-            </Grid>
-        </StackPanel>
+            <ListBox Grid.Column="0" ItemsSource="{Binding Main.samlingAfAccounts}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"
+                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Margin="0,87,242,-177" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="124" VerticalAlignment="Bottom"/>
+            <ListBox ItemsSource="{Binding Main.samlingAfAccounts.CurrentItem.Transactions}" DisplayMemberPath="Description"
+                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="30,87,60,-177" Grid.Column="1" VerticalAlignment="Bottom"/>
+            <ListBox Grid.Column="1" ItemsSource="{Binding Main.Transactions}" DisplayMemberPath="Description"
+                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="226,87,107,-177" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl Margin="3"
-                      ItemsSource="{Binding Transactions}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Name="ContentStack"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <View:TransactionUserControl/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="Control.FontSize" Value="13"/>
-                        <Setter Property="Control.FontFamily" Value="Helvetica"/>
-                        <Setter Property="Control.FontWeight" Value="Light"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+        </Grid>
+
+
+    </StackPanel>
 </UserControl>

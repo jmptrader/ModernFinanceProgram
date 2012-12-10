@@ -12,10 +12,23 @@ namespace FWMonyker.Model
         SolidColorBrush _colour;
         IEnumerable<Transaction> _transactions;
         List<KeyValuePair<string, decimal>> _chartValueList;
+        ObservableCollection<Transaction> _kontoHandlinger;
 
         public Account()
         {
             _transactions = new List<Transaction>();
+            KontoHandlinger = new ObservableCollection<Transaction>();
+        }
+
+        public ObservableCollection<Transaction> KontoHandlinger
+        {
+            get { return _kontoHandlinger; }
+
+            set
+            {
+                _kontoHandlinger = value;
+                NotifyPropertyChanged("kontoHandlinger");
+            }
         }
 
         public Account This
@@ -27,13 +40,13 @@ namespace FWMonyker.Model
         }
 
         public string Name
-        { 
-            get 
-            { 
+        {
+            get
+            {
                 return _name;
             }
             set
-            { 
+            {
                 _name = value;
                 NotifyPropertyChanged("Name");
             }
@@ -76,7 +89,7 @@ namespace FWMonyker.Model
                 NotifyPropertyChanged("Transactions");
             }
         }
-        
+
         public List<KeyValuePair<string, decimal>> ChartValueList
         {
             get { return _chartValueList; }
