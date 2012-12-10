@@ -8,6 +8,7 @@
              xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d"
+             DataContext="{Binding Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="500
 ">
     <UserControl.Resources>
@@ -20,7 +21,7 @@
             Graphs
         </TextBlock>
         <DVC:Chart Canvas.Top="80" Canvas.Left="10" Width="400" Height="250" Background="LightSteelBlue">
-            <DVC:LineSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ChartValueList}"/>
+            <DVC:LineSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Main.ChartValueList}"/>
         </DVC:Chart>
     </StackPanel>
 </UserControl>

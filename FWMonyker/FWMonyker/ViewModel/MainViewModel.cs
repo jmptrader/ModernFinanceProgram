@@ -40,7 +40,7 @@ namespace FWMonyker.ViewModel
             }
         }
 
-        
+
         public List<KeyValuePair<string, decimal>> ChartValueList
         {
             get
@@ -54,7 +54,7 @@ namespace FWMonyker.ViewModel
             }
 
         }
-       
+
         public Account CurrentAccount
         {
             get
@@ -73,6 +73,56 @@ namespace FWMonyker.ViewModel
             }
         }
 
+        private string _textRecipient;
+
+        public string textRecipient
+        {
+            get
+            {
+                return _textRecipient;
+            }
+            set
+            {
+                _textRecipient = value;
+
+                NotifyPropertyChanged("TextDescription");
+            }
+        }
+
+        private decimal _textAmount;
+
+        public decimal textAmount
+        {
+            get
+            {
+                return _textAmount;
+            }
+            set
+            {
+                _textAmount = value;
+
+                NotifyPropertyChanged("TextDescription");
+            }
+        }
+
+        private string _textDescription;
+
+        public string TextDescription
+        {
+            get
+            {
+                return _textDescription;
+            }
+            set
+            {
+                _textDescription = value;
+
+                NotifyPropertyChanged("TextDescription");
+            }
+        }
+
+
+
         ICommand _visibilitySwitch;
         public ICommand VisibilitySwitch { get; set; }
 
@@ -87,7 +137,7 @@ namespace FWMonyker.ViewModel
         public void SwitchAccount(object parameter)
         {
             _selectAccount.Execute(parameter);
-                
+
         }
 
         ICommand _save;
@@ -121,6 +171,7 @@ namespace FWMonyker.ViewModel
                 RaisePropertyChanged("CurrentViewModel");
             }
         }
+
 
         public ICommand EditTransactionUserControlerCommand { get; private set; }
 
@@ -192,12 +243,12 @@ namespace FWMonyker.ViewModel
 
 
 
-           foreach (var item in CurrentAccount.Transactions)
+            foreach (var item in CurrentAccount.Transactions)
             {
                 ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
-                
+
             }
-ObservableCollection<Account> schools = new ObservableCollection<Account>();
+            ObservableCollection<Account> schools = new ObservableCollection<Account>();
 
             foreach (var item in Accounts)
             {
@@ -205,33 +256,33 @@ ObservableCollection<Account> schools = new ObservableCollection<Account>();
             }
 
             samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
-        
+
             KontoHandlinger = new ObservableCollection<Transaction>();
 
             int i = 0;
 
-         foreach (var item in Accounts[i].Transactions)
+            foreach (var item in Accounts[i].Transactions)
             {
-                 KontoHandlinger.Add(new Transaction());
+                KontoHandlinger.Add(new Transaction());
 
                 if (Accounts.Count != null)
-                i++;
+                    i++;
             }
             Debug.WriteLine(i.ToString());
             Debug.WriteLine(KontoHandlinger.Count.ToString());
         }
 
-void IDropTarget.DragOver(DropInfo dropInfo)
+        void IDropTarget.DragOver(DropInfo dropInfo)
         {
-                
+
             if (dropInfo.Data is Transaction && dropInfo.TargetItem is Account)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                 dropInfo.Effects = DragDropEffects.Move;
             }
         }
-   
-    void IDropTarget.Drop(DropInfo dropInfo)
+
+        void IDropTarget.Drop(DropInfo dropInfo)
         {
             Account konto = (Account)dropInfo.TargetItem;
             Transaction kontoHandling = (Transaction)dropInfo.Data;
@@ -239,16 +290,20 @@ void IDropTarget.DragOver(DropInfo dropInfo)
             ((IList)dropInfo.DragInfo.SourceCollection).Remove(kontoHandling);
         }
 
-    public ICollectionView samlingAfAccounts { get; private set; }
-        
+        public ICollectionView samlingAfAccounts { get; private set; }
 
-        public void NewTransaction()
+        public ICommand NewTransaction { get { return new RelayCommand(ExecuteNewTransaction); } }
+
+        private void ExecuteNewTransaction()
         {
-            Transactions = new ObservableCollection<Transaction>();
-            new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
+            MessageBox.Show(TextDescription);
+            Transactions.Add(new Transaction() { Account = Accounts[1], Description = TextDescription, Amount = textAmount, Recipient = textRecipient, TimeStamp = DateTime.Now });
+
+
 
         }
-        
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged(string propertyName)
