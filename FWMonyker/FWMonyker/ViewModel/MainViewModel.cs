@@ -18,7 +18,7 @@ using System.Collections;
 
 namespace FWMonyker.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IDropTarget
     {
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
