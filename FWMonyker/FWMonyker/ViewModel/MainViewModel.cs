@@ -9,6 +9,7 @@ using FWMonyker.Command;
 using FWMonyker.XML;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace FWMonyker.ViewModel
 {
@@ -35,6 +36,22 @@ namespace FWMonyker.ViewModel
             }
         }
 
+        private string _searchBox;
+        public string SearchBox
+        {
+            get
+            {
+                return _searchBox;
+            }
+            set
+            {
+                _searchBox = value;
+                NotifyPropertyChanged("SearchBox");
+            }
+        }
+
+        public string SortValue = "descending";
+
         ICommand _selectAccount;
         public ICommand SelectAccount { get; set; }
 
@@ -42,6 +59,24 @@ namespace FWMonyker.ViewModel
         {
             _selectAccount.Execute(parameter);
                 
+        }
+
+        ICommand _search ;
+        public ICommand Search { get; set; }
+
+        public void SearchTransactions(object parameter)
+        {
+            _search.Execute(SearchBox);
+
+        }
+
+        ICommand _sortTransactionsC;
+        public ICommand SortTransactionsC { get; set; }
+
+        public void SortTransactions(object parameter)
+        {
+            _sortTransactionsC.Execute(SortValue);
+            
         }
 
         ICommand _save;
@@ -60,6 +95,12 @@ namespace FWMonyker.ViewModel
             _save = new SelectAccount(this);
             Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
 
+            _search = new Search(this);
+            Search = new RelayCommand<object>((parameter) => SearchTransactions(parameter));
+
+            _sortTransactionsC = new SortTransactions(this);
+            SortTransactionsC = new RelayCommand<object>((parameter) => SortTransactions(parameter));
+
             Transactions = new ObservableCollection<Transaction>();
 
             var xml = ObjextXMLSerializer.GetInstance;
@@ -73,22 +114,22 @@ namespace FWMonyker.ViewModel
 
             }
 
-            Accounts = new ObservableCollection<Account>() {
-                new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
-                new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
-            };
-            Accounts[0].Transactions = new List<Transaction>() {
-                new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
-                    Recipient = "nogle", TimeStamp = DateTime.Now},
-                new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
-                    Recipient = "nogle1", TimeStamp = DateTime.Now},             
-            };
-            Accounts[1].Transactions = new List<Transaction>() {
-                new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66, 
-                    Recipient = "blah", TimeStamp = DateTime.Now},
-                new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
-                    Recipient = "Baaalh", TimeStamp = DateTime.Now},
-            };
+            //Accounts = new ObservableCollection<Account>() {
+            //    new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
+            //    new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
+            //};
+            //Accounts[0].Transactions = new List<Transaction>() {
+            //    new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
+            //        Recipient = "nogle", TimeStamp = DateTime.Now.AddMinutes(35)},
+            //    new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
+            //        Recipient = "nogle1", TimeStamp = DateTime.Now.AddHours(4)},             
+            //};
+            //Accounts[1].Transactions = new List<Transaction>() {
+            //    new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66, 
+            //        Recipient = "blah", TimeStamp = DateTime.Now},
+            //    new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
+            //        Recipient = "Baaalh", TimeStamp = DateTime.Now.AddDays(5)},
+            //};
             CurrentAccount = Accounts[1];
             xml.SaveAccounts(Accounts);
         }

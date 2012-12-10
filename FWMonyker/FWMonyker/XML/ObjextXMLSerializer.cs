@@ -51,7 +51,7 @@ namespace FWMonyker.XML
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("No previous data found (File not found)");
+                MessageBox.Show("File not found");
             }
             return accountList;
         }

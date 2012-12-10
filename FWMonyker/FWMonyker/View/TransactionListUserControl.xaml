@@ -7,52 +7,66 @@
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="500
-"> 
+">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type Model:Transaction}">
             <View:TransactionUserControl/>
         </DataTemplate>
     </UserControl.Resources>
-    <StackPanel>
-        <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
             transactions
-        </TextBlock>
-        <Grid Height="50">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Expander Header="soter efter dato" HorizontalAlignment="Left" Margin="390,0,0,0" VerticalAlignment="Top" Height="25" Width="110">
-            </Expander>
-            <Button Content="tilføj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="25"
+            </TextBlock>
+            <Grid Height="50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Content="Sortér efter dato"/>
+                    <Button Command="{Binding SortTransactionsC}" FontFamily="Marlett" FontSize="10" Content="v" Width="15" Height="20"/>
+                </StackPanel>
+
+
+                <Button Content="tilføj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="25" Grid.Row="0"
                     Command="{Binding DataContext.MainViewodel, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
-        CommandParameter="{Binding This}"/>
-            
-            <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="søg" VerticalAlignment="Top" Width="500" />
+                    CommandParameter="{Binding This}"/>
 
-        </Grid>
- 
+                <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="500">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Search}" Key="Enter"/>
+                    </TextBox.InputBindings>
+                </TextBox>
 
-        <ItemsControl Margin="3"
+            </Grid>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl Margin="3"
                       ItemsSource="{Binding Transactions}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <View:TransactionUserControl/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Control.FontSize" Value="13"/>
-                    <Setter Property="Control.FontFamily" Value="Helvetica"/>
-                    <Setter Property="Control.FontWeight" Value="Light"/>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
-        
-    </StackPanel>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Name="ContentStack"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <View:TransactionUserControl/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Control.FontSize" Value="13"/>
+                        <Setter Property="Control.FontFamily" Value="Helvetica"/>
+                        <Setter Property="Control.FontWeight" Value="Light"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
