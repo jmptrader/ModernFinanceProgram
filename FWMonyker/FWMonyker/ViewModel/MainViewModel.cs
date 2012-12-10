@@ -100,6 +100,8 @@ namespace FWMonyker.ViewModel
 
         readonly static EditTransactionModel _EditTransactionModel = new EditTransactionModel();
 
+        readonly static ChartUserControlModel _ChartModel = new ChartUserControlModel();
+
         readonly static TransactionListModel _TransactionListModel = new TransactionListModel();
 
         public ViewModelBase CurrentViewModel
@@ -121,17 +123,21 @@ namespace FWMonyker.ViewModel
 
         public ICommand TransactionListUserControlCommand { get; private set; }
 
+        public ICommand ChartUserControlCommand { get; private set; }
+
         private void ExecuteEditTransactionUserControlerCommand()
         {
-        //    CurrentViewModel = MainViewModel._EditTransactionModel;
+            CurrentViewModel = MainViewModel._TransactionListModel;
         }
 
-        /// <summary>
-        /// Set the CurrentViewModel to 'SecondViewModel'
-        /// </summary>
         private void ExecuteTransactionListUserControlCommand()
         {
-          //  CurrentViewModel = MainViewModel._EditTransactionModel;
+            CurrentViewModel = MainViewModel._EditTransactionModel;
+        }
+
+        private void ExecuteChartUserControlCommand()
+        {
+            CurrentViewModel = MainViewModel._ChartModel;
         }
 
 
@@ -150,9 +156,10 @@ namespace FWMonyker.ViewModel
             Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-          //  CurrentViewModel = MainViewModel._EditTransactionModel;
+            CurrentViewModel = MainViewModel._EditTransactionModel;
             EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
+            ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
@@ -182,7 +189,7 @@ namespace FWMonyker.ViewModel
                     Recipient = "Baaalh", TimeStamp = DateTime.Now},
             };
             CurrentAccount = Accounts[1];
-            xml.SaveAccounts(Accounts);
+            //xml.SaveAccounts(Accounts);
 
             samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
 
@@ -191,36 +198,33 @@ namespace FWMonyker.ViewModel
                 ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
                 
             }
-    
-            
-    
+
         }
 
-
-                 
- 
-         public void NewTransaction()
-         {
-             new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
-         }
-
-
-        void IDropTarget.DragOver(DropInfo dropInfo)
+        public void NewTransaction()
         {
-            if (dropInfo.Data is Account && dropInfo.TargetItem is Account)
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-                dropInfo.Effects = DragDropEffects.Move;
-            }
+            Transactions = new ObservableCollection<Transaction>();
+            new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
+
         }
 
-        void IDropTarget.Drop(DropInfo dropInfo)
-        {
-            Account konto = (Account)dropInfo.TargetItem;
-            Transaction kontoHandling = (Transaction)dropInfo.Data;
-            konto.KontoHandlinger.Add(kontoHandling);
-            ((IList)dropInfo.DragInfo.SourceCollection).Remove(kontoHandling);
-        }
+
+        //void IDropTarget.DragOver(DropInfo dropInfo)
+        //{
+        //    if (dropInfo.Data is Account && dropInfo.TargetItem is Account)
+        //    {
+        //        dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+        //        dropInfo.Effects = DragDropEffects.Move;
+        //    }
+        //}
+
+        //void IDropTarget.Drop(DropInfo dropInfo)
+        //{
+        //    Account konto = (Account)dropInfo.TargetItem;
+        //    Transaction kontoHandling = (Transaction)dropInfo.Data;
+        //    konto.KontoHandlinger.Add(kontoHandling);
+        //    ((IList)dropInfo.DragInfo.SourceCollection).Remove(kontoHandling);
+        //}
 
 
         public ICollectionView samlingAfAccounts { get; private set; }

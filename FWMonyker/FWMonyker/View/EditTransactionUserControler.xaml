@@ -24,21 +24,22 @@
 
         </Grid.RowDefinitions>
 
-        <Button Content="gem"/>
+        <Button Content="gem" Command="{Binding NewTransaction}" />
         
         <Button Grid.Column="1" Margin="0,0,100,0" Content="annuler"/>
         <Button Grid.Column="2" Margin="100,0,0,0" Content="slet"/>
 
         <TextBlock Grid.Row="1" HorizontalAlignment="Right">beløb:</TextBlock>
-        <TextBlock Grid.Row="2" HorizontalAlignment="Right">kvitering:</TextBlock>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right">kommentar:</TextBlock>
         <TextBlock Grid.Row="3" HorizontalAlignment="Right">modtager:</TextBlock>
         <TextBlock Grid.Row="4" HorizontalAlignment="Right">katagori:</TextBlock>
         <TextBlock Grid.Row="5" HorizontalAlignment="Right">kvittering:</TextBlock>
         <TextBlock Grid.Row="7" HorizontalAlignment="Right">billede:</TextBlock>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="59" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="29" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Text="{Binding ElementName=textcash,
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="59" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" Text="{Binding ElementName=textDescription,
             Path=Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="30" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" Text="{Binding ElementName=textcash,
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="29" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Text="{Binding ElementName=textAmount,
+            Path=Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="30" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" Text="{Binding ElementName=textRecipient,
             Path=Text,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Center" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Height="30" Width="200" Text="(kopieres til program mappe)"/>
         <Button Content="vedhæft kvitering" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Top" Width="200" Height="30"/>
