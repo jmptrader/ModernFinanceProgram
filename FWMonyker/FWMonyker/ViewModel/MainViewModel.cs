@@ -18,12 +18,28 @@ using System.Collections;
 
 namespace FWMonyker.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IDropTarget
     {
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Transaction> Transactions { get; set; }
         Account _currentAccount;
         List<KeyValuePair<string, decimal>> _chartValueList;
+        public ObservableCollection<Transaction> _kontoHandlinger { get; set; }
+
+
+        public ObservableCollection<Transaction> KontoHandlinger
+        {
+            get
+            {
+                return _kontoHandlinger;
+            }
+            set
+            {
+                _kontoHandlinger = value;
+                NotifyPropertyChanged("KontoHandlinger");
+            }
+        }
+
         
         public List<KeyValuePair<string, decimal>> ChartValueList
         {
@@ -174,15 +190,57 @@ namespace FWMonyker.ViewModel
             CurrentAccount = Accounts[1];
             xml.SaveAccounts(Accounts);
 
-            samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
+
 
            foreach (var item in CurrentAccount.Transactions)
             {
                 ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
                 
             }
+ObservableCollection<Account> schools = new ObservableCollection<Account>();
 
+            foreach (var item in Accounts)
+            {
+                schools.Add(new Account());
+            }
+
+            samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
+        
+            KontoHandlinger = new ObservableCollection<Transaction>();
+
+            int i = 0;
+
+         foreach (var item in Accounts[i].Transactions)
+            {
+                 KontoHandlinger.Add(new Transaction());
+
+                if (Accounts.Count != null)
+                i++;
+            }
+            Debug.WriteLine(i.ToString());
+            Debug.WriteLine(KontoHandlinger.Count.ToString());
         }
+
+void IDropTarget.DragOver(DropInfo dropInfo)
+        {
+                
+            if (dropInfo.Data is Transaction && dropInfo.TargetItem is Account)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+   
+    void IDropTarget.Drop(DropInfo dropInfo)
+        {
+            Account konto = (Account)dropInfo.TargetItem;
+            Transaction kontoHandling = (Transaction)dropInfo.Data;
+            konto.KontoHandlinger.Add(kontoHandling);
+            ((IList)dropInfo.DragInfo.SourceCollection).Remove(kontoHandling);
+        }
+
+    public ICollectionView samlingAfAccounts { get; private set; }
+        
 
         public void NewTransaction()
         {
@@ -190,27 +248,6 @@ namespace FWMonyker.ViewModel
             new Transaction() { Account = Accounts[1], Description = "aasd", Amount = 42, Recipient = "Baaalh", TimeStamp = DateTime.Now };
 
         }
-
-
-        //void IDropTarget.DragOver(DropInfo dropInfo)
-        //{
-        //    if (dropInfo.Data is Account && dropInfo.TargetItem is Account)
-        //    {
-        //        dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-        //        dropInfo.Effects = DragDropEffects.Move;
-        //    }
-        //}
-
-        //void IDropTarget.Drop(DropInfo dropInfo)
-        //{
-        //    Account konto = (Account)dropInfo.TargetItem;
-        //    Transaction kontoHandling = (Transaction)dropInfo.Data;
-        //    konto.KontoHandlinger.Add(kontoHandling);
-        //    ((IList)dropInfo.DragInfo.SourceCollection).Remove(kontoHandling);
-        //}
-
-
-        public ICollectionView samlingAfAccounts { get; private set; }
         
         public event PropertyChangedEventHandler PropertyChanged;
 

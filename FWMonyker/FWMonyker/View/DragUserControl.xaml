@@ -6,18 +6,22 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:local="clr-namespace:FWMonyker"
              mc:Ignorable="d" 
-             d:DesignHeight="282.787" d:DesignWidth="479.508">
+             d:DesignHeight="226.787" d:DesignWidth="559.508">
 
-    <Grid DataContext="{Binding Source={StaticResource Locator}}">
+    <Grid DataContext="{Binding Source={StaticResource Locator}}" Margin="0,0,-106,176">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="235*"/>
+            <ColumnDefinition Width="231*"/>
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0" ItemsSource="{Binding Main.samlingAfAccounts}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"
-                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}"/>
-        <ListBox Grid.Column="1" ItemsSource="{Binding Main.samlingAfAccounts.CurrentItem.Transactions}" DisplayMemberPath="Description"
-                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
+                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Margin="0,0,0,-119"/>
+        <ListBox ItemsSource="{Binding Main.samlingAfAccounts.CurrentItem.Transactions}" DisplayMemberPath="Description"
+                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="34,0,56,-119" Grid.Column="1"/>
+        <ListBox Grid.Column="1" ItemsSource="{Binding Main.Transactions}" DisplayMemberPath="Description"
+                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="227,0,106,-119" Grid.ColumnSpan="2"/>
+
     </Grid>
 
 
