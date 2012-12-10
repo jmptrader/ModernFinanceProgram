@@ -56,19 +56,6 @@ namespace FWMonyker.ViewModel
                 NotifyPropertyChanged("CurrentAccount");
             }
         }
-        bool _ucVisibility = true;
-        public bool UcVisibility
-        {
-            get
-            {
-                return _ucVisibility;
-            }
-            set
-            {
-                _ucVisibility = value;
-                NotifyPropertyChanged("UcVisibility");
-            }
-        }
 
         ICommand _visibilitySwitch;
         public ICommand VisibilitySwitch { get; set; }
@@ -141,7 +128,6 @@ namespace FWMonyker.ViewModel
         }
 
 
-
         public MainViewModel()
         {
             _selectAccount = new SelectAccount(this);
@@ -149,9 +135,6 @@ namespace FWMonyker.ViewModel
 
             _save = new Save(this);
             Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
-
-            _visibilitySwitch = new VisibilitySwitch(this);
-            VisibilitySwitch = new RelayCommand<object>((parameter) => SwitchVisibility(parameter));
 
             Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
@@ -189,7 +172,7 @@ namespace FWMonyker.ViewModel
                     Recipient = "Baaalh", TimeStamp = DateTime.Now},
             };
             CurrentAccount = Accounts[1];
-            //xml.SaveAccounts(Accounts);
+            xml.SaveAccounts(Accounts);
 
             samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
 
