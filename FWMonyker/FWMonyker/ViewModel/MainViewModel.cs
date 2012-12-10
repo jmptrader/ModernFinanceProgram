@@ -139,7 +139,7 @@ namespace FWMonyker.ViewModel
             Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-            CurrentViewModel = MainViewModel._EditTransactionModel;
+            CurrentViewModel = MainViewModel._TransactionListModel;
             EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());

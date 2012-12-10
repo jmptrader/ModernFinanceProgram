@@ -16,5 +16,6 @@ namespace FWMonyker.View
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
+
     }
 }
