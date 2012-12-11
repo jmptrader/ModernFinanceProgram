@@ -27,7 +27,8 @@ namespace FWMonyker.XML
         }
         public IEnumerable<Account> LoadAccounts()
         {
-            string fileLocation = Environment.CurrentDirectory + "\\data.xml";
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MFP\\");
+            string fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MFP\\data.xml";
             List<Account> accountList = null;
             try
             {
@@ -51,9 +52,8 @@ namespace FWMonyker.XML
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("File not found");
             }
-            return accountList;
+            return accountList ?? new List<Account>();
         }
 
         public void SaveAccounts(IEnumerable<Account> accountEnumerable)
@@ -82,9 +82,10 @@ namespace FWMonyker.XML
                 )
                 )
             );
-            string path = Environment.CurrentDirectory + "\\data.xml";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MFP\\data.xml";
             try
-            {             
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MFP\\");
                 document.Save(path);
             }
             catch (IOException)
