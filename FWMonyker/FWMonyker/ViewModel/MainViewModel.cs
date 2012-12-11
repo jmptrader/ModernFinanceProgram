@@ -334,13 +334,11 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteNewTransaction()
         {
-            MessageBox.Show(TextDescription);
-            Transactions.Add(new Transaction() { Account = Accounts[1], Description = TextDescription, Amount = textAmount, Recipient = textRecipient, TimeStamp = DateTime.Now });
-
-
-
+            var item = new Transaction() { Account = Accounts[1], Description = TextDescription, Amount = textAmount, Recipient = textRecipient, TimeStamp = DateTime.Now };
+            Transactions.Add(item);
+            (CurrentAccount.Transactions as List<Transaction>).Add(item);
+            ExecuteEditTransactionUserControlerCommand();
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
