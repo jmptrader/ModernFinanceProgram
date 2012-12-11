@@ -10,9 +10,9 @@ using System.Windows.Input;
 
 namespace FWMonyker.Command
 {
-    public class SortTransactions : BaseCommand, ICommand
+    public class Sort : BaseCommand, ICommand
     {
-        public SortTransactions(MainViewModel viewmodel)
+        public Sort(MainViewModel viewmodel)
         {
             Viewmodel = viewmodel;
         }

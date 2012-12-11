@@ -105,6 +105,22 @@ namespace FWMonyker.ViewModel
             }
         }
 
+        public string SortValue = "ascending";
+
+        private string _searchBox = "Søg";
+        public string SearchBox
+        {
+            get
+            {
+                return _searchBox;
+            }
+            set
+            {
+                _searchBox = value;
+                NotifyPropertyChanged("SearchBox");
+            }
+        }
+
         private string _textDescription;
 
         public string TextDescription
@@ -129,6 +145,22 @@ namespace FWMonyker.ViewModel
         public void SwitchVisibility(object parameter)
         {
             _visibilitySwitch.Execute(parameter);
+        }
+
+        ICommand _search;
+        public ICommand Search { get; set; }
+
+        public void DoSearch(object parameter)
+        {
+            _search.Execute(SearchBox);
+        }
+
+        ICommand _sort;
+        public ICommand Sort { get; set; }
+
+        public void DoSort(object parameter)
+        {
+            _sort.Execute(SortValue);
         }
 
         ICommand _selectAccount;
@@ -203,6 +235,12 @@ namespace FWMonyker.ViewModel
             _save = new Save(this);
             Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
 
+            _sort = new Sort(this);
+            Sort = new RelayCommand<object>((parameter) => DoSort(parameter));
+
+            _search = new Search(this);
+            Search = new RelayCommand<object>((parameter) => DoSearch(parameter));
+
             Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
@@ -215,7 +253,7 @@ namespace FWMonyker.ViewModel
             Accounts = new ObservableCollection<Account>();
             try
             {
-                Accounts = new ObservableCollection<Account>(xml.LoadAccounts());
+                //Accounts = new ObservableCollection<Account>(xml.LoadAccounts());
             }
             catch (ArgumentException)
             {
@@ -228,18 +266,18 @@ namespace FWMonyker.ViewModel
             };
             Accounts[0].Transactions = new List<Transaction>() {
                 new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000, 
-                    Recipient = "nogle", TimeStamp = DateTime.Now},
+                    Recipient = "nogle", TimeStamp = DateTime.Now.AddMilliseconds(2)},
                 new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001, 
-                    Recipient = "nogle1", TimeStamp = DateTime.Now},             
+                    Recipient = "nogle1", TimeStamp = DateTime.Now.AddHours(2)},             
             };
             Accounts[1].Transactions = new List<Transaction>() {
                 new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66, 
-                    Recipient = "blah", TimeStamp = DateTime.Now},
+                    Recipient = "blah", TimeStamp = DateTime.Now.AddHours(5)},
                 new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42, 
-                    Recipient = "Baaalh", TimeStamp = DateTime.Now},
+                    Recipient = "Baaalh", TimeStamp = DateTime.Now.AddDays(5)},
             };
             CurrentAccount = Accounts[1];
-            xml.SaveAccounts(Accounts);
+            //xml.SaveAccounts(Accounts);
 
 
 

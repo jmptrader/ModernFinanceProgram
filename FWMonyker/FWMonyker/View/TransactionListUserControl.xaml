@@ -24,10 +24,15 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Expander Header="soter efter dato" HorizontalAlignment="Left" Margin="390,0,0,0" VerticalAlignment="Top" Height="25" Width="110">
-            </Expander>
-            
-            <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="søg" VerticalAlignment="Top" Width="500" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Sortér efter dato" HorizontalAlignment="Right"/>
+                <Button FontFamily="Marlett" Command="{Binding Main.Sort}" FontSize="20" Content="v" Width="20" Height="20"/>
+            </StackPanel>
+            <TextBox HorizontalAlignment="Left" Height="25" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Main.SearchBox, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="500" >
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding Main.Search}" Key="Enter"/>
+                </TextBox.InputBindings>
+            </TextBox>
 
         </Grid>
 
