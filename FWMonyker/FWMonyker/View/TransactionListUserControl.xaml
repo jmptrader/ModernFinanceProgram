@@ -1,94 +1,91 @@
 ﻿<UserControl x:Class="FWMonyker.View.TransactionListUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:View="clr-namespace:FWMonyker.View"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
+             Visibility="{Binding Main.TransactionVisibility, Converter={StaticResource VisibilityConverter}}"
              DataContext="{Binding Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="500
-"> 
+">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type Model:Transaction}">
-            <View:TransactionUserControl/>
+            <View:TransactionUserControl />
         </DataTemplate>
     </UserControl.Resources>
     <DockPanel>
-        
-        
+
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            
-            <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
-            transactions
-            </TextBlock>
-            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" >
-                <Label Content="Sortér efter dato" HorizontalAlignment="Right"/>
-                <Button FontFamily="Marlett" Command="{Binding Main.Sort}" FontSize="20" Content="v" Width="20" Height="20"/>
-            </StackPanel>
-            <TextBox HorizontalAlignment="Stretch" Height="25" Grid.Row="1" VerticalAlignment="Top">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Main.Search}" Key="Enter"/>
-                </TextBox.InputBindings>
-                <TextBox.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="2" />
-                </TextBox.Effect>
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Text" Value="{Binding Main.SearchBox, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsFocused" Value="False">
-                                <Setter Property="Text" Value="Search..."/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-                
-            </TextBox>
+            <Grid >
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
 
+                    <TextBox HorizontalAlignment="Stretch" Margin="0 0 130 0" Height="25" Grid.Row="1" VerticalAlignment="Top">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding Main.Search}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <TextBox.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="2" />
+                        </TextBox.Effect>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Text" Value="{Binding Main.SearchBox, UpdateSourceTrigger=PropertyChanged}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsFocused" Value="False">
+                                        <Setter Property="Text" Value="Search..." />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </Grid>
+                <DockPanel HorizontalAlignment="Right">
+                    <Label  Content="Sortér efter dato" HorizontalAlignment="Right" />
+                    <Button FontFamily="Marlett" Command="{Binding Main.Sort}" FontSize="20" Content="v" Width="20" Height="20" />
+                </DockPanel>
+            </Grid>
+            
         </Grid>
         <ItemsControl Margin="3"
                       ItemsSource="{Binding Main.Transactions}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel/>
+                    <StackPanel />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <View:TransactionUserControl/>
+                    <View:TransactionUserControl />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Control.FontSize" Value="13"/>
-                    <Setter Property="Control.FontFamily" Value="Helvetica"/>
-                    <Setter Property="Control.FontWeight" Value="Light"/>
+                    <Setter Property="Control.FontSize" Value="13" />
+                    <Setter Property="Control.FontFamily" Value="Helvetica" />
+                    <Setter Property="Control.FontWeight" Value="Light" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
 
         <!--<Grid DataContext="{Binding Source={StaticResource Locator}}" Margin="0,0,-106,176">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="124"/>
-                <ColumnDefinition Width="243*"/>
-                <ColumnDefinition Width="239*"/>
+                <ColumnDefinition Width="124" />
+                <ColumnDefinition Width="243*" />
+                <ColumnDefinition Width="239*" />
             </Grid.ColumnDefinitions>
 
             <ListBox Grid.Column="0" ItemsSource="{Binding Main.samlingAfAccounts}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"
-                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Margin="0,87,242,-177" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="124" VerticalAlignment="Bottom"/>
+                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Margin="0,87,242,-177" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="124" VerticalAlignment="Bottom" />
             <ListBox ItemsSource="{Binding Main.samlingAfAccounts.CurrentItem.Transactions}" DisplayMemberPath="Description"
-                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="30,87,60,-177" Grid.Column="1" VerticalAlignment="Bottom"/>
+                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="30,87,60,-177" Grid.Column="1" VerticalAlignment="Bottom" />
             <ListBox Grid.Column="1" ItemsSource="{Binding Main.Transactions}" DisplayMemberPath="Description"
-                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="226,87,107,-177" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
-
+                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="226,87,107,-177" Grid.ColumnSpan="2" VerticalAlignment="Bottom" />
         </Grid>-->
-
-
     </DockPanel>
 </UserControl>

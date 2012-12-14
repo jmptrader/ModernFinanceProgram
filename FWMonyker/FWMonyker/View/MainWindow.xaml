@@ -7,41 +7,42 @@
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
         xmlns:Command="clr-namespace:FWMonyker.Command"
         xmlns:View="clr-namespace:FWMonyker.View"
+        xmlns:vm="clr-namespace:FWMonyker.ViewModel"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
         Height="600"
         Width="800"
-        Title="MVVM Light Application"
+        Title="Monyker"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
-    <!--<Window.Resources>
-        <Command:BoolVisibilityConverter x:Key="boolVisibilityConverter"/>
-    </Window.Resources>-->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:ChartUserControlModel}">
+            <View:ChartUserControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TransactionListModel}">
+            <View:TransactionListUserControl />
+        </DataTemplate>
+    </Window.Resources>
 
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
-
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
 
-       
-        <!--<View:DragUserControl Grid.Row="2"/>-->
-        <View:AccountListUserControl Grid.Row="2"/>
+        <View:AccountListUserControl Margin=" 0 0 25 0" Grid.Row="2" />
 
-       
-        <!--<View:ChartUserControl Grid.Column="2" Grid.Row="2" />-->
-        <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
 
-        <Button Content="transactioner" Grid.Column="1" Command="{Binding EditTransactionUserControlerCommand}" HorizontalAlignment="Left" Margin="385,84,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
-        <Button Content="tilføj transaction" Grid.Column="1" Command="{Binding TransactionListUserControlCommand}" HorizontalAlignment="Left" Margin="460,84,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
-        <Button Content="graf" Grid.Column="1" Command="{Binding ChartUserControlCommand}" HorizontalAlignment="Left" Margin="310,84,0,0" VerticalAlignment="Top" Width="75" Height="25"/>
+        <!--<Button Content="tilføj transaction" Grid.Column="1" Command="{Binding TransactionListUserControlCommand}" HorizontalAlignment="Left" Margin="460,84,0,0" VerticalAlignment="Top" Width="75" Height="25" />-->
 
-        <ContentControl Content="{Binding CurrentViewModel}"  Grid.Row="2" Grid.Column="2" />
+        <DockPanel Grid.Row="2" Grid.Column="2">
+            <View:MenuControl DockPanel.Dock="Top" />
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </DockPanel>
     </Grid>
-
 </Window>

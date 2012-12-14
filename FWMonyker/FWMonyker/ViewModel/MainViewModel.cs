@@ -137,16 +137,6 @@ namespace FWMonyker.ViewModel
             }
         }
 
-
-
-        ICommand _visibilitySwitch;
-        public ICommand VisibilitySwitch { get; set; }
-
-        public void SwitchVisibility(object parameter)
-        {
-            _visibilitySwitch.Execute(parameter);
-        }
-
         ICommand _search;
         public ICommand Search { get; set; }
 

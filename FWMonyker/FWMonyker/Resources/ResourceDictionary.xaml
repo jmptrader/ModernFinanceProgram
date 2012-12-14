@@ -25,4 +25,19 @@
         <Setter Property="Padding" Value="3"/>
         <Setter Property="Background" Value="Transparent"/>
     </Style>
+    <Style x:Key="headerButton" TargetType="TextBlock" BasedOn="{StaticResource textHeader}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="LightGray"/>
+                <!--<Setter Property="TextBlock.Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="40"/>
+                    </Setter.Value>
+                </Setter>-->
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
