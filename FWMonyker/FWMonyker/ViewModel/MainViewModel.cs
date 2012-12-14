@@ -21,7 +21,7 @@ namespace FWMonyker.ViewModel
     public class MainViewModel : ViewModelBase, IDropTarget
     {
         public ObservableCollection<Account> Accounts { get; set; }
-        public ObservableCollection<Transaction> Transactions { get; set; }
+        
         Account _currentAccount;
         List<KeyValuePair<string, decimal>> _chartValueList;
         public ObservableCollection<Transaction> _kontoHandlinger { get; set; }
@@ -64,93 +64,13 @@ namespace FWMonyker.ViewModel
             set
             {
                 _currentAccount = value;
-                Transactions.Clear();
+                _TransactionListModel.Transactions.Clear();
                 foreach (Transaction item in CurrentAccount.Transactions)
                 {
-                    Transactions.Add(item);
+                    _TransactionListModel.Transactions.Add(item);
                 }
                 NotifyPropertyChanged("CurrentAccount");
             }
-        }
-
-        private string _textRecipient;
-
-        public string textRecipient
-        {
-            get
-            {
-                return _textRecipient;
-            }
-            set
-            {
-                _textRecipient = value;
-
-                NotifyPropertyChanged("TextDescription");
-            }
-        }
-
-        private decimal _textAmount;
-
-        public decimal textAmount
-        {
-            get
-            {
-                return _textAmount;
-            }
-            set
-            {
-                _textAmount = value;
-
-                NotifyPropertyChanged("TextDescription");
-            }
-        }
-
-        public string SortValue = "ascending";
-
-        private string _searchBox;
-        public string SearchBox
-        {
-            get
-            {
-                return _searchBox;
-            }
-            set
-            {
-                _searchBox = value;
-                NotifyPropertyChanged("SearchBox");
-            }
-        }
-
-        private string _textDescription;
-
-        public string TextDescription
-        {
-            get
-            {
-                return _textDescription;
-            }
-            set
-            {
-                _textDescription = value;
-
-                NotifyPropertyChanged("TextDescription");
-            }
-        }
-
-        ICommand _search;
-        public ICommand Search { get; set; }
-
-        public void DoSearch(object parameter)
-        {
-            _search.Execute(SearchBox);
-        }
-
-        ICommand _sort;
-        public ICommand Sort { get; set; }
-
-        public void DoSort(object parameter)
-        {
-            _sort.Execute(SortValue);
         }
 
         ICommand _selectAccount;
@@ -172,12 +92,9 @@ namespace FWMonyker.ViewModel
 
 
         private ViewModelBase _currentViewModel;
-
-        readonly static EditTransactionModel _EditTransactionModel = new EditTransactionModel();
-
-        readonly static ChartUserControlModel _ChartModel = new ChartUserControlModel();
-
-        readonly static TransactionListModel _TransactionListModel = new TransactionListModel();
+        public EditTransactionModel _EditTransactionModel;
+        public ChartUserControlModel _ChartModel;
+        public TransactionListModel _TransactionListModel;
 
         public ViewModelBase CurrentViewModel
         {
@@ -203,17 +120,17 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditTransactionUserControlerCommand()
         {
-            CurrentViewModel = MainViewModel._TransactionListModel;
+            CurrentViewModel = _TransactionListModel;
         }
 
         private void ExecuteTransactionListUserControlCommand()
         {
-            CurrentViewModel = MainViewModel._EditTransactionModel;
+            CurrentViewModel = _EditTransactionModel;
         }
 
         private void ExecuteChartUserControlCommand()
         {
-            CurrentViewModel = MainViewModel._ChartModel;
+            CurrentViewModel = _ChartModel;
         }
 
 
@@ -224,20 +141,18 @@ namespace FWMonyker.ViewModel
 
             _save = new Save(this);
             Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
-
-            _sort = new Sort(this);
-            Sort = new RelayCommand<object>((parameter) => DoSort(parameter));
-
-            _search = new Search(this);
-            Search = new RelayCommand<object>((parameter) => DoSearch(parameter));
-
-            Transactions = new ObservableCollection<Transaction>();
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-            CurrentViewModel = MainViewModel._TransactionListModel;
+            _EditTransactionModel = new EditTransactionModel();
+            _ChartModel = new ChartUserControlModel();
+            _TransactionListModel = new TransactionListModel(this);
+
+            CurrentViewModel = _TransactionListModel;
             EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
+
+            
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
@@ -320,16 +235,6 @@ namespace FWMonyker.ViewModel
         }
 
         public ICollectionView samlingAfAccounts { get; private set; }
-
-        public ICommand NewTransaction { get { return new RelayCommand(ExecuteNewTransaction); } }
-
-        private void ExecuteNewTransaction()
-        {
-            var item = new Transaction() { Account = Accounts[1], Description = TextDescription, Amount = textAmount, Recipient = textRecipient, TimeStamp = DateTime.Now };
-            Transactions.Add(item);
-            (CurrentAccount.Transactions as List<Transaction>).Add(item);
-            ExecuteEditTransactionUserControlerCommand();
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

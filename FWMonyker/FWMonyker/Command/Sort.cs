@@ -12,9 +12,11 @@ namespace FWMonyker.Command
 {
     public class Sort : BaseCommand, ICommand
     {
-        public Sort(MainViewModel viewmodel)
+        private TransactionListModel ViewModel;
+
+        public Sort(TransactionListModel viewmodel)
         {
-            Viewmodel = viewmodel;
+            ViewModel = viewmodel;
         }
 
         public bool CanExecute(object parameter)
@@ -24,7 +26,7 @@ namespace FWMonyker.Command
 
         public void Execute(object parameter)
         {
-            IEnumerable<Transaction> list = Viewmodel.Transactions;
+            IEnumerable<Transaction> list = ViewModel.Transactions;
             IEnumerable<Transaction> result = list;
             switch (parameter as string)
             {
@@ -32,20 +34,20 @@ namespace FWMonyker.Command
                     result = from item in list
                            orderby item.TimeStamp.Ticks ascending
                            select item;
-                    Viewmodel.SortValue = "descending";
+                    ViewModel.SortValue = "descending";
                     break;
                 case "descending":
                     result = from item in list
                            orderby item.TimeStamp.Ticks descending
                            select item;
-                    Viewmodel.SortValue = "ascending";
+                    ViewModel.SortValue = "ascending";
                     break;
             }
             result = result.ToList();
-            Viewmodel.Transactions.Clear();
+            ViewModel.Transactions.Clear();
             foreach (var item in result)
             {
-                Viewmodel.Transactions.Add(item);
+                ViewModel.Transactions.Add(item);
             }
             
         }

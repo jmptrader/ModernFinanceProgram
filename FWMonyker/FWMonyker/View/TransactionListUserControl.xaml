@@ -7,8 +7,7 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
-             Visibility="{Binding Main.TransactionVisibility, Converter={StaticResource VisibilityConverter}}"
-             DataContext="{Binding Source={StaticResource Locator}}"
+             DataContext="{Binding TransactionList, Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="500
 ">
     <UserControl.Resources>
@@ -28,14 +27,14 @@
 
                     <TextBox HorizontalAlignment="Stretch" Margin="0 0 130 0" Height="25" Grid.Row="1" VerticalAlignment="Top">
                         <TextBox.InputBindings>
-                            <KeyBinding Command="{Binding Main.Search}" Key="Enter" />
+                            <KeyBinding Command="{Binding Search}" Key="Enter" />
                         </TextBox.InputBindings>
                         <TextBox.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="2" />
                         </TextBox.Effect>
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="Text" Value="{Binding Main.SearchBox, UpdateSourceTrigger=PropertyChanged}" />
+                                <Setter Property="Text" Value="{Binding SearchBox, UpdateSourceTrigger=PropertyChanged}" />
                                 <Style.Triggers>
                                     <Trigger Property="IsFocused" Value="False">
                                         <Setter Property="Text" Value="Search..." />
@@ -47,31 +46,33 @@
                 </Grid>
                 <DockPanel HorizontalAlignment="Right">
                     <Label  Content="Sortér efter dato" HorizontalAlignment="Right" />
-                    <Button FontFamily="Marlett" Command="{Binding Main.Sort}" FontSize="20" Content="v" Width="20" Height="20" />
+                    <Button FontFamily="Marlett" Command="{Binding Sort}" FontSize="20" Content="v" Width="20" Height="20" />
                 </DockPanel>
             </Grid>
             
         </Grid>
-        <ItemsControl Margin="3"
-                      ItemsSource="{Binding Main.Transactions}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <View:TransactionUserControl />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Control.FontSize" Value="13" />
-                    <Setter Property="Control.FontFamily" Value="Helvetica" />
-                    <Setter Property="Control.FontWeight" Value="Light" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
+        <ScrollViewer>
+            <ItemsControl Margin="3"
+                      ItemsSource="{Binding Transactions}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Width="Auto"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <View:TransactionUserControl />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Control.FontSize" Value="13" />
+                        <Setter Property="Control.FontFamily" Value="Helvetica" />
+                        <Setter Property="Control.FontWeight" Value="Light" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </ScrollViewer>
 
         <!--<Grid DataContext="{Binding Source={StaticResource Locator}}" Margin="0,0,-106,176">
             <Grid.ColumnDefinitions>
