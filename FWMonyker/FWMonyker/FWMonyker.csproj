@@ -42,7 +42,7 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>bin\Debug\FWMonyker.XML</DocumentationFile>
   </PropertyGroup>
@@ -104,12 +104,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Command\AddTransaction.cs" />
     <Compile Include="Command\BaseCommand.cs" />
     <Compile Include="Command\Save.cs" />
     <Compile Include="Command\Search.cs" />
     <Compile Include="Command\SelectAccount.cs" />
     <Compile Include="Command\Sort.cs" />
-    <Compile Include="Command\VisibilityConverter.cs" />
     <Compile Include="ViewModel\ChartUserControlModel.cs" />
     <Compile Include="ViewModel\EditTransactionModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

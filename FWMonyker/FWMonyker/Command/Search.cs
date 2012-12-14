@@ -12,9 +12,11 @@ namespace FWMonyker.Command
 {
     public class Search : BaseCommand, ICommand
     {
-        public Search(MainViewModel viewmodel)
+        private TransactionListModel ViewModel;
+
+        public Search(TransactionListModel viewmodel)
         {
-            this.Viewmodel = viewmodel;
+            ViewModel = viewmodel;
         }
 
         public bool CanExecute(object parameter)
@@ -25,16 +27,16 @@ namespace FWMonyker.Command
         public void Execute(object parameter)
         {
             string searchword = parameter as string;
-            IEnumerable<Transaction> searchResult = from item in Viewmodel.CurrentAccount.Transactions
+            IEnumerable<Transaction> searchResult = from item in ViewModel.MainViewModel.CurrentAccount.Transactions
                                where item.Description.ToLower().Contains(searchword.ToLower()) || item.Recipient.ToLower().Contains(searchword.ToLower())
                                select item;
-            if (searchword.Equals(""))
-                searchResult = Viewmodel.CurrentAccount.Transactions;
+            if (string.IsNullOrWhiteSpace(searchword))
+                searchResult = ViewModel.MainViewModel.CurrentAccount.Transactions;
 
-            Viewmodel.Transactions.Clear();
+            ViewModel.Transactions.Clear();
             foreach (var item in searchResult)
             {
-                Viewmodel.Transactions.Add(item);
+                ViewModel.Transactions.Add(item);
             }
         }
     }

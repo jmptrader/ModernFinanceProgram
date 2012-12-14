@@ -14,6 +14,7 @@ namespace FWMonyker.ViewModel
     public class ViewModelLocator
     {
         private static MainViewModel _main;
+        private static TransactionListModel _transActionList;
         public ViewModelLocator()
         {
             //// Denne ServiceLocator holder styr på vores ViewModels.
@@ -22,6 +23,7 @@ namespace FWMonyker.ViewModel
             //// Tilføj en linje her for hver ViewModel.
             //SimpleIoc.Default.Register<MainViewModel>();
             _main = new MainViewModel();
+            _transActionList = _main._TransactionListModel;
         }
 
         /// <summary>
@@ -35,6 +37,21 @@ namespace FWMonyker.ViewModel
             get
             {
                 return _main;
+                //return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the TransActionList property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public TransactionListModel TransactionList
+        {
+            get
+            {
+                return _transActionList;
                 //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }

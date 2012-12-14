@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FWMonyker.ViewModel
 {
-    class ChartUserControlModel : ViewModelBase
+    public class ChartUserControlModel : ViewModelBase
     {
     }
 }

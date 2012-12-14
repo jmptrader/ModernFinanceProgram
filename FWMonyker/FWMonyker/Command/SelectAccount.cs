@@ -12,9 +12,11 @@ namespace FWMonyker.Command
 {
     public class SelectAccount : BaseCommand, ICommand
     {
+        private MainViewModel ViewModel;
+
         public SelectAccount(MainViewModel viewmodel)
         {
-            this.Viewmodel = viewmodel;
+            ViewModel = viewmodel;
         }
 
         public bool CanExecute(object parameter)
@@ -32,7 +34,7 @@ namespace FWMonyker.Command
             if (parameter is Account)
             {
                 int nr = (parameter as Account).Transactions != null ? (parameter as Account).Transactions.ToList().Count : 0;                
-                Viewmodel.CurrentAccount = (parameter as Account);
+                ViewModel.CurrentAccount = (parameter as Account);
                 
             }
         }

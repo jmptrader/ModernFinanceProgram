@@ -10,9 +10,11 @@ namespace FWMonyker.Command
 {
     public class Save : BaseCommand, ICommand
     {
+        private MainViewModel ViewModel;
+
         public Save(MainViewModel viewmodel)
         {
-            this.Viewmodel = viewmodel;
+            ViewModel = viewmodel;
         }
 
         public bool CanExecute(object parameter)
@@ -22,7 +24,7 @@ namespace FWMonyker.Command
 
         public void Execute(object parameter)
         {
-            XML.ObjextXMLSerializer.GetInstance.SaveAccounts(Viewmodel.Accounts);
+            XML.ObjextXMLSerializer.GetInstance.SaveAccounts(ViewModel.Accounts);
         }
     }
 }

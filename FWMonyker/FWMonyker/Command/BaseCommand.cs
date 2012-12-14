@@ -10,7 +10,6 @@ namespace FWMonyker.Command
 {
     public abstract class BaseCommand
     {
-        protected MainViewModel Viewmodel;
         public event EventHandler CanExecuteChanged;
     }
 }

@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:FWMonyker.ViewModel"
              xmlns:view="clr-namespace:FWMonyker.View"
-             xmlns:conv="clr-namespace:FWMonyker.Command.Converter"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              StartupUri="View/MainWindow.xaml"
@@ -25,7 +24,6 @@
                 <ResourceDictionary>
                     <!--Global View Model Locator-->
                     <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
-                    <conv:VisibilityConverter x:Key="VisibilityConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
