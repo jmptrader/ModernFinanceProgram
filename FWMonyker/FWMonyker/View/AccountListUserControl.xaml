@@ -13,11 +13,10 @@
         </DataTemplate>
     </UserControl.Resources>
     <StackPanel>
-        <TextBlock Style="{StaticResource textHeader}">
+        <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
             accounts
         </TextBlock>
-        <ItemsControl Margin="10"
-                      ItemsSource="{Binding Accounts}">
+        <ItemsControl ItemsSource="{Binding Accounts}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel/>

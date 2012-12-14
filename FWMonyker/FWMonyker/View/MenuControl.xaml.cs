@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FWMonyker.View
 {
     /// <summary>
-    /// Interaction logic for Account.xaml
+    /// Interaction logic for MenuControl.xaml
     /// </summary>
-    public partial class TransactionUserControl : UserControl
+    public partial class MenuControl : UserControl
     {
-        public TransactionUserControl()
+        public MenuControl()
         {
             InitializeComponent();
         }

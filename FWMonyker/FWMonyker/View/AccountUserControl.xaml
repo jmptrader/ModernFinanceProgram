@@ -4,20 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="45" d:DesignWidth="150">
+             d:DesignHeight="40" d:DesignWidth="150">
 
-    <Button 
-        Command="{Binding DataContext.SelectAccount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
-        CommandParameter="{Binding This}"
-        Style="{StaticResource buttonCustom}"
+    <UserControl Style="{StaticResource userControl}"
         >
+        <UserControl.InputBindings>
+            <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.SelectAccount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                          CommandParameter="{Binding This}"/>
+        </UserControl.InputBindings>
         <StackPanel Orientation="Horizontal">
             <Grid Width="30" Height="30">
                 <Border BorderBrush="Black" BorderThickness="2">
                     <Rectangle Fill="{Binding Colour, FallbackValue=Red}"/>
                 </Border>
             </Grid>
-            <TextBlock Margin=" 10" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname'}"/>
+            <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname'}"/>
         </StackPanel>
-    </Button>
+    </UserControl>
 </UserControl>

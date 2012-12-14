@@ -107,7 +107,7 @@ namespace FWMonyker.ViewModel
 
         public string SortValue = "ascending";
 
-        private string _searchBox = "Søg";
+        private string _searchBox;
         public string SearchBox
         {
             get
@@ -135,16 +135,6 @@ namespace FWMonyker.ViewModel
 
                 NotifyPropertyChanged("TextDescription");
             }
-        }
-
-
-
-        ICommand _visibilitySwitch;
-        public ICommand VisibilitySwitch { get; set; }
-
-        public void SwitchVisibility(object parameter)
-        {
-            _visibilitySwitch.Execute(parameter);
         }
 
         ICommand _search;

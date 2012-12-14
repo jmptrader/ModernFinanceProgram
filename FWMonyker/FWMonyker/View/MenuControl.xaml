@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="FWMonyker.View.MenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             DataContext="{Binding Source={StaticResource Locator}}"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="500">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock IsEnabled="True" Margin="0 0 0 25" Style="{StaticResource headerButton}">
+            transactions
+            <TextBlock.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding Main.EditTransactionUserControlerCommand}"/>
+            </TextBlock.InputBindings>
+        </TextBlock>
+        <TextBlock Text=" | " Style="{StaticResource textHeader}"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0 0 0 25" Style="{StaticResource headerButton}">
+            graph
+            <TextBlock.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding Main.ChartUserControlCommand}"/>
+            </TextBlock.InputBindings>
+        </TextBlock>
+    </StackPanel>
+</UserControl>
