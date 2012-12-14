@@ -107,7 +107,7 @@ namespace FWMonyker.ViewModel
 
         public string SortValue = "ascending";
 
-        private string _searchBox = "Søg";
+        private string _searchBox;
         public string SearchBox
         {
             get
