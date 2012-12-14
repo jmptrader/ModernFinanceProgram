@@ -11,64 +11,38 @@ using FWMonyker.Model;
 using System.Diagnostics;
 using System.Windows;
 using System.ComponentModel;
+using FWMonyker.Command;
 
 namespace FWMonyker.ViewModel
 {
     public class EditTransactionModel : ViewModelBase
     {
-        private decimal _textAmount;
+        private MainViewModel MainViewModel;
+        private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
 
-        public decimal textAmount
+        public EditTransactionModel(MainViewModel viewModel)
         {
-            get
-            {
-                return _textAmount;
-            }
-            set
-            {
-                _textAmount = value;
-
-                NotifyPropertyChanged("TextAmount");
-            }
+            MainViewModel = viewModel;
+            AddTransactionCommand = new RelayCommand(AddTransaction);
+            UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
+            RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
         }
 
-        private string _textDescription;
-        public string TextDescription
+        public Transaction Transaction { get; set; }
+
+        public ICommand AddTransactionCommand { get; private set; }
+        public void AddTransaction()
         {
-            get
-            {
-                return _textDescription;
-            }
-            set
-            {
-                _textDescription = value;
-
-                NotifyPropertyChanged("TextDescription");
-            }
+            if (Transaction != null)
+                undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, MainViewModel._TransactionListModel.Transactions, Transaction));
+            MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
         }
-
-        private string _textRecipient;
-
-        public string textRecipient
+        public ICommand DeleteTransactionCommand { get; private set; }
+        public void DeleteTransaction()
         {
-            get
-            {
-                return _textRecipient;
-            }
-            set
-            {
-                _textRecipient = value;
-
-                NotifyPropertyChanged("TextDescription");
-            }
+            undoRedoController.AddAndExecute(new DeleteTransaction(MainViewModel.CurrentAccount.Transactions as IList<Transaction>, MainViewModel._TransactionListModel.Transactions, Transaction));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public ICommand UndoCommand { get; private set; }
+        public ICommand RedoCommand { get; private set; }
     }
 }

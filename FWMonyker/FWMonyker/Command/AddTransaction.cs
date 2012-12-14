@@ -9,27 +9,30 @@ using System.Windows.Input;
 
 namespace FWMonyker.Command
 {
-    class SaveTransaction : BaseCommand, ICommand
+    class AddTransaction : BaseCommand, IUndoRedoCommand
     {
-        public SaveTransaction(EditTransactionModel viewmodel)
+        private IList<Transaction> Transactions;
+        private IList<Transaction> UITransactions;
+        private Transaction NewTransaction;
+
+        public AddTransaction(IList<Transaction> accountTransactions, IList<Transaction> uiTransactions, Transaction newTransaction)
         {
-            //Viewmodel = viewmodel;
+            Transactions = accountTransactions;
+            UITransactions = uiTransactions;
+            NewTransaction = newTransaction;
         }
 
-        public bool CanExecute(object parameter)
+        public void Execute()
         {
-            throw new NotImplementedException();
+            Transactions.Add(NewTransaction);
+            UITransactions.Add(NewTransaction);
         }
 
-        public void Execute(object parameter)
+
+        public void UnExecute()
         {
-            //var item = new Transaction() {
-            //    Account = Viewmodel.CurrentAccount,
-            //    Description = Viewmodel.AddTransactionDescription,
-            //    Amount = Viewmodel.AddTransactionAmount,
-            //    Recipient = Viewmodel.AddTransactionAmount,
-            //    TimeStamp = DateTime.Now};
-            //}
+            Transactions.Remove(NewTransaction);
+            UITransactions.Remove(NewTransaction);
         }
     }
 }

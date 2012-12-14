@@ -39,14 +39,14 @@ namespace FWMonyker.XML
                                    Name = account.Attribute("Name").Value,
                                    Balance = decimal.Parse(account.Attribute("Balance").Value),
                                    Colour = new SolidColorBrush((Color)ColorConverter.ConvertFromString(account.Attribute("Colour").Value)),
-                                   Transactions = from transaction in account.Descendants("Transaction").ToList()
+                                   Transactions = (from transaction in account.Descendants("Transaction")
                                                   select new Transaction
                                                   {
                                                       Description = transaction.Attribute("Description").Value,
                                                       Recipient = transaction.Attribute("Recipient").Value,
                                                       Amount = decimal.Parse(transaction.Attribute("Amount").Value),
                                                       TimeStamp = DateTime.FromBinary(long.Parse(transaction.Attribute("TimeStamp").Value))
-                                                  }
+                                                  }).ToList()
                                };
                 accountList = accounts.ToList();
             }

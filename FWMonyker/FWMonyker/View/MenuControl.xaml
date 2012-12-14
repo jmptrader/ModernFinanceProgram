@@ -10,7 +10,7 @@
         <TextBlock IsEnabled="True" Margin="0 0 0 25" Style="{StaticResource headerButton}">
             transactions
             <TextBlock.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding Main.EditTransactionUserControlerCommand}"/>
+                <MouseBinding Gesture="LeftClick" Command="{Binding Main.TransactionListUserControlCommand}"/>
             </TextBlock.InputBindings>
         </TextBlock>
         <TextBlock Text=" | " Style="{StaticResource textHeader}"/>

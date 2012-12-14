@@ -15,7 +15,6 @@ namespace FWMonyker.ViewModel
 {
     public class TransactionListModel : ViewModelBase
     {
-
         public MainViewModel MainViewModel { get; private set; }
 
         public TransactionListModel(MainViewModel mainViewModel)
@@ -27,6 +26,8 @@ namespace FWMonyker.ViewModel
 
             _search = new Search(this);
             Search = new RelayCommand<object>((parameter) => DoSearch(parameter));
+
+            EditTransactionUserControlerCommand = new RelayCommand<object>((parameter) => ExecuteEditTransactionUserControlerCommand(parameter));
 
             Transactions = new ObservableCollection<Transaction>();
         }
@@ -47,6 +48,7 @@ namespace FWMonyker.ViewModel
                 Search.Execute(null);
             }
         }
+        
 
         ICommand _search;
         public ICommand Search { get; set; }
@@ -63,6 +65,15 @@ namespace FWMonyker.ViewModel
         private void DoSort(object parameter)
         {
             _sort.Execute(SortValue);
+        }
+
+        public ICommand EditTransactionUserControlerCommand { get; private set; }
+        private void ExecuteEditTransactionUserControlerCommand(object parameter)
+        {
+            var x = parameter;
+            var transaction = (parameter as Transaction) == null ? new Transaction() {Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now} : parameter as Transaction;
+            MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
+            MainViewModel._EditTransactionModel.Transaction = (parameter as Transaction) == null ? transaction : parameter as Transaction;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

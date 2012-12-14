@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             DataContext="{Binding Main, Source={StaticResource Locator}}"
+             DataContext="{Binding EditTransaction, Source={StaticResource Locator}}"
              d:DesignHeight="500" d:DesignWidth="500">
     
     <Grid RenderTransformOrigin="0.536,0.544">
@@ -26,7 +26,7 @@
 
         </Grid.RowDefinitions>
 
-        <Button Content="gem" Command="{Binding NewTransaction}" />
+        <Button Content="gem" Command="{Binding AddTransactionCommand}" />
         
         <Button Grid.Column="1" Margin="0,0,100,0" Content="annuler"/>
         <Button Grid.Column="2" Margin="100,0,0,0" Content="slet"/>

@@ -106,10 +106,13 @@
     </Compile>
     <Compile Include="Command\AddTransaction.cs" />
     <Compile Include="Command\BaseCommand.cs" />
+    <Compile Include="Command\DeleteTransaction.cs" />
+    <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\Save.cs" />
     <Compile Include="Command\Search.cs" />
     <Compile Include="Command\SelectAccount.cs" />
     <Compile Include="Command\Sort.cs" />
+    <Compile Include="Command\UndoRedoController.cs" />
     <Compile Include="ViewModel\ChartUserControlModel.cs" />
     <Compile Include="ViewModel\EditTransactionModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -263,4 +266,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)Tools\Costura.dll" />
+  <Target Name="AfterBuild">
+    <Costura.EmbedTask />
+  </Target>
 </Project>

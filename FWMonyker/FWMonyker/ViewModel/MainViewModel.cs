@@ -111,21 +111,14 @@ namespace FWMonyker.ViewModel
             }
         }
 
-
-        public ICommand EditTransactionUserControlerCommand { get; private set; }
-
         public ICommand TransactionListUserControlCommand { get; private set; }
 
         public ICommand ChartUserControlCommand { get; private set; }
 
-        private void ExecuteEditTransactionUserControlerCommand()
+        private void ExecuteTransactionListUserControlCommand()
+            
         {
             CurrentViewModel = _TransactionListModel;
-        }
-
-        private void ExecuteTransactionListUserControlCommand()
-        {
-            CurrentViewModel = _EditTransactionModel;
         }
 
         private void ExecuteChartUserControlCommand()
@@ -143,12 +136,12 @@ namespace FWMonyker.ViewModel
             Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-            _EditTransactionModel = new EditTransactionModel();
+            _EditTransactionModel = new EditTransactionModel(this);
             _ChartModel = new ChartUserControlModel();
             _TransactionListModel = new TransactionListModel(this);
 
             CurrentViewModel = _TransactionListModel;
-            EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
+            
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
 

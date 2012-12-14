@@ -15,6 +15,7 @@ namespace FWMonyker.ViewModel
     {
         private static MainViewModel _main;
         private static TransactionListModel _transActionList;
+        private static EditTransactionModel _editTransactionModel;
         public ViewModelLocator()
         {
             //// Denne ServiceLocator holder styr på vores ViewModels.
@@ -24,6 +25,7 @@ namespace FWMonyker.ViewModel
             //SimpleIoc.Default.Register<MainViewModel>();
             _main = new MainViewModel();
             _transActionList = _main._TransactionListModel;
+            _editTransactionModel = _main._EditTransactionModel;
         }
 
         /// <summary>
@@ -52,6 +54,21 @@ namespace FWMonyker.ViewModel
             get
             {
                 return _transActionList;
+                //return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the EditTransaction property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public EditTransactionModel EditTransaction
+        {
+            get
+            {
+                return _editTransactionModel;
                 //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
