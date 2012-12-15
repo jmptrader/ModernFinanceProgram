@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type vm:TransactionListModel}">
             <View:TransactionListUserControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EditTransactionModel}">
+            <View:EditTransactionUserControler />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid Margin="12">

@@ -25,7 +25,7 @@
             <Grid >
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
 
-                    <TextBox HorizontalAlignment="Stretch" Margin="0 0 130 0" Height="25" Grid.Row="1" VerticalAlignment="Top">
+                    <TextBox HorizontalAlignment="Stretch" Margin="0 0 230 0" Height="25" Grid.Row="1" VerticalAlignment="Top">
                         <TextBox.InputBindings>
                             <KeyBinding Command="{Binding Search}" Key="Enter" />
                         </TextBox.InputBindings>
@@ -44,9 +44,10 @@
                         </TextBox.Style>
                     </TextBox>
                 </Grid>
-                <DockPanel HorizontalAlignment="Right">
-                    <Label  Content="Sortér efter dato" HorizontalAlignment="Right" />
-                    <Button FontFamily="Marlett" Command="{Binding Sort}" FontSize="20" Content="v" Width="20" Height="20" />
+                <DockPanel HorizontalAlignment="Right" Margin="0 0 5 0">
+                    <Label  Content="Sort by date" HorizontalAlignment="Right" />
+                    <Button FontFamily="Marlett" Command="{Binding Sort}" FontSize="16" Content="v" Width="18" Height="20" Margin="0 0 5 0" />
+                    <Button FontFamily="Segoe UI" Command="{Binding EditTransactionUserControlerCommand}" FontSize="12" Padding="5 0 5 0" Content="Add transaction" Height="20" />
                 </DockPanel>
             </Grid>
             

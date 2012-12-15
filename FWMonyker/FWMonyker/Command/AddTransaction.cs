@@ -9,27 +9,47 @@ using System.Windows.Input;
 
 namespace FWMonyker.Command
 {
-    class SaveTransaction : BaseCommand, ICommand
+    class AddTransaction : BaseCommand, IUndoRedoCommand
     {
-        public SaveTransaction(EditTransactionModel viewmodel)
+        private IList<Transaction> Transactions;
+        private IList<Transaction> UITransactions;
+        private Transaction NewTransaction;
+        private Transaction InitialTransaction;
+
+        public AddTransaction(IList<Transaction> accountTransactions, IList<Transaction> uiTransactions, Transaction initialTransaction, Transaction newTransaction)
         {
-            //Viewmodel = viewmodel;
+            Transactions = accountTransactions;
+            UITransactions = uiTransactions;
+            NewTransaction = newTransaction;
+            InitialTransaction = initialTransaction;
         }
 
-        public bool CanExecute(object parameter)
+        public void Execute()
         {
-            throw new NotImplementedException();
+            if (InitialTransaction != null)
+            {
+                Transactions[Transactions.IndexOf(InitialTransaction)] = NewTransaction;
+                UITransactions[UITransactions.IndexOf(InitialTransaction)] = NewTransaction;
+            }
+            else
+            {
+                Transactions.Add(NewTransaction);
+                UITransactions.Add(NewTransaction);
+            }
         }
 
-        public void Execute(object parameter)
+        public void UnExecute()
         {
-            //var item = new Transaction() {
-            //    Account = Viewmodel.CurrentAccount,
-            //    Description = Viewmodel.AddTransactionDescription,
-            //    Amount = Viewmodel.AddTransactionAmount,
-            //    Recipient = Viewmodel.AddTransactionAmount,
-            //    TimeStamp = DateTime.Now};
-            //}
+            if (InitialTransaction != null)
+            {
+                Transactions[Transactions.IndexOf(NewTransaction)] = InitialTransaction;
+                UITransactions[UITransactions.IndexOf(NewTransaction)] = InitialTransaction;
+            }
+            else
+            {
+                Transactions.Remove(NewTransaction);
+                UITransactions.Remove(NewTransaction);
+            }
         }
     }
 }

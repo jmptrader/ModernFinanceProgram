@@ -85,9 +85,9 @@ namespace FWMonyker.ViewModel
         ICommand _save;
         public ICommand Save { get; set; }
 
-        public void SaveAccounts(object parameter)
+        public void SaveAccounts()
         {
-            _selectAccount.Execute(parameter);
+            _save.Execute(Accounts);
         }
 
 
@@ -111,21 +111,14 @@ namespace FWMonyker.ViewModel
             }
         }
 
-
-        public ICommand EditTransactionUserControlerCommand { get; private set; }
-
         public ICommand TransactionListUserControlCommand { get; private set; }
 
         public ICommand ChartUserControlCommand { get; private set; }
 
-        private void ExecuteEditTransactionUserControlerCommand()
+        private void ExecuteTransactionListUserControlCommand()
+            
         {
             CurrentViewModel = _TransactionListModel;
-        }
-
-        private void ExecuteTransactionListUserControlCommand()
-        {
-            CurrentViewModel = _EditTransactionModel;
         }
 
         private void ExecuteChartUserControlCommand()
@@ -140,21 +133,21 @@ namespace FWMonyker.ViewModel
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
 
             _save = new Save(this);
-            Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
+            Save = new RelayCommand(SaveAccounts);
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
-            _EditTransactionModel = new EditTransactionModel();
+            _EditTransactionModel = new EditTransactionModel(this);
             _ChartModel = new ChartUserControlModel();
             _TransactionListModel = new TransactionListModel(this);
 
             CurrentViewModel = _TransactionListModel;
-            EditTransactionUserControlerCommand = new RelayCommand(() => ExecuteEditTransactionUserControlerCommand());
+            
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
 
             
 
-            var xml = ObjextXMLSerializer.GetInstance;
+             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
             try
             {
@@ -185,7 +178,6 @@ namespace FWMonyker.ViewModel
             }
 
             CurrentAccount = Accounts[1];
-            xml.SaveAccounts(Accounts);
 
             foreach (var item in CurrentAccount.Transactions)
             {

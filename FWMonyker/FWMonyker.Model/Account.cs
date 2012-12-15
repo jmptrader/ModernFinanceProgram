@@ -10,7 +10,7 @@ namespace FWMonyker.Model
         string _name;
         decimal _balance;
         SolidColorBrush _colour;
-        IEnumerable<Transaction> _transactions;
+        IList<Transaction> _transactions;
         List<KeyValuePair<string, decimal>> _chartValueList;
         ObservableCollection<Transaction> _kontoHandlinger;
 
@@ -77,7 +77,7 @@ namespace FWMonyker.Model
                 NotifyPropertyChanged("Colour");
             }
         }
-        public IEnumerable<Transaction> Transactions
+        public IList<Transaction> Transactions
         {
             get
             {
