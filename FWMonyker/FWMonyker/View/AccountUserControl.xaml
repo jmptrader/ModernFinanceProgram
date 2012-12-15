@@ -15,10 +15,10 @@
         <StackPanel Orientation="Horizontal">
             <Grid Width="30" Height="30">
                 <Border BorderBrush="Black" BorderThickness="2">
-                    <Rectangle Fill="{Binding ColorBrush, FallbackValue=Red}" />
+                    <Rectangle Fill="{Binding ColorBrush, FallbackValue=Red, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
             </Grid>
-            <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname'}" />
+            <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname', UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </UserControl>
 </UserControl>
