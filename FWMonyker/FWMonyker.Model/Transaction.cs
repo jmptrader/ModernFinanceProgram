@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace FWMonyker.Model
 {
     public class Transaction : NotifyBase
@@ -9,10 +10,14 @@ namespace FWMonyker.Model
         private decimal _amount;
         private DateTime _timestamp;
 
-        public Account  Account     { get { return _account;     } set { _account     = value; NotifyPropertyChanged("Account"    ); } }
-        public string   Description { get { return _description; } set { _description = value; NotifyPropertyChanged("Description"); } }
-        public string   Recipient   { get { return _recipient;   } set { _recipient   = value; NotifyPropertyChanged("Recipient"  ); } }
-        public decimal  Amount      { get { return _amount;      } set { _amount      = value; NotifyPropertyChanged("Amount"     ); } }
-        public DateTime TimeStamp   { get { return _timestamp;   } set { _timestamp   = value; NotifyPropertyChanged("Timestamp"  ); } }
+        public Account Account { get { return _account; } set { _account = value; NotifyPropertyChanged("Account"); } }
+
+        public string Description { get { return _description; } set { _description = value; NotifyPropertyChanged("Description"); } }
+
+        public string Recipient { get { return _recipient; } set { _recipient = value; NotifyPropertyChanged("Recipient"); } }
+
+        public decimal Amount { get { return _amount; } set { _amount = value; NotifyPropertyChanged("Amount"); } }
+
+        public DateTime TimeStamp { get { return _timestamp; } set { _timestamp = value; NotifyPropertyChanged("Timestamp"); } }
     }
 }

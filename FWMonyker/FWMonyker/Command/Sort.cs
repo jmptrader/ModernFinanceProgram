@@ -1,11 +1,5 @@
-﻿using FWMonyker.Model;
-using FWMonyker.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using FWMonyker.ViewModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace FWMonyker.Command
@@ -36,10 +30,11 @@ namespace FWMonyker.Command
                               select item).ToList();
                     ViewModel.SortValue = SortValues.Descending;
                     break;
+
                 case SortValues.Descending:
                     result = (from item in list
-                           orderby item.TimeStamp.Ticks descending
-                           select item).ToList();
+                              orderby item.TimeStamp.Ticks descending
+                              select item).ToList();
                     ViewModel.SortValue = SortValues.Ascending;
                     break;
             }
@@ -50,9 +45,9 @@ namespace FWMonyker.Command
             {
                 ViewModel.Transactions.Add(item);
             }
-            
         }
     }
+
     public enum SortValues
     {
         Ascending,

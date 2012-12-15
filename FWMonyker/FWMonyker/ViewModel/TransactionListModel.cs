@@ -3,12 +3,8 @@ using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
@@ -16,6 +12,8 @@ namespace FWMonyker.ViewModel
     public class TransactionListModel : ViewModelBase
     {
         public MainViewModel MainViewModel { get; private set; }
+
+        private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
 
         public TransactionListModel(MainViewModel mainViewModel)
         {
@@ -28,13 +26,20 @@ namespace FWMonyker.ViewModel
             Search = new RelayCommand<object>((parameter) => DoSearch(parameter));
 
             EditTransactionUserControlerCommand = new RelayCommand<object>((parameter) => ExecuteEditTransactionUserControlerCommand(parameter));
+            UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
+            RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
 
             Transactions = new ObservableCollection<Transaction>();
         }
 
+        public ICommand UndoCommand { get; private set; }
+
+        public ICommand RedoCommand { get; private set; }
+
         public ObservableCollection<Transaction> Transactions { get; set; }
 
         private string _searchBox;
+
         public string SearchBox
         {
             get
@@ -48,9 +53,9 @@ namespace FWMonyker.ViewModel
                 Search.Execute(null);
             }
         }
-        
 
-        ICommand _search;
+        private ICommand _search;
+
         public ICommand Search { get; set; }
 
         public void DoSearch(object parameter)
@@ -59,7 +64,8 @@ namespace FWMonyker.ViewModel
         }
 
         public SortValues SortValue = SortValues.Ascending;
-        ICommand _sort;
+        private ICommand _sort;
+
         public ICommand Sort { get; set; }
 
         private void DoSort(object parameter)
@@ -68,9 +74,10 @@ namespace FWMonyker.ViewModel
         }
 
         public ICommand EditTransactionUserControlerCommand { get; private set; }
+
         private void ExecuteEditTransactionUserControlerCommand(object parameter)
         {
-            var transaction = (parameter as Transaction) == null ? new Transaction() {Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now} : parameter as Transaction;
+            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now } : parameter as Transaction;
             MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
             if (parameter as Transaction == null)
             {
@@ -78,7 +85,8 @@ namespace FWMonyker.ViewModel
             }
             else
             {
-                MainViewModel._EditTransactionModel.Transaction = parameter as Transaction;
+                var editableTransaction = new Transaction() { Account = transaction.Account, Amount = transaction.Amount, Description = transaction.Description, Recipient = transaction.Recipient, TimeStamp = transaction.TimeStamp };
+                MainViewModel._EditTransactionModel.Transaction = editableTransaction;
             }
             MainViewModel._EditTransactionModel.initialStateTransaction = parameter as Transaction;
         }

@@ -1,36 +1,35 @@
 ﻿<UserControl x:Class="FWMonyker.View.EditTransactionUserControler"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              DataContext="{Binding EditTransaction, Source={StaticResource Locator}}"
              d:DesignHeight="400" d:DesignWidth="500">
-    
+
     <StackPanel Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Amount:" Style="{StaticResource editTextLabel}"/>
-            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="0" Text="{Binding Transaction.Amount, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Description:" Style="{StaticResource editTextLabel}"/>
-            <TextBox Style="{StaticResource InputBox}"  Grid.Column="1" Grid.Row="1" Text="{Binding Transaction.Description, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Recipient:" Style="{StaticResource editTextLabel}"/>
-            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="2" Text="{Binding Transaction.Recipient, UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Amount:" Style="{StaticResource editTextLabel}" />
+            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="0" Text="{Binding Transaction.Amount, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Description:" Style="{StaticResource editTextLabel}" />
+            <TextBox Style="{StaticResource InputBox}"  Grid.Column="1" Grid.Row="1" Text="{Binding Transaction.Description, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Recipient:" Style="{StaticResource editTextLabel}" />
+            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="2" Text="{Binding Transaction.Recipient, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
         <StackPanel HorizontalAlignment="Center" Margin="5" Orientation="Horizontal">
-            <Button Content="Save" Style="{StaticResource ButtonStyle}" Command="{Binding AddTransactionCommand}"/>
+            <Button Content="Save" Style="{StaticResource ButtonStyle}" Command="{Binding AddTransactionCommand}" />
             <Button Content="Delete" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteTransactionCommand}" />
-            <Button Content="Cancel" Style="{StaticResource ButtonStyle}" Command="{Binding Main.TransactionListUserControlCommand, Source={StaticResource Locator}}"/>
+            <Button Content="Cancel" Style="{StaticResource ButtonStyle}" Command="{Binding Main.TransactionListUserControlCommand, Source={StaticResource Locator}}" />
         </StackPanel>
     </StackPanel>
 </UserControl>
-
