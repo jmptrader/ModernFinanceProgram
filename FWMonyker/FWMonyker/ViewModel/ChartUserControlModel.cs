@@ -1,11 +1,12 @@
-﻿using FWMonyker.Model;
+﻿using FWMonyker.Command;
+using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace FWMonyker.ViewModel
 {
-    public class ChartUserControlModel : ViewModelBase, INotifyPropertyChanged
+    public class ChartUserControlModel : ViewModelBase, INotifyPropertyChanged, IAccountChange
     {
         public MainViewModel MainViewModel { get; private set; }
 

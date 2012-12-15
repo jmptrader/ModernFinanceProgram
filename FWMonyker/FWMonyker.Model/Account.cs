@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
-    public class Account : NotifyBase
+    public class Account : NotifyBase, ICloneable
     {
         private string _name;
         private decimal _balance;
@@ -96,6 +97,18 @@ namespace FWMonyker.Model
                 _transactions = value;
                 NotifyPropertyChanged("Transactions");
             }
+        }
+
+        public object Clone()
+        {
+            return new Account()
+            {
+                Balance = this.Balance,
+                Color = this.Color,
+                KontoHandlinger = this.KontoHandlinger,
+                Transactions = this.Transactions,
+                Name = this.Name
+            };
         }
     }
 }

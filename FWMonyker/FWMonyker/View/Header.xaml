@@ -6,9 +6,9 @@
              xmlns:View="clr-namespace:FWMonyker.View"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="100" d:DesignWidth="800">
 
     <Grid>
-        <Image Source="{StaticResource Banner}" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" />
+        <Image Source="{StaticResource Banner}" HorizontalAlignment="Stretch" Stretch="Fill" Height="Auto" VerticalAlignment="Top" />
     </Grid>
 </UserControl>

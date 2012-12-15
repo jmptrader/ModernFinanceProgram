@@ -124,6 +124,7 @@
     <Compile Include="Command\BaseCommand.cs" />
     <Compile Include="Command\DeleteAccountCommand.cs" />
     <Compile Include="Command\DeleteTransaction.cs" />
+    <Compile Include="Command\IAccountChange.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\Save.cs" />
     <Compile Include="Command\Search.cs" />

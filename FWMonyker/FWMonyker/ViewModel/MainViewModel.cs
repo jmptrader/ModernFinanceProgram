@@ -46,6 +46,7 @@ namespace FWMonyker.ViewModel
                 _currentAccount = value;
                 _TransactionListModel.NotifyAccountChange();
                 _ChartModel.NotifyAccountChange();
+                _EditAccountModel.NotifyAccountChange();
                 NotifyPropertyChanged("CurrentAccount");
             }
         }
@@ -99,10 +100,21 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditAccountControlCommand(object parameter)
         {
-            var account = new Account() { Balance = CurrentAccount.Balance, Color = CurrentAccount.Color, Transactions = CurrentAccount.Transactions, Name = CurrentAccount.Name, KontoHandlinger = CurrentAccount.KontoHandlinger };
+
+            var account = (parameter as Account) == null ? new Account() { Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "", KontoHandlinger = new ObservableCollection<Transaction>() } : parameter as Account;
             CurrentViewModel = _EditAccountModel;
             _EditAccountModel.EndStateAccount = account;
             _EditAccountModel.InitialStateAccount = parameter as Account;
+        }
+
+        private Color RandomColor()
+        {
+            Random random = new Random();
+            byte r = (byte) random.Next(255);
+            byte g = (byte) random.Next(255);
+            byte b = (byte) random.Next(255);
+
+            return Color.FromRgb(r, g, b);
         }
 
         private void ExecuteChartUserControlCommand()

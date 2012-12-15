@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
 {
-    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged
+    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged, IAccountChange
     {
         public MainViewModel MainViewModel { get; private set; }
 

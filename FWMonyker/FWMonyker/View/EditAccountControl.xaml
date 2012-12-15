@@ -20,11 +20,11 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Name:" Style="{StaticResource editTextLabel}" />
-            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="0" Text="{Binding EndStateAccount.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Balance:" Style="{StaticResource editTextLabel}" />
-            <TextBox Style="{StaticResource InputBox}"  Grid.Column="1" Grid.Row="1" Text="{Binding EndStateAccount.Balance, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Style="{StaticResource InputBox}"  Grid.Column="1" Grid.Row="1" Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Color:" Style="{StaticResource editTextLabel}" />
-            <extToolkit:ColorPicker Grid.Column="1" Grid.Row="3" VerticalContentAlignment="Stretch" SelectedColor="{Binding EndStateAccount.Color}" />
+            <extToolkit:ColorPicker Grid.Column="1" Grid.Row="3" VerticalContentAlignment="Stretch" SelectedColor="{Binding Color}" />
         </Grid>
         <StackPanel HorizontalAlignment="Center" Margin="5" Orientation="Horizontal">
             <Button Content="Save" Style="{StaticResource ButtonStyle}" Command="{Binding AddAccountCommand}" />
