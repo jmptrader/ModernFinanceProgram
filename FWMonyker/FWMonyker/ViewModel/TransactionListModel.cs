@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
 {
-    public class TransactionListModel : ViewModelBase
+    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged
     {
         public MainViewModel MainViewModel { get; private set; }
 
@@ -37,6 +37,16 @@ namespace FWMonyker.ViewModel
         public ICommand RedoCommand { get; private set; }
 
         public ObservableCollection<Transaction> Transactions { get; set; }
+
+        public void NotifyAccountChange()
+        {
+            Transactions.Clear();
+            foreach (Transaction item in MainViewModel.CurrentAccount.Transactions)
+            {
+                Transactions.Add(item);
+            }
+            NotifyPropertyChanged("Transactions");
+        }
 
         private string _searchBox;
 

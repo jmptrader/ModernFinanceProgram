@@ -20,12 +20,7 @@ namespace FWMonyker.ViewModel
     public class MainViewModel : ViewModelBase, IDropTarget, INotifyPropertyChanged
     {
         public ObservableCollection<Account> Accounts { get; set; }
-
-        private Account _currentAccount;
-        private List<KeyValuePair<string, decimal>> _chartValueList;
-
-        public ObservableCollection<Transaction> _kontoHandlinger { get; set; }
-
+        public ObservableCollection<Transaction> _kontoHandlinger;
         public ObservableCollection<Transaction> KontoHandlinger
         {
             get
@@ -39,19 +34,7 @@ namespace FWMonyker.ViewModel
             }
         }
 
-        public List<KeyValuePair<string, decimal>> ChartValueList
-        {
-            get
-            {
-                return _chartValueList;
-            }
-            set
-            {
-                _chartValueList = value;
-                NotifyPropertyChanged("ChartValueList");
-            }
-        }
-
+        private Account _currentAccount;
         public Account CurrentAccount
         {
             get
@@ -61,17 +44,13 @@ namespace FWMonyker.ViewModel
             set
             {
                 _currentAccount = value;
-                _TransactionListModel.Transactions.Clear();
-                foreach (Transaction item in CurrentAccount.Transactions)
-                {
-                    _TransactionListModel.Transactions.Add(item);
-                }
+                _TransactionListModel.NotifyAccountChange();
+                _ChartModel.NotifyAccountChange();
                 NotifyPropertyChanged("CurrentAccount");
             }
         }
 
         private ICommand _selectAccount;
-
         public ICommand SelectAccount { get; set; }
 
         public void SwitchAccount(object parameter)
@@ -129,10 +108,9 @@ namespace FWMonyker.ViewModel
 
             _save = new Save(this);
             Save = new RelayCommand(SaveAccounts);
-            ChartValueList = new List<KeyValuePair<string, decimal>>();
 
             _EditTransactionModel = new EditTransactionModel(this);
-            _ChartModel = new ChartUserControlModel();
+            _ChartModel = new ChartUserControlModel(this);
             _TransactionListModel = new TransactionListModel(this);
 
             CurrentViewModel = _TransactionListModel;
@@ -171,32 +149,30 @@ namespace FWMonyker.ViewModel
 
             CurrentAccount = Accounts[1];
 
-            foreach (var item in CurrentAccount.Transactions)
-            {
-                ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
-            }
-            ObservableCollection<Account> schools = new ObservableCollection<Account>();
+            
 
-            foreach (var item in Accounts)
-            {
-                schools.Add(new Account());
-            }
+            //ObservableCollection<Account> schools = new ObservableCollection<Account>();
 
-            samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
+            //foreach (var item in Accounts)
+            //{
+            //    schools.Add(new Account());
+            //}
 
-            KontoHandlinger = new ObservableCollection<Transaction>();
+            //samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
 
-            int i = 0;
+            //KontoHandlinger = new ObservableCollection<Transaction>();
 
-            foreach (var item in Accounts[i].Transactions)
-            {
-                KontoHandlinger.Add(new Transaction());
+            //int i = 0;
 
-                if (Accounts.Count != null)
-                    i++;
-            }
-            Debug.WriteLine(i.ToString());
-            Debug.WriteLine(KontoHandlinger.Count.ToString());
+            //foreach (var item in Accounts[i].Transactions)
+            //{
+            //    KontoHandlinger.Add(new Transaction());
+
+            //    if (Accounts.Count != null)
+            //        i++;
+            //}
+            //Debug.WriteLine(i.ToString());
+            //Debug.WriteLine(KontoHandlinger.Count.ToString());
         }
 
         void IDropTarget.DragOver(DropInfo dropInfo)

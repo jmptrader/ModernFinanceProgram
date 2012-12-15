@@ -40,14 +40,11 @@
         </Grid.RowDefinitions>
 
         <View:AccountListUserControl Margin=" 0 0 25 0" Grid.Row="2" />
-
         <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
-
-        <!--<Button Content="tilføj transaction" Grid.Column="1" Command="{Binding TransactionListUserControlCommand}" HorizontalAlignment="Left" Margin="460,84,0,0" VerticalAlignment="Top" Width="75" Height="25" />-->
-
         <DockPanel Grid.Row="2" Grid.Column="2">
             <View:MenuControl DockPanel.Dock="Top" />
             <ContentControl Content="{Binding CurrentViewModel}" />
         </DockPanel>
+        
     </Grid>
 </Window>
