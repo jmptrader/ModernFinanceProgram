@@ -10,7 +10,9 @@
         xmlns:vm="clr-namespace:FWMonyker.ViewModel"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-        Height="600"
+        MinWidth="630"
+        MinHeight="300"
+        Height="500"
         Width="800"
         Title="Monyker"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -22,6 +24,9 @@
         <DataTemplate DataType="{x:Type vm:TransactionListModel}">
             <View:TransactionListUserControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EditTransactionModel}">
+            <View:EditTransactionUserControler />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid Margin="12">
@@ -30,7 +35,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="102" />
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
 

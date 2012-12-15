@@ -1,11 +1,6 @@
 ﻿using FWMonyker.Model;
 using FWMonyker.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace FWMonyker.Command
@@ -22,6 +17,7 @@ namespace FWMonyker.Command
         public bool CanExecute(object parameter)
         {
             return true;
+
             //Add conditions here in cases where it should not be allowed to switch account
         }
 
@@ -33,9 +29,8 @@ namespace FWMonyker.Command
         {
             if (parameter is Account)
             {
-                int nr = (parameter as Account).Transactions != null ? (parameter as Account).Transactions.ToList().Count : 0;                
+                int nr = (parameter as Account).Transactions != null ? (parameter as Account).Transactions.ToList().Count : 0;
                 ViewModel.CurrentAccount = (parameter as Account);
-                
             }
         }
     }

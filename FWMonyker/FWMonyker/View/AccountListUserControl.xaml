@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="FWMonyker.View.AccountListUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:View="clr-namespace:FWMonyker.View"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
@@ -19,19 +19,19 @@
         <ItemsControl ItemsSource="{Binding Accounts}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel/>
+                    <StackPanel />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <View:AccountUserControl/>
+                    <View:AccountUserControl />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Control.FontSize" Value="30"/>
-                    <Setter Property="Control.FontFamily" Value="Helvetica"/>
-                    <Setter Property="Control.FontWeight" Value="Light"/>
+                    <Setter Property="Control.FontSize" Value="30" />
+                    <Setter Property="Control.FontFamily" Value="Helvetica" />
+                    <Setter Property="Control.FontWeight" Value="Light" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>

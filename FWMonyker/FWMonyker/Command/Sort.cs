@@ -1,11 +1,5 @@
-﻿using FWMonyker.Model;
-using FWMonyker.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using FWMonyker.ViewModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace FWMonyker.Command
@@ -26,30 +20,37 @@ namespace FWMonyker.Command
 
         public void Execute(object parameter)
         {
-            IEnumerable<Transaction> list = ViewModel.Transactions;
-            IEnumerable<Transaction> result = list;
-            switch (parameter as string)
+            var list = ViewModel.Transactions;
+            var result = list.ToList();
+            switch (ViewModel.SortValue)
             {
-                case "ascending":
-                    result = from item in list
-                           orderby item.TimeStamp.Ticks ascending
-                           select item;
-                    ViewModel.SortValue = "descending";
+                case SortValues.Ascending:
+                    result = (from item in list
+                              orderby item.TimeStamp.Ticks ascending
+                              select item).ToList();
+                    ViewModel.SortValue = SortValues.Descending;
                     break;
-                case "descending":
-                    result = from item in list
-                           orderby item.TimeStamp.Ticks descending
-                           select item;
-                    ViewModel.SortValue = "ascending";
+
+                case SortValues.Descending:
+                    result = (from item in list
+                              orderby item.TimeStamp.Ticks descending
+                              select item).ToList();
+                    ViewModel.SortValue = SortValues.Ascending;
                     break;
             }
             result = result.ToList();
+
             ViewModel.Transactions.Clear();
             foreach (var item in result)
             {
                 ViewModel.Transactions.Add(item);
             }
-            
         }
+    }
+
+    public enum SortValues
+    {
+        Ascending,
+        Descending
     }
 }

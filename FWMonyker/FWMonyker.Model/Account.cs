@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
     public class Account : NotifyBase
     {
-        string _name;
-        decimal _balance;
-        SolidColorBrush _colour;
-        IEnumerable<Transaction> _transactions;
-        List<KeyValuePair<string, decimal>> _chartValueList;
-        ObservableCollection<Transaction> _kontoHandlinger;
+        private string _name;
+        private decimal _balance;
+        private SolidColorBrush _colour;
+        private IList<Transaction> _transactions;
+        private List<KeyValuePair<string, decimal>> _chartValueList;
+        private ObservableCollection<Transaction> _kontoHandlinger;
 
         public Account()
         {
@@ -77,7 +76,8 @@ namespace FWMonyker.Model
                 NotifyPropertyChanged("Colour");
             }
         }
-        public IEnumerable<Transaction> Transactions
+
+        public IList<Transaction> Transactions
         {
             get
             {
