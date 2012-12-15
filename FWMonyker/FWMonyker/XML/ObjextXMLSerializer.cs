@@ -1,18 +1,21 @@
 ﻿using FWMonyker.Model;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace FWMonyker.XML
 {
     public class ObjextXMLSerializer
     {
         private static ObjextXMLSerializer instance;
-        private ObjextXMLSerializer() { }
+
+        private ObjextXMLSerializer()
+        {
+        }
 
         public static ObjextXMLSerializer GetInstance
         {
@@ -25,6 +28,7 @@ namespace FWMonyker.XML
                 return instance;
             }
         }
+
         public IEnumerable<Account> LoadAccounts()
         {
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MFP\\");
@@ -40,13 +44,13 @@ namespace FWMonyker.XML
                                    Balance = decimal.Parse(account.Attribute("Balance").Value),
                                    Colour = new SolidColorBrush((Color)ColorConverter.ConvertFromString(account.Attribute("Colour").Value)),
                                    Transactions = (from transaction in account.Descendants("Transaction")
-                                                  select new Transaction
-                                                  {
-                                                      Description = transaction.Attribute("Description").Value,
-                                                      Recipient = transaction.Attribute("Recipient").Value,
-                                                      Amount = decimal.Parse(transaction.Attribute("Amount").Value),
-                                                      TimeStamp = DateTime.FromBinary(long.Parse(transaction.Attribute("TimeStamp").Value))
-                                                  }).ToList()
+                                                   select new Transaction
+                                                   {
+                                                       Description = transaction.Attribute("Description").Value,
+                                                       Recipient = transaction.Attribute("Recipient").Value,
+                                                       Amount = decimal.Parse(transaction.Attribute("Amount").Value),
+                                                       TimeStamp = DateTime.FromBinary(long.Parse(transaction.Attribute("TimeStamp").Value))
+                                                   }).ToList()
                                };
                 accountList = accounts.ToList();
             }
@@ -94,7 +98,7 @@ namespace FWMonyker.XML
             }
             catch (UnauthorizedAccessException)
             {
-                MessageBox.Show("Not allowed to save at "+path, "Save error", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                MessageBox.Show("Not allowed to save at " + path, "Save error", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
             }
         }
     }

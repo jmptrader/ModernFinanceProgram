@@ -1,21 +1,19 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
-
-namespace FWMonyker.ViewModel
+﻿namespace FWMonyker.ViewModel
 {
-     //<summary>
-     //This class contains static references to all the view models in the
-     //application and provides an entry point for the bindings.
-     //<para>
-     //See http://www.galasoft.ch/mvvm
-     //</para>
-     //</summary>
+    //<summary>
+    //This class contains static references to all the view models in the
+    //application and provides an entry point for the bindings.
+    //<para>
+    //See http://www.galasoft.ch/mvvm
+    //</para>
+    //</summary>
     public class ViewModelLocator
     {
         private static MainViewModel _main;
         private static TransactionListModel _transActionList;
         private static EditTransactionModel _editTransactionModel;
+        private static ChartUserControlModel _chartModel;
+
         public ViewModelLocator()
         {
             //// Denne ServiceLocator holder styr på vores ViewModels.
@@ -26,6 +24,7 @@ namespace FWMonyker.ViewModel
             _main = new MainViewModel();
             _transActionList = _main._TransactionListModel;
             _editTransactionModel = _main._EditTransactionModel;
+            _chartModel = _main._ChartModel;
         }
 
         /// <summary>
@@ -39,6 +38,7 @@ namespace FWMonyker.ViewModel
             get
             {
                 return _main;
+
                 //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
@@ -54,6 +54,7 @@ namespace FWMonyker.ViewModel
             get
             {
                 return _transActionList;
+
                 //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
@@ -69,6 +70,23 @@ namespace FWMonyker.ViewModel
             get
             {
                 return _editTransactionModel;
+
+                //return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the ChartControl property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public ChartUserControlModel ChartModel
+        {
+            get
+            {
+                return _chartModel;
+
                 //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
@@ -80,5 +98,4 @@ namespace FWMonyker.ViewModel
         {
         }
     }
-
 }

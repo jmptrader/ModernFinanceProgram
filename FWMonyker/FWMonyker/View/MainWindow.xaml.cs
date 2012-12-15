@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using FWMonyker.ViewModel;
+﻿using FWMonyker.ViewModel;
+using System.Windows;
 
 namespace FWMonyker.View
 {
@@ -16,6 +16,5 @@ namespace FWMonyker.View
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
-
     }
 }

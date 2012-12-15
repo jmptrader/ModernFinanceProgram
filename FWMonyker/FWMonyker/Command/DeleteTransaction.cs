@@ -1,13 +1,9 @@
 ﻿using FWMonyker.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FWMonyker.Command
 {
-    class DeleteTransaction : BaseCommand, IUndoRedoCommand
+    internal class DeleteTransaction : BaseCommand, IUndoRedoCommand
     {
         private IList<Transaction> Transactions;
         private IList<Transaction> UITransactions;
@@ -25,7 +21,6 @@ namespace FWMonyker.Command
             Transactions.Remove(TransactionToBeDeleted);
             UITransactions.Remove(TransactionToBeDeleted);
         }
-
 
         public void UnExecute()
         {

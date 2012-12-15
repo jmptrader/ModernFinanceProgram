@@ -8,7 +8,7 @@
              xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d"
-             DataContext="{Binding Source={StaticResource Locator}}"
+             DataContext="{Binding ChartModel, Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="500
 ">
     <UserControl.Resources>
@@ -16,11 +16,11 @@
             <DVC:Chart />
         </DataTemplate>
     </UserControl.Resources>
-    
+
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <TextBlock DockPanel.Dock="Top" Text="Account Balance" HorizontalAlignment="Center"/>
+        <TextBlock DockPanel.Dock="Top" Text="Account Balance" HorizontalAlignment="Center" />
         <DVC:Chart BorderThickness="0" Margin="0 -30 -10 -10">
-            <DVC:LineSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding Main.ChartValueList}" />
+            <DVC:LineSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ChartValueList}" />
         </DVC:Chart>
     </DockPanel>
 </UserControl>

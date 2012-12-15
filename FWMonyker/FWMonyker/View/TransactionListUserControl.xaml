@@ -22,7 +22,7 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <Grid >
+            <Grid>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
 
                     <TextBox HorizontalAlignment="Stretch" Margin="0 0 230 0" Height="25" Grid.Row="1" VerticalAlignment="Top">
@@ -47,17 +47,18 @@
                 <DockPanel HorizontalAlignment="Right" Margin="0 0 5 0">
                     <Label  Content="Sort by date" HorizontalAlignment="Right" />
                     <Button FontFamily="Marlett" Command="{Binding Sort}" FontSize="16" Content="v" Width="18" Height="20" Margin="0 0 5 0" />
-                    <Button FontFamily="Segoe UI" Command="{Binding EditTransactionUserControlerCommand}" FontSize="12" Padding="5 0 5 0" Content="Add transaction" Height="20" />
+                    <Button FontFamily="Segoe UI" Command="{Binding EditTransactionUserControlerCommand}" FontSize="12" Padding="5 0 5 0" Content="New" Height="20" Margin="0 0 5 0" />
+                    <Button FontFamily="Segoe UI" Content="Undo" Margin="0 0 5 0" Padding="5 0 5 0" Height="20" Command="{Binding UndoCommand}" />
+                    <Button FontFamily="Segoe UI" Content="Redo" Padding="5 0 5 0" Height="20" Command="{Binding RedoCommand}" />
                 </DockPanel>
             </Grid>
-            
         </Grid>
-        <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl Margin="3"
                       ItemsSource="{Binding Transactions}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Width="Auto"/>
+                        <StackPanel Width="Auto" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

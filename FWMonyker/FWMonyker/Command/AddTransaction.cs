@@ -1,15 +1,9 @@
 ﻿using FWMonyker.Model;
-using FWMonyker.ViewModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace FWMonyker.Command
 {
-    class AddTransaction : BaseCommand, IUndoRedoCommand
+    internal class AddTransaction : BaseCommand, IUndoRedoCommand
     {
         private IList<Transaction> Transactions;
         private IList<Transaction> UITransactions;

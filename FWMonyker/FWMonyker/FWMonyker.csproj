@@ -11,8 +11,7 @@
     <RootNamespace>FWMonyker</RootNamespace>
     <AssemblyName>FWMonyker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -266,8 +265,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)Tools\Costura.dll" />
   <Target Name="AfterBuild">
     <Costura.EmbedTask />
   </Target>
+  <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)Tools\Costura.dll" />
 </Project>
