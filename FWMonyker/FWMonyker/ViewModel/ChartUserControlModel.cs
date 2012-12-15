@@ -14,8 +14,6 @@ namespace FWMonyker.ViewModel
         {
             MainViewModel = viewModel;
         }
-
-        //private List<KeyValuePair<string, decimal>> _chartValueList;
         public Dictionary<string, decimal> ChartValueList
         {
             get

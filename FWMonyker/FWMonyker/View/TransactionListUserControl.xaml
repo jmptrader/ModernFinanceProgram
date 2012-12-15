@@ -54,11 +54,11 @@
             </Grid>
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <ItemsControl Margin="3"
+            <ItemsControl Margin="3" 
                       ItemsSource="{Binding Transactions}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Width="Auto" />
+                        <StackPanel  Width="Auto" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

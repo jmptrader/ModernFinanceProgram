@@ -101,7 +101,7 @@ namespace FWMonyker.ViewModel
         private void ExecuteEditAccountControlCommand(object parameter)
         {
 
-            var account = (parameter as Account) == null ? new Account() { Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "", KontoHandlinger = new ObservableCollection<Transaction>() } : parameter as Account;
+            var account = (parameter as Account) == null ? new Account() {Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "", KontoHandlinger = new ObservableCollection<Transaction>() } : parameter as Account;
             CurrentViewModel = _EditAccountModel;
             _EditAccountModel.EndStateAccount = account;
             _EditAccountModel.InitialStateAccount = parameter as Account;

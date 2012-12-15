@@ -55,6 +55,7 @@ namespace FWMonyker.Model
         {
             get
             {
+                
                 return _balance;
             }
             set
