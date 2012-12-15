@@ -16,7 +16,7 @@
         <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
             accounts
         </TextBlock>
-        <ItemsControl ItemsSource="{Binding Accounts}">
+        <ItemsControl ItemsSource="{Binding Accounts, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />

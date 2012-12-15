@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FWMonyker.Command
 {
-    internal class DeleteTransaction : BaseCommand, IUndoRedoCommand
+    public class DeleteTransaction : BaseCommand, IUndoRedoCommand
     {
         private IList<Transaction> Transactions;
         private IList<Transaction> UITransactions;

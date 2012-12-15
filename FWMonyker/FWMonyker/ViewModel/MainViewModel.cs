@@ -71,6 +71,7 @@ namespace FWMonyker.ViewModel
         public EditTransactionModel _EditTransactionModel;
         public ChartUserControlModel _ChartModel;
         public TransactionListModel _TransactionListModel;
+        public EditAccountModel _EditAccountModel;
 
         public ViewModelBase CurrentViewModel
         {
@@ -88,12 +89,20 @@ namespace FWMonyker.ViewModel
         }
 
         public ICommand TransactionListUserControlCommand { get; private set; }
-
+        public ICommand EditAccountControlCommand { get; private set; }
         public ICommand ChartUserControlCommand { get; private set; }
 
         private void ExecuteTransactionListUserControlCommand()
         {
             CurrentViewModel = _TransactionListModel;
+        }
+
+        private void ExecuteEditAccountControlCommand(object parameter)
+        {
+            var account = (parameter as Account) == null ? new Account() { Balance = CurrentAccount.Balance, Color = CurrentAccount.Color, Transactions = CurrentAccount.Transactions, Name = CurrentAccount.Name, KontoHandlinger = CurrentAccount.KontoHandlinger } : parameter as Account;
+            CurrentViewModel = _EditAccountModel;
+            _EditAccountModel.EndStateAccount = account;
+            _EditAccountModel.InitialStateAccount = parameter as Account;
         }
 
         private void ExecuteChartUserControlCommand()
@@ -112,11 +121,14 @@ namespace FWMonyker.ViewModel
             _EditTransactionModel = new EditTransactionModel(this);
             _ChartModel = new ChartUserControlModel(this);
             _TransactionListModel = new TransactionListModel(this);
+            _EditAccountModel = new EditAccountModel(this);
 
             CurrentViewModel = _TransactionListModel;
 
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
+            EditAccountControlCommand = new RelayCommand<object>((parameter) => ExecuteEditAccountControlCommand(parameter));
+            
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
@@ -130,8 +142,8 @@ namespace FWMonyker.ViewModel
             if ((Accounts == null) || Accounts.Count == 0)
             {
                 Accounts = new ObservableCollection<Account>() {
-                    new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
-                    new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
+                    new Account() { Name = "Kristian",    Color = Colors.CadetBlue},
+                    new Account() { Name = "Darth Vader", Color = Colors.Maroon}
                 };
                 Accounts[0].Transactions = new List<Transaction>() {
                     new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000,

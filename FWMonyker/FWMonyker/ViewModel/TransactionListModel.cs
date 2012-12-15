@@ -89,15 +89,7 @@ namespace FWMonyker.ViewModel
         {
             var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now } : parameter as Transaction;
             MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
-            if (parameter as Transaction == null)
-            {
-                MainViewModel._EditTransactionModel.Transaction = transaction;
-            }
-            else
-            {
-                var editableTransaction = new Transaction() { Account = transaction.Account, Amount = transaction.Amount, Description = transaction.Description, Recipient = transaction.Recipient, TimeStamp = transaction.TimeStamp };
-                MainViewModel._EditTransactionModel.Transaction = editableTransaction;
-            }
+            MainViewModel._EditTransactionModel.Transaction = transaction;
             MainViewModel._EditTransactionModel.initialStateTransaction = parameter as Transaction;
         }
 

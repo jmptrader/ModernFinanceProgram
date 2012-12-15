@@ -20,5 +20,12 @@
                 <MouseBinding Gesture="LeftClick" Command="{Binding Main.ChartUserControlCommand}" />
             </TextBlock.InputBindings>
         </TextBlock>
+        <TextBlock Text=" | " Style="{StaticResource textHeader}" />
+        <TextBlock HorizontalAlignment="Right" Margin="0 0 0 25" Style="{StaticResource headerButton}">
+            settings
+            <TextBlock.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding Main.EditAccountControlCommand}" CommandParameter="{Binding Main.CurrentAccount}" />
+            </TextBlock.InputBindings>
+        </TextBlock>
     </StackPanel>
 </UserControl>

@@ -17,6 +17,9 @@
             <DataTemplate DataType="{x:Type vm:TransactionListModel}">
                 <view:TransactionListUserControl />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EditAccountModel}">
+                <view:EditAccountControl />
+            </DataTemplate>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/ResourceDictionary.xaml" />

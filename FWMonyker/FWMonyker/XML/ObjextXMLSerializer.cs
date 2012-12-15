@@ -42,7 +42,7 @@ namespace FWMonyker.XML
                                {
                                    Name = account.Attribute("Name").Value,
                                    Balance = decimal.Parse(account.Attribute("Balance").Value),
-                                   Colour = new SolidColorBrush((Color)ColorConverter.ConvertFromString(account.Attribute("Colour").Value)),
+                                   Color = (Color) ColorConverter.ConvertFromString(account.Attribute("Colour").Value),
                                    Transactions = (from transaction in account.Descendants("Transaction")
                                                    select new Transaction
                                                    {
@@ -72,7 +72,7 @@ namespace FWMonyker.XML
                 select new XElement("Account",
                            new XAttribute("Name", account.Name),
                            new XAttribute("Balance", account.Balance),
-                           new XAttribute("Colour", account.Colour),
+                           new XAttribute("Colour", account.Color),
                        new XElement("Transactions",
 
                            from transaction in account.Transactions.ToArray()
