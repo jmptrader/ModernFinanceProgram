@@ -85,9 +85,9 @@ namespace FWMonyker.ViewModel
         ICommand _save;
         public ICommand Save { get; set; }
 
-        public void SaveAccounts(object parameter)
+        public void SaveAccounts()
         {
-            _selectAccount.Execute(parameter);
+            _save.Execute(Accounts);
         }
 
 
@@ -133,7 +133,7 @@ namespace FWMonyker.ViewModel
             SelectAccount = new RelayCommand<object>((parameter) => SwitchAccount(parameter));
 
             _save = new Save(this);
-            Save = new RelayCommand<object>((parameter) => SaveAccounts(parameter));
+            Save = new RelayCommand(SaveAccounts);
             ChartValueList = new List<KeyValuePair<string, decimal>>();
 
             _EditTransactionModel = new EditTransactionModel(this);
@@ -147,7 +147,7 @@ namespace FWMonyker.ViewModel
 
             
 
-            var xml = ObjextXMLSerializer.GetInstance;
+             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
             try
             {
@@ -178,7 +178,6 @@ namespace FWMonyker.ViewModel
             }
 
             CurrentAccount = Accounts[1];
-            xml.SaveAccounts(Accounts);
 
             foreach (var item in CurrentAccount.Transactions)
             {

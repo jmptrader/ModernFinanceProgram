@@ -58,7 +58,7 @@ namespace FWMonyker.ViewModel
             _search.Execute(SearchBox);
         }
 
-        public string SortValue = "ascending";
+        public SortValues SortValue = SortValues.Ascending;
         ICommand _sort;
         public ICommand Sort { get; set; }
 
@@ -70,10 +70,17 @@ namespace FWMonyker.ViewModel
         public ICommand EditTransactionUserControlerCommand { get; private set; }
         private void ExecuteEditTransactionUserControlerCommand(object parameter)
         {
-            var x = parameter;
             var transaction = (parameter as Transaction) == null ? new Transaction() {Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now} : parameter as Transaction;
             MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
-            MainViewModel._EditTransactionModel.Transaction = (parameter as Transaction) == null ? transaction : parameter as Transaction;
+            if (parameter as Transaction == null)
+            {
+                MainViewModel._EditTransactionModel.Transaction = transaction;
+            }
+            else
+            {
+                MainViewModel._EditTransactionModel.Transaction = parameter as Transaction;
+            }
+            MainViewModel._EditTransactionModel.initialStateTransaction = parameter as Transaction;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

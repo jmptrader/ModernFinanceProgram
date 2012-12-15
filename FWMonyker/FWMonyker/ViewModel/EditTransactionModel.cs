@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.ComponentModel;
 using FWMonyker.Command;
+using FWMonyker.XML;
 
 namespace FWMonyker.ViewModel
 {
@@ -24,23 +25,27 @@ namespace FWMonyker.ViewModel
         {
             MainViewModel = viewModel;
             AddTransactionCommand = new RelayCommand(AddTransaction);
+            DeleteTransactionCommand = new RelayCommand(DeleteTransaction);
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
         }
 
         public Transaction Transaction { get; set; }
+        public Transaction initialStateTransaction { get; set; }
 
         public ICommand AddTransactionCommand { get; private set; }
         public void AddTransaction()
         {
-            if (Transaction != null)
-                undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, MainViewModel._TransactionListModel.Transactions, Transaction));
+            undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, MainViewModel._TransactionListModel.Transactions, initialStateTransaction, Transaction));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
+            MainViewModel.Save.Execute(null);
         }
         public ICommand DeleteTransactionCommand { get; private set; }
         public void DeleteTransaction()
         {
-            undoRedoController.AddAndExecute(new DeleteTransaction(MainViewModel.CurrentAccount.Transactions as IList<Transaction>, MainViewModel._TransactionListModel.Transactions, Transaction));
+            undoRedoController.AddAndExecute(new DeleteTransaction(MainViewModel.CurrentAccount.Transactions as IList<Transaction>, MainViewModel._TransactionListModel.Transactions, initialStateTransaction));
+            MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
+            MainViewModel.Save.Execute(null);
         }
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }

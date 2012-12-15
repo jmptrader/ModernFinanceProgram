@@ -5,52 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              DataContext="{Binding EditTransaction, Source={StaticResource Locator}}"
-             d:DesignHeight="500" d:DesignWidth="500">
+             d:DesignHeight="400" d:DesignWidth="500">
     
-    <Grid RenderTransformOrigin="0.536,0.544">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="5*"/>
+    <StackPanel Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        </Grid.RowDefinitions>
-
-        <Button Content="gem" Command="{Binding AddTransactionCommand}" />
-        
-        <Button Grid.Column="1" Margin="0,0,100,0" Content="annuler"/>
-        <Button Grid.Column="2" Margin="100,0,0,0" Content="slet"/>
-
-        <TextBlock Grid.Row="1" HorizontalAlignment="Right">beløb:</TextBlock>
-        <TextBlock Grid.Row="2" HorizontalAlignment="Right">kommentar:</TextBlock>
-        <TextBlock Grid.Row="3" HorizontalAlignment="Right">modtager:</TextBlock>
-        <TextBlock Grid.Row="4" HorizontalAlignment="Right">katagori:</TextBlock>
-        <TextBlock Grid.Row="5" HorizontalAlignment="Right">kvittering:</TextBlock>
-        <TextBlock Grid.Row="7" HorizontalAlignment="Right">billede:</TextBlock>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="59" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" Text="{Binding TextDescription}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="29" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Text="{Binding textAmount}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="30" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" Text="{Binding textRecipient}"/>
-        <TextBlock Grid.Column="2" HorizontalAlignment="Center" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Height="30" Width="200" Text="(kopieres til program mappe)"/>
-        <Button Content="vedhæft kvitering" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Top" Width="200" Height="30"/>
-        <ScrollBar Grid.Column="1" HorizontalAlignment="Right" Height="83" Grid.Row="6" VerticalAlignment="Top"/>
-        <Button Content="slet" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Top" Width="32" Height="32"/>
-        <Button Content="gennemse" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Top" Width="200" Height="29"/>
-        <Image Grid.Column="1" HorizontalAlignment="Left" Height="147" Grid.Row="8" VerticalAlignment="Top" Width="200"/>
-        <ComboBox  Grid.Row="4" Grid.Column="1" Height="27" Margin="0,1"/>
-        <CheckBox Content="indtægt" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="29" Width="100" />
-        <CheckBox Content="udgift" Grid.Column="2" HorizontalAlignment="Left" Margin="100,0,0,0" Grid.Row="1" VerticalAlignment="Top" Height="29" Width="100"/>
-
-
-    </Grid>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Amount:" Style="{StaticResource editTextLabel}"/>
+            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="0" Text="{Binding Transaction.Amount, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Description:" Style="{StaticResource editTextLabel}"/>
+            <TextBox Style="{StaticResource InputBox}"  Grid.Column="1" Grid.Row="1" Text="{Binding Transaction.Description, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Recipient:" Style="{StaticResource editTextLabel}"/>
+            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Grid.Row="2" Text="{Binding Transaction.Recipient, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        <StackPanel HorizontalAlignment="Center" Margin="5" Orientation="Horizontal">
+            <Button Content="Save" Style="{StaticResource ButtonStyle}" Command="{Binding AddTransactionCommand}"/>
+            <Button Content="Delete" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteTransactionCommand}" />
+            <Button Content="Cancel" Style="{StaticResource ButtonStyle}" Command="{Binding Main.TransactionListUserControlCommand, Source={StaticResource Locator}}"/>
+        </StackPanel>
+    </StackPanel>
 </UserControl>
 

@@ -7,7 +7,7 @@
              Style="{StaticResource userControl}"
              d:DesignHeight="30" d:DesignWidth="450">
     <UserControl.InputBindings >
-        <MouseBinding Gesture="LeftClick" Command="{Binding TransactionList.EditTransactionUserControlerCommand, Source={StaticResource Locator}}" CommandParameter="{Binding This}"/>
+        <MouseBinding Gesture="LeftClick" Command="{Binding TransactionList.EditTransactionUserControlerCommand, Source={StaticResource Locator}}" CommandParameter="{Binding}"/>
     </UserControl.InputBindings>
     <Grid HorizontalAlignment="Stretch"> 
         <Grid.ColumnDefinitions>
