@@ -1,6 +1,7 @@
 ﻿<!--********************************* 
     *                               *
     *  Author: Kristian Dam-Jensen  *
+    *        & Lennart Jacobsen     *
     *                               *
     *********************************-->
     <UserControl x:Class="FWMonyker.View.EditTransactionUserControler"
