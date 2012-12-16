@@ -11,7 +11,8 @@ namespace FWMonyker.Command
         private Transaction InitialTransaction;
         private Account Account;
 
-        public AddTransaction(IList<Transaction> accountTransactions, IList<Transaction> uiTransactions, Transaction initialTransaction, Transaction newTransaction)
+        public AddTransaction(IList<Transaction> accountTransactions, IList<Transaction>
+            uiTransactions, Transaction initialTransaction, Transaction newTransaction)
         {
             Transactions = accountTransactions;
             UITransactions = uiTransactions;
