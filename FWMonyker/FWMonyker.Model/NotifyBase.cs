@@ -1,4 +1,12 @@
-﻿using System.ComponentModel;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using System.ComponentModel;
 
 namespace FWMonyker.Model
 {

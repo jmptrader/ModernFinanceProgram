@@ -1,4 +1,12 @@
-﻿using FWMonyker.Model;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using FWMonyker.Model;
 using FWMonyker.ViewModel;
 using System.Linq;
 using System.Windows.Input;
@@ -17,8 +25,6 @@ namespace FWMonyker.Command
         public bool CanExecute(object parameter)
         {
             return true;
-
-            //Add conditions here in cases where it should not be allowed to switch account
         }
 
         /// <summary>

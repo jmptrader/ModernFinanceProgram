@@ -1,4 +1,13 @@
-﻿using FWMonyker.Command;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Michael Boe Larsen         *
+ *           & Kristian Dam-Jensen      *
+ *                                      *
+ ****************************************
+ */
+
+using FWMonyker.Command;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.ComponentModel;

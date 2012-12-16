@@ -1,4 +1,12 @@
-﻿using SharpFellows.Toolkit.Behaviours;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *           og Michael Larsen          *
+ ****************************************
+ */
+
+using SharpFellows.Toolkit.Behaviours;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -1,4 +1,12 @@
-﻿using FWMonyker.ViewModel;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using FWMonyker.ViewModel;
 using System.Linq;
 using System.Windows.Input;
 
