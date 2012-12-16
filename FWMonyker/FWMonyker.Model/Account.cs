@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using SharpFellows.Toolkit.Behaviours;
+using System.Windows;
 
 namespace FWMonyker.Model
 {
@@ -11,23 +13,40 @@ namespace FWMonyker.Model
         private decimal _balance;
         private Color _color;
         private IList<Transaction> _transactions;
-        private ObservableCollection<Transaction> _kontoHandlinger;
+        private IDropTarget _target;
 
         public Account()
         {
             _transactions = new List<Transaction>();
-            KontoHandlinger = new ObservableCollection<Transaction>();
         }
 
-        public ObservableCollection<Transaction> KontoHandlinger
+        public IDropTarget DropTarget
         {
-            get { return _kontoHandlinger; }
-
-            set
+            get
             {
-                _kontoHandlinger = value;
-                NotifyPropertyChanged("kontoHandlinger");
+                if(_target == null)
+                {
+                    _target = new DropTarget<Transaction>(GetDropEffects, Drop);
+                }
+                return _target;
             }
+        }
+
+        private DragDropEffects GetDropEffects(Transaction transaction)
+        {
+            if (transaction.Account == this)
+            {
+                return DragDropEffects.None;
+            }
+            return DragDropEffects.Move;
+        }
+
+        private void Drop(Transaction transaction)
+        {
+            transaction.Account.Transactions.Remove(transaction);
+            transaction.Account.NotifyPropertyChanged("UITransactions");
+            transaction.Account = this;
+            Transactions.Add(transaction);
         }
 
         public Account This
@@ -86,6 +105,14 @@ namespace FWMonyker.Model
                 return new SolidColorBrush(Color);
             }
         }
+        public ObservableCollection<Transaction> UITransactions
+        {
+            get
+            {
+                var x = new ObservableCollection<Transaction>(Transactions);
+                return x;
+            }
+        }
 
         public IList<Transaction> Transactions
         {
@@ -97,6 +124,7 @@ namespace FWMonyker.Model
             {
                 _transactions = value;
                 NotifyPropertyChanged("Transactions");
+                NotifyPropertyChanged("UITransactions");
             }
         }
 
@@ -106,7 +134,6 @@ namespace FWMonyker.Model
             {
                 Balance = this.Balance,
                 Color = this.Color,
-                KontoHandlinger = this.KontoHandlinger,
                 Transactions = this.Transactions,
                 Name = this.Name
             };

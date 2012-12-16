@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
 {
-    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged, IAccountChange
+    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged
     {
         public MainViewModel MainViewModel { get; private set; }
 
@@ -28,25 +28,11 @@ namespace FWMonyker.ViewModel
             EditTransactionUserControlerCommand = new RelayCommand<object>((parameter) => ExecuteEditTransactionUserControlerCommand(parameter));
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
-
-            Transactions = new ObservableCollection<Transaction>();
         }
 
         public ICommand UndoCommand { get; private set; }
 
         public ICommand RedoCommand { get; private set; }
-
-        public ObservableCollection<Transaction> Transactions { get; set; }
-
-        public void NotifyAccountChange()
-        {
-            Transactions.Clear();
-            foreach (Transaction item in MainViewModel.CurrentAccount.Transactions)
-            {
-                Transactions.Add(item);
-            }
-            NotifyPropertyChanged("Transactions");
-        }
 
         private string _searchBox;
 

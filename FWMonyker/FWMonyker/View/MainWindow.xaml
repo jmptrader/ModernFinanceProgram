@@ -28,6 +28,11 @@
             <View:EditTransactionUserControler />
         </DataTemplate>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Save}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Margin="12">
         <Grid.ColumnDefinitions>

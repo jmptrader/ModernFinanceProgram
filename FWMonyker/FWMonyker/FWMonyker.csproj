@@ -71,11 +71,11 @@
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
     </Reference>
-    <Reference Include="GongSolutions.Wpf.DragDrop">
-      <HintPath>..\..\..\..\gong-wpf-dragdrop\Examples\SchoolsExample\bin\Debug\GongSolutions.Wpf.DragDrop.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpFellows.Toolkit">
+      <HintPath>..\nonnugetlibs\SharpFellows.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System" />
@@ -140,9 +140,6 @@
     <Compile Include="View\ChartUserControl.xaml.cs">
       <DependentUpon>ChartUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DragUserControl.xaml.cs">
-      <DependentUpon>DragUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\EditAccountControl.xaml.cs">
       <DependentUpon>EditAccountControl.xaml</DependentUpon>
     </Compile>
@@ -179,10 +176,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ChartUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DragUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
