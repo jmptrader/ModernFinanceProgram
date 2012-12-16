@@ -1,4 +1,12 @@
-﻿using SharpFellows.Toolkit.Behaviours;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using SharpFellows.Toolkit.Behaviours;
 using System;
 using System.Windows;
 
