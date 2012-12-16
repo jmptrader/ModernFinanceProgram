@@ -1,5 +1,4 @@
 ﻿using FWMonyker.Command;
-using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +13,7 @@ namespace FWMonyker.ViewModel
         {
             MainViewModel = viewModel;
         }
+
         public Dictionary<string, decimal> ChartValueList
         {
             get

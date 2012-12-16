@@ -20,7 +20,7 @@
                     <Rectangle Fill="{Binding ColorBrush, FallbackValue=Red, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
             </Grid>
-            <TextBlock MaxWidth="200" Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname', UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis"/>
+            <TextBlock MaxWidth="200" Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname', UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis" />
         </StackPanel>
     </UserControl>
 </UserControl>

@@ -17,11 +17,6 @@
 
         public ViewModelLocator()
         {
-            //// Denne ServiceLocator holder styr på vores ViewModels.
-            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            //// Tilføj en linje her for hver ViewModel.
-            //SimpleIoc.Default.Register<MainViewModel>();
             _main = new MainViewModel();
             _transActionList = _main._TransactionListModel;
             _editTransactionModel = _main._EditTransactionModel;
@@ -40,8 +35,6 @@
             get
             {
                 return _main;
-
-                //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 

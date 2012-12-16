@@ -4,13 +4,9 @@ using FWMonyker.XML;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -21,6 +17,7 @@ namespace FWMonyker.ViewModel
         public ObservableCollection<Account> Accounts { get; set; }
 
         private Account _currentAccount;
+
         public Account CurrentAccount
         {
             get
@@ -37,6 +34,7 @@ namespace FWMonyker.ViewModel
         }
 
         private ICommand _selectAccount;
+
         public ICommand SelectAccount { get; set; }
 
         public void SwitchAccount(object parameter)
@@ -75,7 +73,9 @@ namespace FWMonyker.ViewModel
         }
 
         public ICommand TransactionListUserControlCommand { get; private set; }
+
         public ICommand EditAccountControlCommand { get; private set; }
+
         public ICommand ChartUserControlCommand { get; private set; }
 
         private void ExecuteTransactionListUserControlCommand()
@@ -85,8 +85,7 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditAccountControlCommand(object parameter)
         {
-
-            var account = (parameter as Account) == null ? new Account() {Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "" } : parameter as Account;
+            var account = (parameter as Account) == null ? new Account() { Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "" } : parameter as Account;
             CurrentViewModel = _EditAccountModel;
             _EditAccountModel.EndStateAccount = account;
             _EditAccountModel.InitialStateAccount = parameter as Account;
@@ -95,9 +94,9 @@ namespace FWMonyker.ViewModel
         private Color RandomColor()
         {
             Random random = new Random();
-            byte r = (byte) random.Next(255);
-            byte g = (byte) random.Next(255);
-            byte b = (byte) random.Next(255);
+            byte r = (byte)random.Next(255);
+            byte g = (byte)random.Next(255);
+            byte b = (byte)random.Next(255);
 
             return Color.FromRgb(r, g, b);
         }
@@ -125,7 +124,6 @@ namespace FWMonyker.ViewModel
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
             EditAccountControlCommand = new RelayCommand<object>((parameter) => ExecuteEditAccountControlCommand(parameter));
-            
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();

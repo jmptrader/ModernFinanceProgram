@@ -12,7 +12,7 @@
     <UserControl.InputBindings>
         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding TransactionList.EditTransactionUserControlerCommand, Source={StaticResource Locator}}" CommandParameter="{Binding}" />
     </UserControl.InputBindings>
-    <Grid HorizontalAlignment="Stretch" >
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

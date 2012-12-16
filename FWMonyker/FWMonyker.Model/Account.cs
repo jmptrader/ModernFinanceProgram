@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SharpFellows.Toolkit.Behaviours;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
-using SharpFellows.Toolkit.Behaviours;
 using System.Windows;
+using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
@@ -24,7 +24,7 @@ namespace FWMonyker.Model
         {
             get
             {
-                if(_target == null)
+                if (_target == null)
                 {
                     _target = new DropTarget<Transaction>(GetDropEffects, Drop);
                 }
@@ -74,7 +74,6 @@ namespace FWMonyker.Model
         {
             get
             {
-                
                 return _balance;
             }
             set
@@ -105,6 +104,7 @@ namespace FWMonyker.Model
                 return new SolidColorBrush(Color);
             }
         }
+
         public ObservableCollection<Transaction> UITransactions
         {
             get

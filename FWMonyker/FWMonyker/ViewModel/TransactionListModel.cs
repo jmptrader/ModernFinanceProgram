@@ -3,7 +3,6 @@ using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -73,7 +72,7 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditTransactionUserControlerCommand(object parameter)
         {
-            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now, BalanceAtTimeStamp = 0} : (parameter as Transaction).Clone();
+            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now, BalanceAtTimeStamp = 0 } : (parameter as Transaction).Clone();
             MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
             MainViewModel._EditTransactionModel.Transaction = transaction;
             MainViewModel._EditTransactionModel.initialStateTransaction = parameter as Transaction;

@@ -30,7 +30,7 @@ namespace FWMonyker.Model
         {
             get
             {
-                if(_source == null)
+                if (_source == null)
                 {
                     _source = new DragSource<Transaction>(GetDragEffects, GetData);
                 }
