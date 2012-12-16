@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
-    public class Account : NotifyBase
+    public class Account : NotifyBase, ICloneable
     {
         private string _name;
         private decimal _balance;
-        private SolidColorBrush _colour;
+        private Color _color;
         private IList<Transaction> _transactions;
-        private List<KeyValuePair<string, decimal>> _chartValueList;
         private ObservableCollection<Transaction> _kontoHandlinger;
 
         public Account()
@@ -55,6 +55,7 @@ namespace FWMonyker.Model
         {
             get
             {
+                
                 return _balance;
             }
             set
@@ -64,16 +65,25 @@ namespace FWMonyker.Model
             }
         }
 
-        public SolidColorBrush Colour
+        public Color Color
         {
             get
             {
-                return _colour;
+                return _color;
             }
             set
             {
-                _colour = value;
-                NotifyPropertyChanged("Colour");
+                _color = value;
+                NotifyPropertyChanged("Color");
+                NotifyPropertyChanged("ColorBrush");
+            }
+        }
+
+        public SolidColorBrush ColorBrush
+        {
+            get
+            {
+                return new SolidColorBrush(Color);
             }
         }
 
@@ -90,14 +100,16 @@ namespace FWMonyker.Model
             }
         }
 
-        public List<KeyValuePair<string, decimal>> ChartValueList
+        public object Clone()
         {
-            get { return _chartValueList; }
-            set
+            return new Account()
             {
-                _chartValueList = value;
-                NotifyPropertyChanged("ChartValueList");
-            }
+                Balance = this.Balance,
+                Color = this.Color,
+                KontoHandlinger = this.KontoHandlinger,
+                Transactions = this.Transactions,
+                Name = this.Name
+            };
         }
     }
 }

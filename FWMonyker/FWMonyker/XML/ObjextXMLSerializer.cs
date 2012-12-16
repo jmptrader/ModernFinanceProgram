@@ -42,10 +42,11 @@ namespace FWMonyker.XML
                                {
                                    Name = account.Attribute("Name").Value,
                                    Balance = decimal.Parse(account.Attribute("Balance").Value),
-                                   Colour = new SolidColorBrush((Color)ColorConverter.ConvertFromString(account.Attribute("Colour").Value)),
+                                   Color = (Color)ColorConverter.ConvertFromString(account.Attribute("Colour").Value),
                                    Transactions = (from transaction in account.Descendants("Transaction")
                                                    select new Transaction
                                                    {
+                                                       BalanceAtTimeStamp = decimal.Parse(transaction.Attribute("BalanceAtTimeStamp").Value),
                                                        Description = transaction.Attribute("Description").Value,
                                                        Recipient = transaction.Attribute("Recipient").Value,
                                                        Amount = decimal.Parse(transaction.Attribute("Amount").Value),
@@ -56,6 +57,13 @@ namespace FWMonyker.XML
             }
             catch (FileNotFoundException)
             {
+            }
+            foreach (var account in accountList)
+            {
+                foreach (var transaction in account.Transactions)
+                {
+                    transaction.Account = account;
+                }
             }
             return accountList ?? new List<Account>();
         }
@@ -70,19 +78,20 @@ namespace FWMonyker.XML
 
                 from account in accounts
                 select new XElement("Account",
-                           new XAttribute("Name", account.Name),
-                           new XAttribute("Balance", account.Balance),
-                           new XAttribute("Colour", account.Colour),
-                       new XElement("Transactions",
+                    new XAttribute("Name", account.Name),
+                    new XAttribute("Balance", account.Balance),
+                    new XAttribute("Colour", account.Color),
+                    new XElement("Transactions",
 
-                           from transaction in account.Transactions.ToArray()
-                           select new XElement("Transaction",
-                               new XAttribute("Description", transaction.Description),
-                               new XAttribute("Recipient", transaction.Recipient),
-                               new XAttribute("Amount", transaction.Amount),
-                               new XAttribute("TimeStamp", transaction.TimeStamp.ToBinary())
-                           )
-                       )
+                        from transaction in account.Transactions.ToArray()
+                        select new XElement("Transaction",
+                            new XAttribute("BalanceAtTimeStamp", transaction.BalanceAtTimeStamp),
+                            new XAttribute("Description", transaction.Description),
+                            new XAttribute("Recipient", transaction.Recipient),
+                            new XAttribute("Amount", transaction.Amount),
+                            new XAttribute("TimeStamp", transaction.TimeStamp.ToBinary())
+                        )
+                    )
                 )
                 )
             );

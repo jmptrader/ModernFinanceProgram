@@ -20,12 +20,7 @@ namespace FWMonyker.ViewModel
     public class MainViewModel : ViewModelBase, IDropTarget, INotifyPropertyChanged
     {
         public ObservableCollection<Account> Accounts { get; set; }
-
-        private Account _currentAccount;
-        private List<KeyValuePair<string, decimal>> _chartValueList;
-
-        public ObservableCollection<Transaction> _kontoHandlinger { get; set; }
-
+        public ObservableCollection<Transaction> _kontoHandlinger;
         public ObservableCollection<Transaction> KontoHandlinger
         {
             get
@@ -39,19 +34,7 @@ namespace FWMonyker.ViewModel
             }
         }
 
-        public List<KeyValuePair<string, decimal>> ChartValueList
-        {
-            get
-            {
-                return _chartValueList;
-            }
-            set
-            {
-                _chartValueList = value;
-                NotifyPropertyChanged("ChartValueList");
-            }
-        }
-
+        private Account _currentAccount;
         public Account CurrentAccount
         {
             get
@@ -61,17 +44,14 @@ namespace FWMonyker.ViewModel
             set
             {
                 _currentAccount = value;
-                _TransactionListModel.Transactions.Clear();
-                foreach (Transaction item in CurrentAccount.Transactions)
-                {
-                    _TransactionListModel.Transactions.Add(item);
-                }
+                _TransactionListModel.NotifyAccountChange();
+                _ChartModel.NotifyAccountChange();
+                _EditAccountModel.NotifyAccountChange();
                 NotifyPropertyChanged("CurrentAccount");
             }
         }
 
         private ICommand _selectAccount;
-
         public ICommand SelectAccount { get; set; }
 
         public void SwitchAccount(object parameter)
@@ -92,6 +72,7 @@ namespace FWMonyker.ViewModel
         public EditTransactionModel _EditTransactionModel;
         public ChartUserControlModel _ChartModel;
         public TransactionListModel _TransactionListModel;
+        public EditAccountModel _EditAccountModel;
 
         public ViewModelBase CurrentViewModel
         {
@@ -109,12 +90,31 @@ namespace FWMonyker.ViewModel
         }
 
         public ICommand TransactionListUserControlCommand { get; private set; }
-
+        public ICommand EditAccountControlCommand { get; private set; }
         public ICommand ChartUserControlCommand { get; private set; }
 
         private void ExecuteTransactionListUserControlCommand()
         {
             CurrentViewModel = _TransactionListModel;
+        }
+
+        private void ExecuteEditAccountControlCommand(object parameter)
+        {
+
+            var account = (parameter as Account) == null ? new Account() {Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "", KontoHandlinger = new ObservableCollection<Transaction>() } : parameter as Account;
+            CurrentViewModel = _EditAccountModel;
+            _EditAccountModel.EndStateAccount = account;
+            _EditAccountModel.InitialStateAccount = parameter as Account;
+        }
+
+        private Color RandomColor()
+        {
+            Random random = new Random();
+            byte r = (byte) random.Next(255);
+            byte g = (byte) random.Next(255);
+            byte b = (byte) random.Next(255);
+
+            return Color.FromRgb(r, g, b);
         }
 
         private void ExecuteChartUserControlCommand()
@@ -129,16 +129,18 @@ namespace FWMonyker.ViewModel
 
             _save = new Save(this);
             Save = new RelayCommand(SaveAccounts);
-            ChartValueList = new List<KeyValuePair<string, decimal>>();
 
             _EditTransactionModel = new EditTransactionModel(this);
-            _ChartModel = new ChartUserControlModel();
+            _ChartModel = new ChartUserControlModel(this);
             _TransactionListModel = new TransactionListModel(this);
+            _EditAccountModel = new EditAccountModel(this);
 
             CurrentViewModel = _TransactionListModel;
 
             TransactionListUserControlCommand = new RelayCommand(() => ExecuteTransactionListUserControlCommand());
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
+            EditAccountControlCommand = new RelayCommand<object>((parameter) => ExecuteEditAccountControlCommand(parameter));
+            
 
             var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
@@ -152,51 +154,35 @@ namespace FWMonyker.ViewModel
             if ((Accounts == null) || Accounts.Count == 0)
             {
                 Accounts = new ObservableCollection<Account>() {
-                    new Account() { Name = "Kristian",    Colour = new SolidColorBrush(Colors.CadetBlue)},
-                    new Account() { Name = "Darth Vader", Colour = new SolidColorBrush(Colors.Maroon)}
-                };
-                Accounts[0].Transactions = new List<Transaction>() {
-                    new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000,
-                        Recipient = "nogle", TimeStamp = DateTime.Now.AddMilliseconds(2)},
-                    new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001,
-                        Recipient = "nogle1", TimeStamp = DateTime.Now.AddHours(2)},
-                };
-                Accounts[1].Transactions = new List<Transaction>() {
-                    new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66,
-                        Recipient = "blah", TimeStamp = DateTime.Now.AddHours(5)},
-                    new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42,
-                        Recipient = "Baaalh", TimeStamp = DateTime.Now.AddDays(5)},
+                    new Account() { Name = "Main",    Color = Colors.DarkCyan},
                 };
             }
+            CurrentAccount = Accounts[0];
 
-            CurrentAccount = Accounts[1];
+            
 
-            foreach (var item in CurrentAccount.Transactions)
-            {
-                ChartValueList.Add(new KeyValuePair<string, decimal>(item.Description, item.Amount));
-            }
-            ObservableCollection<Account> schools = new ObservableCollection<Account>();
+            //ObservableCollection<Account> schools = new ObservableCollection<Account>();
 
-            foreach (var item in Accounts)
-            {
-                schools.Add(new Account());
-            }
+            //foreach (var item in Accounts)
+            //{
+            //    schools.Add(new Account());
+            //}
 
-            samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
+            //samlingAfAccounts = CollectionViewSource.GetDefaultView(Accounts);
 
-            KontoHandlinger = new ObservableCollection<Transaction>();
+            //KontoHandlinger = new ObservableCollection<Transaction>();
 
-            int i = 0;
+            //int i = 0;
 
-            foreach (var item in Accounts[i].Transactions)
-            {
-                KontoHandlinger.Add(new Transaction());
+            //foreach (var item in Accounts[i].Transactions)
+            //{
+            //    KontoHandlinger.Add(new Transaction());
 
-                if (Accounts.Count != null)
-                    i++;
-            }
-            Debug.WriteLine(i.ToString());
-            Debug.WriteLine(KontoHandlinger.Count.ToString());
+            //    if (Accounts.Count != null)
+            //        i++;
+            //}
+            //Debug.WriteLine(i.ToString());
+            //Debug.WriteLine(KontoHandlinger.Count.ToString());
         }
 
         void IDropTarget.DragOver(DropInfo dropInfo)

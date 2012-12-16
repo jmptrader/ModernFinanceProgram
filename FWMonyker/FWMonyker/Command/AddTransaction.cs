@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 namespace FWMonyker.Command
 {
-    internal class AddTransaction : BaseCommand, IUndoRedoCommand
+    public class AddTransaction : BaseCommand, IUndoRedoCommand
     {
         private IList<Transaction> Transactions;
         private IList<Transaction> UITransactions;
         private Transaction NewTransaction;
         private Transaction InitialTransaction;
+        private Account Account;
 
         public AddTransaction(IList<Transaction> accountTransactions, IList<Transaction> uiTransactions, Transaction initialTransaction, Transaction newTransaction)
         {
@@ -16,6 +17,7 @@ namespace FWMonyker.Command
             UITransactions = uiTransactions;
             NewTransaction = newTransaction;
             InitialTransaction = initialTransaction;
+            Account = NewTransaction.Account;
         }
 
         public void Execute()
@@ -24,11 +26,13 @@ namespace FWMonyker.Command
             {
                 Transactions[Transactions.IndexOf(InitialTransaction)] = NewTransaction;
                 UITransactions[UITransactions.IndexOf(InitialTransaction)] = NewTransaction;
+                Account.Balance = Account.Balance + (NewTransaction.Amount - InitialTransaction.Amount);
             }
             else
             {
                 Transactions.Add(NewTransaction);
                 UITransactions.Add(NewTransaction);
+                Account.Balance = Account.Balance + NewTransaction.Amount;
             }
         }
 
@@ -38,11 +42,13 @@ namespace FWMonyker.Command
             {
                 Transactions[Transactions.IndexOf(NewTransaction)] = InitialTransaction;
                 UITransactions[UITransactions.IndexOf(NewTransaction)] = InitialTransaction;
+                Account.Balance = Account.Balance + (InitialTransaction.Amount - NewTransaction.Amount);
             }
             else
             {
                 Transactions.Remove(NewTransaction);
                 UITransactions.Remove(NewTransaction);
+                Account.Balance = Account.Balance - NewTransaction.Amount;
             }
         }
     }

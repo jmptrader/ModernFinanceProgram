@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             Style="{StaticResource userControl}"
-             d:DesignHeight="30" d:DesignWidth="450">
+             Style="{StaticResource transactionStyle}"
+             Margin="0 0 0 3"
+             d:DesignHeight="40" d:DesignWidth="450">
     <UserControl.InputBindings>
         <MouseBinding Gesture="LeftClick" Command="{Binding TransactionList.EditTransactionUserControlerCommand, Source={StaticResource Locator}}" CommandParameter="{Binding}" />
     </UserControl.InputBindings>
-    <Grid HorizontalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" >
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -32,7 +33,7 @@
             <TextBlock TextAlignment="Right" VerticalAlignment="Top" Text="{Binding Amount, FallbackValue='5000'}" />
             <TextBlock VerticalAlignment="Bottom" TextAlignment="Right">
             Saldo:
-            <TextBlock VerticalAlignment="Bottom" Text="{Binding Amount, FallbackValue='1000'}" />
+            <TextBlock VerticalAlignment="Bottom" Text="{Binding BalanceAtTimeStamp, FallbackValue='1000'}" />
         </TextBlock>
         </Grid>
     </Grid>

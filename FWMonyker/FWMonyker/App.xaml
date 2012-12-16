@@ -11,12 +11,14 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
             <DataTemplate DataType="{x:Type vm:EditTransactionModel}">
                 <view:EditTransactionUserControler />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:TransactionListModel}">
                 <view:TransactionListUserControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EditAccountModel}">
+                <view:EditAccountControl />
             </DataTemplate>
 
             <ResourceDictionary.MergedDictionaries>

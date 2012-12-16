@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="40" d:DesignWidth="150">
+             d:DesignHeight="40" d:DesignWidth="90">
 
     <UserControl Style="{StaticResource userControl}"
 >
@@ -15,10 +15,10 @@
         <StackPanel Orientation="Horizontal">
             <Grid Width="30" Height="30">
                 <Border BorderBrush="Black" BorderThickness="2">
-                    <Rectangle Fill="{Binding Colour, FallbackValue=Red}" />
+                    <Rectangle Fill="{Binding ColorBrush, FallbackValue=Red, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
             </Grid>
-            <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname'}" />
+            <TextBlock MaxWidth="200" Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname', UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis"/>
         </StackPanel>
     </UserControl>
 </UserControl>

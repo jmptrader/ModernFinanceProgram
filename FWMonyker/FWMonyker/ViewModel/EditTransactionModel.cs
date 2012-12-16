@@ -27,6 +27,7 @@ namespace FWMonyker.ViewModel
 
         public void AddTransaction()
         {
+            Transaction.BalanceAtTimeStamp = Transaction.Account.Balance + Transaction.Amount;
             undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, MainViewModel._TransactionListModel.Transactions, initialStateTransaction, Transaction));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
             MainViewModel.Save.Execute(null);

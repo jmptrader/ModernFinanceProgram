@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
 {
-    public class TransactionListModel : ViewModelBase
+    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged, IAccountChange
     {
         public MainViewModel MainViewModel { get; private set; }
 
@@ -37,6 +37,16 @@ namespace FWMonyker.ViewModel
         public ICommand RedoCommand { get; private set; }
 
         public ObservableCollection<Transaction> Transactions { get; set; }
+
+        public void NotifyAccountChange()
+        {
+            Transactions.Clear();
+            foreach (Transaction item in MainViewModel.CurrentAccount.Transactions)
+            {
+                Transactions.Add(item);
+            }
+            NotifyPropertyChanged("Transactions");
+        }
 
         private string _searchBox;
 
@@ -77,17 +87,9 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditTransactionUserControlerCommand(object parameter)
         {
-            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now } : parameter as Transaction;
+            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now, BalanceAtTimeStamp = 0} : (parameter as Transaction).Clone();
             MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
-            if (parameter as Transaction == null)
-            {
-                MainViewModel._EditTransactionModel.Transaction = transaction;
-            }
-            else
-            {
-                var editableTransaction = new Transaction() { Account = transaction.Account, Amount = transaction.Amount, Description = transaction.Description, Recipient = transaction.Recipient, TimeStamp = transaction.TimeStamp };
-                MainViewModel._EditTransactionModel.Transaction = editableTransaction;
-            }
+            MainViewModel._EditTransactionModel.Transaction = transaction;
             MainViewModel._EditTransactionModel.initialStateTransaction = parameter as Transaction;
         }
 

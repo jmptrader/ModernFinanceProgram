@@ -10,10 +10,10 @@
         xmlns:vm="clr-namespace:FWMonyker.ViewModel"
         xmlns:ignore="http://www.ignore.com"
         mc:Ignorable="d ignore"
-        MinWidth="630"
-        MinHeight="300"
-        Height="500"
-        Width="800"
+        MinWidth="800"
+        MinHeight="400"
+        Height="600"
+        Width="1000"
         Title="Monyker"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
@@ -36,18 +36,15 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="102" />
-            <RowDefinition Height="4*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <View:AccountListUserControl Margin=" 0 0 25 0" Grid.Row="2" />
-
         <View:Header Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
-
-        <!--<Button Content="tilføj transaction" Grid.Column="1" Command="{Binding TransactionListUserControlCommand}" HorizontalAlignment="Left" Margin="460,84,0,0" VerticalAlignment="Top" Width="75" Height="25" />-->
-
         <DockPanel Grid.Row="2" Grid.Column="2">
             <View:MenuControl DockPanel.Dock="Top" />
             <ContentControl Content="{Binding CurrentViewModel}" />
         </DockPanel>
+        
     </Grid>
 </Window>
