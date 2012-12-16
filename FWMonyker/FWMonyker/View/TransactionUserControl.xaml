@@ -2,7 +2,7 @@
     *                               *
     *  Author: Kristian Dam-Jensen  *
     *          og Lennart Jacobsen  *
-    *                               *
+    *          og Michael Larsen    *
     *********************************-->
     <UserControl x:Class="FWMonyker.View.TransactionUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
