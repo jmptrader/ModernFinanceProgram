@@ -154,24 +154,10 @@ namespace FWMonyker.ViewModel
             if ((Accounts == null) || Accounts.Count == 0)
             {
                 Accounts = new ObservableCollection<Account>() {
-                    new Account() { Name = "Kristian",    Color = Colors.CadetBlue},
-                    new Account() { Name = "Darth Vader", Color = Colors.Maroon}
-                };
-                Accounts[0].Transactions = new List<Transaction>() {
-                    new Transaction() { Account = Accounts[0] , Description = "noget", Amount = 1000,
-                        Recipient = "nogle", TimeStamp = DateTime.Now.AddMilliseconds(2)},
-                    new Transaction() { Account = Accounts[0] , Description = "noget1", Amount = 1001,
-                        Recipient = "nogle1", TimeStamp = DateTime.Now.AddHours(2)},
-                };
-                Accounts[1].Transactions = new List<Transaction>() {
-                    new Transaction() { Account = Accounts[1] , Description = "asds", Amount = 66,
-                        Recipient = "blah", TimeStamp = DateTime.Now.AddHours(5)},
-                    new Transaction() { Account = Accounts[1] , Description = "aasd", Amount = 42,
-                        Recipient = "Baaalh", TimeStamp = DateTime.Now.AddDays(5)},
+                    new Account() { Name = "Main",    Color = Colors.DarkCyan},
                 };
             }
-
-            CurrentAccount = Accounts[1];
+            CurrentAccount = Accounts[0];
 
             
 
