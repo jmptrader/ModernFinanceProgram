@@ -1,7 +1,8 @@
 ﻿/*
  ****************************************
  *                                      *
- *   Author: Kristian Dam-Jensen        *
+ *   Author: Michael Boe Larsen         *
+ *           & Kristian Dam-Jensen      *
  *                                      *
  ****************************************
  */
