@@ -30,7 +30,7 @@ namespace FWMonyker.ViewModel
                 Dictionary<string, decimal> list = new Dictionary<string, decimal>();
                 foreach (var item in MainViewModel.CurrentAccount.Transactions)
                 {
-                    list.Add(item.TimeStamp.ToShortDateString() + item.TimeStamp.ToLongTimeString(), item.Amount);
+                    list.Add(item.TimeStamp.ToShortDateString() + item.TimeStamp.ToLongTimeString(), item.BalanceAtTimeStamp);
                 }
                 return list;
             }
