@@ -13,18 +13,15 @@
         private static TransactionListModel _transActionList;
         private static EditTransactionModel _editTransactionModel;
         private static ChartUserControlModel _chartModel;
+        private static EditAccountModel _editAccountModel;
 
         public ViewModelLocator()
         {
-            //// Denne ServiceLocator holder styr på vores ViewModels.
-            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            //// Tilføj en linje her for hver ViewModel.
-            //SimpleIoc.Default.Register<MainViewModel>();
             _main = new MainViewModel();
             _transActionList = _main._TransactionListModel;
             _editTransactionModel = _main._EditTransactionModel;
             _chartModel = _main._ChartModel;
+            _editAccountModel = _main._EditAccountModel;
         }
 
         /// <summary>
@@ -38,8 +35,6 @@
             get
             {
                 return _main;
-
-                //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 
@@ -54,8 +49,6 @@
             get
             {
                 return _transActionList;
-
-                //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 
@@ -70,8 +63,6 @@
             get
             {
                 return _editTransactionModel;
-
-                //return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 
@@ -86,8 +77,20 @@
             get
             {
                 return _chartModel;
+            }
+        }
 
-                //return ServiceLocator.Current.GetInstance<MainViewModel>();
+        /// <summary>
+        /// Gets the EditAccount property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public EditAccountModel EditAccount
+        {
+            get
+            {
+                return _editAccountModel;
             }
         }
 

@@ -3,11 +3,11 @@
 namespace FWMonyker.View
 {
     /// <summary>
-    /// Interaction logic for DragUserControl.xaml
+    /// Interaction logic for EditAccountControl.xaml
     /// </summary>
-    public partial class DragUserControl : UserControl
+    public partial class EditAccountControl : UserControl
     {
-        public DragUserControl()
+        public EditAccountControl()
         {
             InitializeComponent();
         }

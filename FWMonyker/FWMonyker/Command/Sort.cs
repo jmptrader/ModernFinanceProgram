@@ -20,7 +20,7 @@ namespace FWMonyker.Command
 
         public void Execute(object parameter)
         {
-            var list = ViewModel.Transactions;
+            var list = ViewModel.MainViewModel.CurrentAccount.Transactions;
             var result = list.ToList();
             switch (ViewModel.SortValue)
             {
@@ -40,10 +40,10 @@ namespace FWMonyker.Command
             }
             result = result.ToList();
 
-            ViewModel.Transactions.Clear();
+            ViewModel.MainViewModel.CurrentAccount.Transactions.Clear();
             foreach (var item in result)
             {
-                ViewModel.Transactions.Add(item);
+                ViewModel.MainViewModel.CurrentAccount.Transactions.Add(item);
             }
         }
     }

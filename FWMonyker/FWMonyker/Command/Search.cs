@@ -29,10 +29,10 @@ namespace FWMonyker.Command
             if (string.IsNullOrWhiteSpace(searchword))
                 searchResult = ViewModel.MainViewModel.CurrentAccount.Transactions;
 
-            ViewModel.Transactions.Clear();
+            ViewModel.MainViewModel.CurrentAccount.Transactions.Clear();
             foreach (var item in searchResult)
             {
-                ViewModel.Transactions.Add(item);
+                ViewModel.MainViewModel.CurrentAccount.Transactions.Add(item);
             }
         }
     }

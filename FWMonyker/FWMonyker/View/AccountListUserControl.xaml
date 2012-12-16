@@ -3,37 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Behaviours="clr-namespace:SharpFellows.Toolkit.Behaviours;assembly=SharpFellows.Toolkit"
              xmlns:View="clr-namespace:FWMonyker.View"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
+             DataContext="{Binding Main, Source={StaticResource Locator}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type Model:Account}">
             <View:AccountUserControl />
         </DataTemplate>
     </UserControl.Resources>
-    <StackPanel>
-        <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
-            accounts
-        </TextBlock>
-        <ItemsControl ItemsSource="{Binding Accounts}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <View:AccountUserControl />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <Setter Property="Control.FontSize" Value="30" />
-                    <Setter Property="Control.FontFamily" Value="Helvetica" />
-                    <Setter Property="Control.FontWeight" Value="Light" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
-    </StackPanel>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <TextBlock Margin="0 0 0 25" Style="{StaticResource textHeader}">
+                    accounts
+            </TextBlock>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Accounts, UpdateSourceTrigger=PropertyChanged}"
+>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <View:AccountUserControl />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.FontSize" Value="30" />
+                            <Setter Property="Control.FontFamily" Value="Helvetica" />
+                            <Setter Property="Control.FontWeight" Value="Light" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Grid.Row="1" Content="Add Account" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Command="{Binding EditAccountControlCommand}" CommandParameter="{x:Null}" />
+        </Grid>
+    </DockPanel>
 </UserControl>

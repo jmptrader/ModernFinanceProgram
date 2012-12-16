@@ -1,33 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using SharpFellows.Toolkit.Behaviours;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
-    public class Account : NotifyBase
+    public class Account : NotifyBase, ICloneable
     {
         private string _name;
         private decimal _balance;
-        private SolidColorBrush _colour;
+        private Color _color;
         private IList<Transaction> _transactions;
-        private List<KeyValuePair<string, decimal>> _chartValueList;
-        private ObservableCollection<Transaction> _kontoHandlinger;
+        private IDropTarget _target;
 
         public Account()
         {
             _transactions = new List<Transaction>();
-            KontoHandlinger = new ObservableCollection<Transaction>();
         }
 
-        public ObservableCollection<Transaction> KontoHandlinger
+        public IDropTarget DropTarget
         {
-            get { return _kontoHandlinger; }
-
-            set
+            get
             {
-                _kontoHandlinger = value;
-                NotifyPropertyChanged("kontoHandlinger");
+                if (_target == null)
+                {
+                    _target = new DropTarget<Transaction>(GetDropEffects, Drop);
+                }
+                return _target;
             }
+        }
+
+        private DragDropEffects GetDropEffects(Transaction transaction)
+        {
+            if (transaction.Account == this)
+            {
+                return DragDropEffects.None;
+            }
+            return DragDropEffects.Move;
+        }
+
+        private void Drop(Transaction transaction)
+        {
+            transaction.Account.Transactions.Remove(transaction);
+            transaction.Account.NotifyPropertyChanged("UITransactions");
+            transaction.Account = this;
+            Transactions.Add(transaction);
         }
 
         public Account This
@@ -64,16 +83,34 @@ namespace FWMonyker.Model
             }
         }
 
-        public SolidColorBrush Colour
+        public Color Color
         {
             get
             {
-                return _colour;
+                return _color;
             }
             set
             {
-                _colour = value;
-                NotifyPropertyChanged("Colour");
+                _color = value;
+                NotifyPropertyChanged("Color");
+                NotifyPropertyChanged("ColorBrush");
+            }
+        }
+
+        public SolidColorBrush ColorBrush
+        {
+            get
+            {
+                return new SolidColorBrush(Color);
+            }
+        }
+
+        public ObservableCollection<Transaction> UITransactions
+        {
+            get
+            {
+                var x = new ObservableCollection<Transaction>(Transactions);
+                return x;
             }
         }
 
@@ -87,17 +124,19 @@ namespace FWMonyker.Model
             {
                 _transactions = value;
                 NotifyPropertyChanged("Transactions");
+                NotifyPropertyChanged("UITransactions");
             }
         }
 
-        public List<KeyValuePair<string, decimal>> ChartValueList
+        public object Clone()
         {
-            get { return _chartValueList; }
-            set
+            return new Account()
             {
-                _chartValueList = value;
-                NotifyPropertyChanged("ChartValueList");
-            }
+                Balance = this.Balance,
+                Color = this.Color,
+                Transactions = this.Transactions,
+                Name = this.Name
+            };
         }
     }
 }

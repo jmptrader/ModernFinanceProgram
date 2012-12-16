@@ -11,10 +11,20 @@
     <Style x:Key="userControl" TargetType="UserControl">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="3" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="White" />
         <Style.Triggers>
             <Trigger Property="UserControl.IsMouseOver" Value="True">
-                <Setter Property="UserControl.Background" Value="LightGray" />
+                <Setter Property="UserControl.Background" Value="Gainsboro" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="transactionStyle" TargetType="UserControl" BasedOn="{StaticResource userControl}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Background" Value="LightGray" />
+        <Style.Triggers>
+            <Trigger Property="UserControl.IsMouseOver" Value="True">
+                <Setter Property="UserControl.Background" Value="Gainsboro" />
             </Trigger>
         </Style.Triggers>
     </Style>

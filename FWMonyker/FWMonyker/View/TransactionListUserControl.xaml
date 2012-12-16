@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:View="clr-namespace:FWMonyker.View"
-             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+             xmlns:Behaviours="clr-namespace:SharpFellows.Toolkit.Behaviours;assembly=SharpFellows.Toolkit"
              xmlns:Model="clr-namespace:FWMonyker.Model;assembly=FWMonyker.Model"
              mc:Ignorable="d"
              DataContext="{Binding TransactionList, Source={StaticResource Locator}}"
@@ -25,7 +25,7 @@
             <Grid>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
 
-                    <TextBox HorizontalAlignment="Stretch" Margin="0 0 230 0" Height="25" Grid.Row="1" VerticalAlignment="Top">
+                    <TextBox HorizontalAlignment="Stretch" Margin="3 5 235 5" Grid.Row="1" VerticalAlignment="Top">
                         <TextBox.InputBindings>
                             <KeyBinding Command="{Binding Search}" Key="Enter" />
                         </TextBox.InputBindings>
@@ -55,10 +55,10 @@
         </Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl Margin="3"
-                      ItemsSource="{Binding Transactions}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                      ItemsSource="{Binding Main.CurrentAccount.UITransactions, Source={StaticResource Locator}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Width="Auto" />
+                        <StackPanel  Width="Auto" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -75,20 +75,5 @@
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
         </ScrollViewer>
-
-        <!--<Grid DataContext="{Binding Source={StaticResource Locator}}" Margin="0,0,-106,176">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="124" />
-                <ColumnDefinition Width="243*" />
-                <ColumnDefinition Width="239*" />
-            </Grid.ColumnDefinitions>
-
-            <ListBox Grid.Column="0" ItemsSource="{Binding Main.samlingAfAccounts}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"
-                 dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Margin="0,87,242,-177" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="124" VerticalAlignment="Bottom" />
-            <ListBox ItemsSource="{Binding Main.samlingAfAccounts.CurrentItem.Transactions}" DisplayMemberPath="Description"
-                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="30,87,60,-177" Grid.Column="1" VerticalAlignment="Bottom" />
-            <ListBox Grid.Column="1" ItemsSource="{Binding Main.Transactions}" DisplayMemberPath="Description"
-                 dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="226,87,107,-177" Grid.ColumnSpan="2" VerticalAlignment="Bottom" />
-        </Grid>-->
     </DockPanel>
 </UserControl>

@@ -11,7 +11,8 @@
     <RootNamespace>FWMonyker</RootNamespace>
     <AssemblyName>FWMonyker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -54,6 +55,15 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseToDropbox|AnyCPU'">
+    <OutputPath>..\..\..\..\Dropbox\02350 Windows Programming Group Folder\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF4">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
@@ -61,11 +71,11 @@
     <Reference Include="GalaSoft.MvvmLight.WPF4">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\GalaSoft.MvvmLight.WPF4.dll</HintPath>
     </Reference>
-    <Reference Include="GongSolutions.Wpf.DragDrop">
-      <HintPath>..\..\..\..\gong-wpf-dragdrop\Examples\SchoolsExample\bin\Debug\GongSolutions.Wpf.DragDrop.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\MvvmLight.4.1.23.0\lib\net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpFellows.Toolkit">
+      <HintPath>..\nonnugetlibs\SharpFellows.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System" />
@@ -98,14 +108,23 @@
     <Reference Include="WPFToolkit">
       <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.1.8.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Command\AddAccountCommand.cs" />
     <Compile Include="Command\AddTransaction.cs" />
     <Compile Include="Command\BaseCommand.cs" />
+    <Compile Include="Command\DeleteAccountCommand.cs" />
     <Compile Include="Command\DeleteTransaction.cs" />
+    <Compile Include="Command\IAccountChange.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\Save.cs" />
     <Compile Include="Command\Search.cs" />
@@ -113,6 +132,7 @@
     <Compile Include="Command\Sort.cs" />
     <Compile Include="Command\UndoRedoController.cs" />
     <Compile Include="ViewModel\ChartUserControlModel.cs" />
+    <Compile Include="ViewModel\EditAccountModel.cs" />
     <Compile Include="ViewModel\EditTransactionModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TransactionListModel.cs" />
@@ -120,8 +140,8 @@
     <Compile Include="View\ChartUserControl.xaml.cs">
       <DependentUpon>ChartUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DragUserControl.xaml.cs">
-      <DependentUpon>DragUserControl.xaml</DependentUpon>
+    <Compile Include="View\EditAccountControl.xaml.cs">
+      <DependentUpon>EditAccountControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditTransactionUserControler.xaml.cs">
       <DependentUpon>EditTransactionUserControler.xaml</DependentUpon>
@@ -159,7 +179,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\DragUserControl.xaml">
+    <Page Include="View\EditAccountControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,4 +289,8 @@
     <Costura.EmbedTask />
   </Target>
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)Tools\Costura.dll" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

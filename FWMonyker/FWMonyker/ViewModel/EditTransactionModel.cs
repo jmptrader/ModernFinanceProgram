@@ -2,7 +2,6 @@
 using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
@@ -27,7 +26,8 @@ namespace FWMonyker.ViewModel
 
         public void AddTransaction()
         {
-            undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, MainViewModel._TransactionListModel.Transactions, initialStateTransaction, Transaction));
+            Transaction.BalanceAtTimeStamp = Transaction.Account.Balance + Transaction.Amount;
+            undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, initialStateTransaction, Transaction));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
             MainViewModel.Save.Execute(null);
         }
@@ -36,7 +36,7 @@ namespace FWMonyker.ViewModel
 
         public void DeleteTransaction()
         {
-            undoRedoController.AddAndExecute(new DeleteTransaction(MainViewModel.CurrentAccount.Transactions as IList<Transaction>, MainViewModel._TransactionListModel.Transactions, initialStateTransaction));
+            undoRedoController.AddAndExecute(new DeleteTransaction(MainViewModel.CurrentAccount.Transactions, initialStateTransaction));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
             MainViewModel.Save.Execute(null);
         }
