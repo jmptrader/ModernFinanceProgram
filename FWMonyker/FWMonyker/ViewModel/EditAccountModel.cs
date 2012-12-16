@@ -2,11 +2,7 @@
 using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -68,13 +64,16 @@ namespace FWMonyker.ViewModel
         }
 
         public ICommand AddAccountCommand { get; private set; }
+
         public void AddAccount()
         {
             undoRedoController.AddAndExecute(new AddAccountCommand(MainViewModel.Accounts, InitialStateAccount, EndStateAccount));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
             MainViewModel.Save.Execute(null);
         }
+
         public ICommand DeleteAccountCommand { get; private set; }
+
         public void DeleteAccount()
         {
             undoRedoController.AddAndExecute(new DeleteAccountCommand(MainViewModel.Accounts, InitialStateAccount));

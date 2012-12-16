@@ -1,5 +1,4 @@
 ﻿using FWMonyker.Command;
-using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +13,7 @@ namespace FWMonyker.ViewModel
         {
             MainViewModel = viewModel;
         }
+
         public Dictionary<string, decimal> ChartValueList
         {
             get
@@ -21,7 +21,7 @@ namespace FWMonyker.ViewModel
                 Dictionary<string, decimal> list = new Dictionary<string, decimal>();
                 foreach (var item in MainViewModel.CurrentAccount.Transactions)
                 {
-                    list.Add(item.Description, item.Amount);
+                    list.Add(item.TimeStamp.ToShortDateString() + item.TimeStamp.ToLongTimeString(), item.Amount);
                 }
                 return list;
             }

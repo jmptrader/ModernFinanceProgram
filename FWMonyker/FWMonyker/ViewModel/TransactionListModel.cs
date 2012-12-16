@@ -3,13 +3,12 @@ using FWMonyker.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
 namespace FWMonyker.ViewModel
 {
-    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged, IAccountChange
+    public class TransactionListModel : ViewModelBase, INotifyPropertyChanged
     {
         public MainViewModel MainViewModel { get; private set; }
 
@@ -28,25 +27,11 @@ namespace FWMonyker.ViewModel
             EditTransactionUserControlerCommand = new RelayCommand<object>((parameter) => ExecuteEditTransactionUserControlerCommand(parameter));
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
-
-            Transactions = new ObservableCollection<Transaction>();
         }
 
         public ICommand UndoCommand { get; private set; }
 
         public ICommand RedoCommand { get; private set; }
-
-        public ObservableCollection<Transaction> Transactions { get; set; }
-
-        public void NotifyAccountChange()
-        {
-            Transactions.Clear();
-            foreach (Transaction item in MainViewModel.CurrentAccount.Transactions)
-            {
-                Transactions.Add(item);
-            }
-            NotifyPropertyChanged("Transactions");
-        }
 
         private string _searchBox;
 
@@ -87,7 +72,7 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditTransactionUserControlerCommand(object parameter)
         {
-            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now, BalanceAtTimeStamp = 0} : (parameter as Transaction).Clone();
+            var transaction = (parameter as Transaction) == null ? new Transaction() { Account = MainViewModel.CurrentAccount, Amount = 0, Description = "", Recipient = "", TimeStamp = DateTime.Now, BalanceAtTimeStamp = 0 } : (parameter as Transaction).Clone();
             MainViewModel.CurrentViewModel = MainViewModel._EditTransactionModel;
             MainViewModel._EditTransactionModel.Transaction = transaction;
             MainViewModel._EditTransactionModel.initialStateTransaction = parameter as Transaction;

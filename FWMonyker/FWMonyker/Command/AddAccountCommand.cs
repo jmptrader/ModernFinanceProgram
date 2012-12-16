@@ -1,9 +1,5 @@
 ﻿using FWMonyker.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FWMonyker.Command
 {
@@ -13,7 +9,7 @@ namespace FWMonyker.Command
         private Account InitialStateAccount;
         private Account EndStateAccount;
 
-        public AddAccountCommand(IList<Account> accounts, Account initialAccount, Account endStateAccount )
+        public AddAccountCommand(IList<Account> accounts, Account initialAccount, Account endStateAccount)
         {
             Accounts = accounts;
             InitialStateAccount = initialAccount;

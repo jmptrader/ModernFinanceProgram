@@ -2,8 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Behaviours="clr-namespace:SharpFellows.Toolkit.Behaviours;assembly=SharpFellows.Toolkit"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
+             Behaviours:DropTargetBehaviour.DropTarget="{Binding DropTarget}" AllowDrop="True"
              d:DesignHeight="40" d:DesignWidth="90">
 
     <UserControl Style="{StaticResource userControl}"
@@ -12,13 +14,13 @@
             <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.SelectAccount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                           CommandParameter="{Binding This}" />
         </UserControl.InputBindings>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" AllowDrop="True">
             <Grid Width="30" Height="30">
                 <Border BorderBrush="Black" BorderThickness="2">
                     <Rectangle Fill="{Binding ColorBrush, FallbackValue=Red, UpdateSourceTrigger=PropertyChanged}" />
                 </Border>
             </Grid>
-            <TextBlock MaxWidth="200" Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname', UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis"/>
+            <TextBlock MaxWidth="200" Margin="5 0 0 0" VerticalAlignment="Center" Text="{Binding Name, FallbackValue='Accountname', UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis" />
         </StackPanel>
     </UserControl>
 </UserControl>
