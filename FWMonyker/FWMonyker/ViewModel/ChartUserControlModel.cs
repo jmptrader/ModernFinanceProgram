@@ -1,4 +1,12 @@
-﻿using FWMonyker.Command;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using FWMonyker.Command;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.ComponentModel;

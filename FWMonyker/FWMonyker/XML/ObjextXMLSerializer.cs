@@ -1,4 +1,12 @@
-﻿using FWMonyker.Model;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using FWMonyker.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;

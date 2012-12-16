@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ ****************************************
+ *                                      *
+ *   Author: Kristian Dam-Jensen        *
+ *                                      *
+ ****************************************
+ */
+
+using System;
 
 namespace FWMonyker.Command
 {
