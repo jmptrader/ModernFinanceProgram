@@ -32,7 +32,7 @@ namespace FWMonyker.ViewModel
                 {
                     foreach (var item in MainViewModel.CurrentAccount.Transactions)
                     {
-                        list.Add(item.TimeStamp.ToShortDateString() + item.TimeStamp.ToLongTimeString(), item.Amount);
+                        list.Add(item.TimeStamp.ToShortDateString() +"\n"+ item.TimeStamp.ToLongTimeString(), item.BalanceAtTimeStamp);
                     }
                 }
                 return list;

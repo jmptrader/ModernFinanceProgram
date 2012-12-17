@@ -23,9 +23,8 @@
     </UserControl.Resources>
 
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <TextBlock DockPanel.Dock="Top" Text="Account Balance" HorizontalAlignment="Center" />
         <DVC:Chart Name="chart" BorderThickness="0" Margin="0 -30 -10 -10">
-            <DVC:LineSeries Name="line" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ChartValueList}" />
+            <DVC:LineSeries Name="line" Title="Balance" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding ChartValueList}" />
         </DVC:Chart>
     </DockPanel>
 </UserControl>
