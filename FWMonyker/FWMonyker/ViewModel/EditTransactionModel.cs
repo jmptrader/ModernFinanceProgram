@@ -34,10 +34,11 @@ namespace FWMonyker.ViewModel
 
         public void AddTransaction()
         {
-            Transaction.BalanceAtTimeStamp = Transaction.Account.Balance + Transaction.Amount;
-            undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, initialStateTransaction, Transaction));
-            MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
-            MainViewModel.Save.Execute(null);
+                Transaction.BalanceAtTimeStamp = Transaction.Account.Balance + Transaction.Amount;
+                undoRedoController.AddAndExecute(new AddTransaction(MainViewModel.CurrentAccount.Transactions, initialStateTransaction, Transaction));
+                MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
+                Clear();
+                MainViewModel.Save.Execute(null);
         }
 
         public ICommand DeleteTransactionCommand { get; private set; }
@@ -46,7 +47,14 @@ namespace FWMonyker.ViewModel
         {
             undoRedoController.AddAndExecute(new DeleteTransaction(MainViewModel.CurrentAccount.Transactions, initialStateTransaction));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
+            Clear();
             MainViewModel.Save.Execute(null);
+        }
+
+        public void Clear()
+        {
+            Transaction = null;
+            initialStateTransaction = null;
         }
     }
 }

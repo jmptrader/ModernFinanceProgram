@@ -7,6 +7,7 @@
  */
 
 using SharpFellows.Toolkit.Behaviours;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ using System.Windows.Media;
 
 namespace FWMonyker.Model
 {
-    public class Account : NotifyBase, ICloneable
+    public class Account : NotifyBase
     {
         private string _name;
         private decimal _balance;
@@ -26,6 +27,16 @@ namespace FWMonyker.Model
         public Account()
         {
             _transactions = new List<Transaction>();
+        }
+
+        public void NotifyAllProperties()
+        {
+            NotifyPropertyChanged("Name");
+            NotifyPropertyChanged("Balance");
+            NotifyPropertyChanged("Color");
+            NotifyPropertyChanged("ColorBrush");
+            NotifyPropertyChanged("Transactions");
+            NotifyPropertyChanged("UITransactions");
         }
 
         public IDropTarget DropTarget
@@ -113,12 +124,24 @@ namespace FWMonyker.Model
             }
         }
 
+        
+
+        public void SetFilterKeyword(string keyword)
+        {
+            Keyword = keyword;
+            NotifyPropertyChanged("UITransactions");
+        }
+        private string Keyword;
         public ObservableCollection<Transaction> UITransactions
         {
             get
             {
-                var x = new ObservableCollection<Transaction>(Transactions);
-                return x;
+                IEnumerable<Transaction> filtered = from item in Transactions
+                                                        where item.Description.ToLower().Contains(Keyword.ToLower()) || item.Recipient.ToLower().Contains(Keyword.ToLower())
+                                                        select item;
+                if (string.IsNullOrWhiteSpace(Keyword))
+                    filtered = Transactions;
+                return new ObservableCollection<Transaction>(filtered);
             }
         }
 
@@ -136,7 +159,7 @@ namespace FWMonyker.Model
             }
         }
 
-        public object Clone()
+        public Account Clone()
         {
             return new Account()
             {

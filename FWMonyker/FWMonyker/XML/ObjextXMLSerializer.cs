@@ -9,8 +9,10 @@
 using FWMonyker.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
@@ -63,8 +65,10 @@ namespace FWMonyker.XML
                                };
                 accountList = accounts.ToList();
             }
-            catch (FileNotFoundException)
+            catch (Exception)
             {
+                //Any exception should return a null value.
+                return null;
             }
             foreach (var account in accountList)
             {
@@ -73,7 +77,7 @@ namespace FWMonyker.XML
                     transaction.Account = account;
                 }
             }
-            return accountList ?? new List<Account>();
+            return accountList;
         }
 
         public void SaveAccounts(IEnumerable<Account> accountEnumerable)

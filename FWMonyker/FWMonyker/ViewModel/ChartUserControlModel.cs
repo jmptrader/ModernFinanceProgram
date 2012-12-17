@@ -28,9 +28,12 @@ namespace FWMonyker.ViewModel
             get
             {
                 Dictionary<string, decimal> list = new Dictionary<string, decimal>();
-                foreach (var item in MainViewModel.CurrentAccount.Transactions)
+                if (MainViewModel.CurrentAccount != null)
                 {
-                    list.Add(item.TimeStamp.ToShortDateString() + item.TimeStamp.ToLongTimeString(), item.Amount);
+                    foreach (var item in MainViewModel.CurrentAccount.Transactions)
+                    {
+                        list.Add(item.TimeStamp.ToShortDateString() + item.TimeStamp.ToLongTimeString(), item.Amount);
+                    }
                 }
                 return list;
             }

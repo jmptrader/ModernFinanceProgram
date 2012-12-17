@@ -17,8 +17,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Linq;
 
 namespace FWMonyker.ViewModel
 {
@@ -95,13 +98,15 @@ namespace FWMonyker.ViewModel
 
         private void ExecuteEditAccountControlCommand(object parameter)
         {
-            var account = (parameter as Account) == null ? new Account() { Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "" } : parameter as Account;
+            var account = ((parameter as Account) == null || Accounts.Count == 0) 
+                ? new Account() { Balance = 0, Color = RandomColor(), Transactions = new List<Transaction>(), Name = "" } 
+                : (parameter as Account).Clone();
             CurrentViewModel = _EditAccountModel;
             _EditAccountModel.EndStateAccount = account;
             _EditAccountModel.InitialStateAccount = parameter as Account;
         }
 
-        private Color RandomColor()
+        public Color RandomColor()
         {
             Random random = new Random();
             byte r = (byte)random.Next(255);
@@ -135,22 +140,50 @@ namespace FWMonyker.ViewModel
             ChartUserControlCommand = new RelayCommand(() => ExecuteChartUserControlCommand());
             EditAccountControlCommand = new RelayCommand<object>((parameter) => ExecuteEditAccountControlCommand(parameter));
 
-            var xml = ObjextXMLSerializer.GetInstance;
             Accounts = new ObservableCollection<Account>();
-            try
-            {
-                Accounts = new ObservableCollection<Account>(xml.LoadAccounts());
-            }
-            catch (Exception)
-            {
-            }
-            if ((Accounts == null) || Accounts.Count == 0)
+            LoadAccountsAsync();
+        }
+
+        public void LoadAccountsAsync()
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(worker_LoadXML);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_LoadedXML);
+            worker.RunWorkerAsync();
+        }
+
+        public void worker_LoadedXML(object sender, RunWorkerCompletedEventArgs e)
+        {
+            IList<Account> list = (e.Result as List<Account>);
+
+            if (((list == null) || list.Count == 0) && Accounts.Count == 0)
             {
                 Accounts = new ObservableCollection<Account>() {
-                    new Account() { Name = "Main",    Color = Colors.DarkCyan},
+                    new Account() { Name = "My Account",    Color = RandomColor(), Balance = 0}
                 };
             }
+            else
+            {
+                if (Accounts.Count == 0)
+                {
+                    Accounts = new ObservableCollection<Account>(list.Concat(Accounts));
+                }
+                else
+                {
+                    Accounts = new ObservableCollection<Account>(list);
+                }
+            }
             CurrentAccount = Accounts[0];
+        }
+
+        public void worker_LoadXML(object sender, DoWorkEventArgs e)
+        {
+            e.Result = ObjextXMLSerializer.GetInstance.LoadAccounts();
+        }
+
+        public void NotifyAccountsChanged()
+        {
+            NotifyPropertyChanged("Accounts");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

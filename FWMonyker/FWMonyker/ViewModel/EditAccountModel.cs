@@ -75,8 +75,10 @@ namespace FWMonyker.ViewModel
 
         public void AddAccount()
         {
-            undoRedoController.AddAndExecute(new AddAccountCommand(MainViewModel.Accounts, InitialStateAccount, EndStateAccount));
+            undoRedoController.AddAndExecute(new AddAccountCommand(MainViewModel.Accounts, InitialStateAccount, EndStateAccount, MainViewModel));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
+            if (MainViewModel.Accounts.Contains(EndStateAccount))
+                MainViewModel.CurrentAccount = EndStateAccount;
             MainViewModel.Save.Execute(null);
         }
 
@@ -86,13 +88,24 @@ namespace FWMonyker.ViewModel
         {
             undoRedoController.AddAndExecute(new DeleteAccountCommand(MainViewModel.Accounts, InitialStateAccount));
             MainViewModel.CurrentViewModel = MainViewModel._TransactionListModel;
+            if (MainViewModel.Accounts.Count > 0)
+            {
+                MainViewModel.CurrentAccount = MainViewModel.Accounts[0];
+            } 
+            else
+            {
+                MainViewModel.CurrentAccount = null;
+            }
             MainViewModel.Save.Execute(null);
         }
 
         public void NotifyAccountChange()
         {
-            EndStateAccount = MainViewModel.CurrentAccount;
-            InitialStateAccount = MainViewModel.CurrentAccount;
+            if (MainViewModel.CurrentAccount != null)
+            {
+                EndStateAccount = MainViewModel.CurrentAccount;
+                InitialStateAccount = MainViewModel.CurrentAccount;
+            }
 
             NotifyPropertyChanged("Name");
             NotifyPropertyChanged("Color");

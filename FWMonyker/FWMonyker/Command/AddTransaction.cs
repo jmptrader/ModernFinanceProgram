@@ -38,6 +38,7 @@ namespace FWMonyker.Command
                 Transactions.Add(NewTransaction);
                 Account.Balance = Account.Balance + NewTransaction.Amount;
             }
+            NewTransaction.Account.NotifyAllProperties();
         }
 
         public void UnExecute()
@@ -52,6 +53,7 @@ namespace FWMonyker.Command
                 Transactions.Remove(NewTransaction);
                 Account.Balance = Account.Balance - NewTransaction.Amount;
             }
+            InitialTransaction.Account.NotifyAllProperties();
         }
     }
 }
